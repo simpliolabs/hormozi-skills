@@ -65,6 +65,11 @@ def canonical_hash(path: Path) -> str:
     return sha256_bytes(json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8"))
 
 
+def protected_text_hash(data: bytes) -> str:
+    """Hash against the canonical LF Git blob; Git's CRLF checkout conversion is accepted, any content change is not."""
+    return sha256_bytes(data.replace(b"\r\n", b"\n"))
+
+
 def _contracts_dir() -> Path:
     return Path(__file__).resolve().parents[1] / "contracts"
 
@@ -86,8 +91,10 @@ def _resolve_inside(workspace: Path, rel: str) -> tuple[Optional[Path], Optional
     if any(seg in norm for seg in CACHE_SEGMENTS):
         return None, Finding("PATH_PLUGIN_CACHE", "error", rel, "output must live in the user workspace, not a plugin cache")
     root = workspace.resolve()
-    candidate = Path(rel)
-    if candidate.is_absolute() or re.match(r"^[A-Za-z]:", rel):
+    candidate = Path(norm)  # backslashes are separators on every OS, before resolving or comparing ownership
+    if re.match(r"^[A-Za-z]:", norm) and not candidate.is_absolute():
+        return None, Finding("PATH_ESCAPE", "error", rel, "foreign-drive path is outside the declared workspace")
+    if candidate.is_absolute():
         full = candidate
     else:
         full = root / candidate
@@ -576,7 +583,7 @@ def validate_repo(repo_root: Path) -> list[Finding]:
                 out.append(Finding("INVENTORY_MISSING", "error", f"agents/{a}.md", "original agent is missing"))
         for rel, digest in expected["unchanged_sha256"].items():
             p = repo / rel
-            if not p.exists() or sha256_bytes(p.read_bytes()) != digest:
+            if not p.exists() or protected_text_hash(p.read_bytes()) != digest:
                 out.append(Finding("PROTECTED_FILE_CHANGED", "error", rel, "file must stay byte-identical to the upstream baseline"))
 
     cdir = repo / "contracts"

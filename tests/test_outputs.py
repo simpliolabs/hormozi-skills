@@ -248,6 +248,20 @@ class TestPrivacyAndContainment(RunCase):
         self.edit_state(lambda s: s["artifacts"][0].__setitem__("path", "output/LINK.md"))
         self.assertIn("PATH_ESCAPE", codes(self.validate()))
 
+    def test_backslash_spellings_are_separators_on_every_os(self):
+        for spelling in ("..\\outside.md", "output\\..\\..\\outside.md", "C:\\elsewhere\\x.md", "D:/elsewhere/x.md", "\\\\host\\share\\x.md"):
+            with self.subTest(spelling=spelling):
+                self.edit_state(lambda s: s["artifacts"][0].__setitem__("path", spelling))
+                self.assertIn("PATH_ESCAPE", codes(self.validate()))
+
+    def test_backslash_path_inside_workspace_is_not_escape(self):
+        self.edit_state(lambda s: s["artifacts"][0].__setitem__("path", "output\\sub\\..\\PITCH.md"))
+        self.assertNotIn("PATH_ESCAPE", codes(self.validate()))
+
+    def test_control_characters_in_path_not_accepted_silently(self):
+        self.edit_state(lambda s: s["artifacts"][0].__setitem__("path", "output/PITCH.md\x00.txt"))
+        self.assertNotEqual(self.validate(), [])
+
     def test_plugin_cache_path_rejected_as_output(self):
         self.edit_state(lambda s: s["artifacts"][0].__setitem__("path", ".claude/plugins/cache/hormozi/PITCH.md"))
         self.assertIn("PATH_PLUGIN_CACHE", codes(self.validate()))

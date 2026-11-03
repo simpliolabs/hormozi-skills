@@ -48,7 +48,7 @@
     "value-perception"
   ],
   "unchanged_sha256": {
-    "LICENSE": "1d3d41abc03fcf7ff8aada25adc3527dbe85079c2bcdb45510ae2325d37433b8",
-    "skills/create-plugin/SKILL.md": "805febc9611d66e1dc9362316b7d54a2aeff79f2f38491303a6f72b5bd41a718"
+    "LICENSE": "b4b7101b396ed86093656c4ccfa7174775c9dad8abcf6026e8efbd2088f4ae54",
+    "skills/create-plugin/SKILL.md": "3fdf299178cb2bfa3a0fc77d9789ae8f582e234a94bb44fd2ba6eb3c402c61e3"
   }
 }

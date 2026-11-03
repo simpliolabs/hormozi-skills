@@ -26,7 +26,13 @@ class TestPinnedInventory(unittest.TestCase):
 
     def test_untouched_files_are_byte_identical(self):
         for rel, digest in FIX["unchanged_sha256"].items():
-            self.assertEqual(helpers.sha((REPO / rel).read_bytes()), digest, rel)
+            self.assertEqual(co.protected_text_hash((REPO / rel).read_bytes()), digest, rel)
+
+    def test_protected_text_hash_accepts_lf_and_crlf_only(self):
+        lf = b"line one\nline two\n"
+        self.assertEqual(co.protected_text_hash(lf), co.protected_text_hash(lf.replace(b"\n", b"\r\n")))
+        self.assertNotEqual(co.protected_text_hash(lf), co.protected_text_hash(lf + b"x"))
+        self.assertNotEqual(co.protected_text_hash(lf), co.protected_text_hash(b"line one\nline 2wo\n"))
 
     def test_repo_validation_clean(self):
         self.assertEqual([f for f in co.validate_repo(REPO) if f.severity == "error"], [])
