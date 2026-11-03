@@ -115,5 +115,90 @@ class TestExactRequestedPaths(RunCase):
         self.assertEqual(self.validate(), [])
 
 
+class TestRegressionsOnWholeRun(MoneyCase):
+    """Review 0eced07 P1s, driven through a whole consistent READY run (hashes, bindings and review all synced)."""
+
+    def render_guarantee(self, new, display="keep"):
+        p = self.ws / "output" / "PITCH.md"
+        p.write_text(p.read_text().replace("Refund within 30 days if you complete every module and show no result", new))
+        refresh_artifact_hash(self.run_dir, self.ws)
+        self.edit_state(lambda s: s["artifacts"][0]["bindings"][1].__setitem__("rendered_text", new))
+        if display != "keep":
+            self.edit_decisions(lambda d: d["fields"]["guarantee"].pop("display") if display is None
+                                else d["fields"]["guarantee"].update(display=display))
+
+    # --- 1. canonical non-money wording must not vanish with the display
+    def test_guarantee_without_display_cannot_be_rewritten(self):
+        self.render_guarantee("Refund at any time if you complete every module", display=None)
+        self.assertIn("BINDING_DISPLAY_MISMATCH", codes(self.validate()))
+
+    def test_guarantee_without_display_uses_scalar_value(self):
+        text = "Refund within 30 days if you complete every module"
+        self.edit_decisions(lambda d: d["fields"]["guarantee"].update(value=text))
+        self.render_guarantee(text, display=None)
+        self.assertEqual(self.validate(), [])
+
+    def test_guarantee_without_display_or_scalar_value_needs_rendering(self):
+        self.edit_decisions(lambda d: d["fields"]["guarantee"].update(value={"days": 30}))
+        self.render_guarantee("Refund within 30 days if you complete every module", display=None)
+        self.assertIn("CANONICAL_RENDERING_MISSING", codes(self.validate()))
+
+    # --- 2. explicit currency codes beside symbols
+    def test_cad_code_with_dollar_symbol_vs_usd_canonical_held(self):
+        self.render("$2,500 one-time", "CAD $2,500 one-time", drop_display=False)
+        self.edit_decisions(lambda d: d["fields"]["price"].update(display="CAD $2,500 one-time"))
+        self.assertIn("MONEY_RENDER_MISMATCH", codes(self.validate()))
+
+    def test_cad_code_with_dollar_symbol_without_display_held(self):
+        self.render("$2,500 one-time", "CAD $2,500 one-time")
+        self.assertIn("MONEY_RENDER_MISMATCH", codes(self.validate()))
+
+    def test_trailing_code_conflict_held(self):
+        self.render("$2,500 one-time", "$2,500 CAD one-time")
+        self.assertIn("MONEY_RENDER_MISMATCH", codes(self.validate()))
+
+    def test_code_contradicting_symbol_held(self):
+        self.render("$2,500 one-time", "EUR $2,500 one-time")
+        self.assertIn("MONEY_RENDER_MISMATCH", codes(self.validate()))
+
+    def test_matching_code_with_symbol_passes_usd_and_cad(self):
+        self.render("$2,500 one-time", "USD $2,500 one-time")
+        self.assertEqual(self.validate(), [])
+        self.edit_decisions(lambda d: d["fields"]["price"]["value"].update(currency="CAD"))
+        self.render("USD $2,500 one-time", "CAD $2,500 one-time", drop_display=False)
+        self.assertEqual(self.validate(), [])
+
+    def test_unrelated_example_amount_in_prose_still_passes(self):
+        p = self.ws / "output" / "PITCH.md"
+        p.write_text(p.read_text() + "\nFor example, a coach billing CAD $100 per call.\n")
+        refresh_artifact_hash(self.run_dir, self.ws)
+        self.assertEqual(self.validate(), [])
+
+    # --- 3. output ownership on resolved paths
+    def add_task(self, write_set):
+        self.edit_state(lambda s: s["tasks"].append(
+            {"id": "t_other", "role": "sub-sales", "status": "done", "depends_on": ["t_offer"], "inputs": [], "write_set": write_set}))
+
+    def test_equivalent_spellings_overlap(self):
+        self.add_task(["output/./PITCH.md"])
+        self.assertIn("WRITE_SET_OVERLAP", codes(self.validate()))
+
+    def test_backslash_and_dotdot_spellings_overlap(self):
+        self.add_task(["output\\sub\\..\\PITCH.md"])
+        self.assertIn("WRITE_SET_OVERLAP", codes(self.validate()))
+
+    def test_distinct_paths_do_not_overlap(self):
+        self.add_task(["output/OTHER.md"])
+        self.assertNotIn("WRITE_SET_OVERLAP", codes(self.validate()))
+
+    def test_empty_write_set_producer_cannot_own_artifact(self):
+        self.edit_state(lambda s: s["tasks"][1].__setitem__("write_set", []))
+        self.assertIn("ARTIFACT_OUTSIDE_WRITE_SET", codes(self.validate()))
+
+    def test_artifact_spelled_differently_is_still_member(self):
+        self.edit_state(lambda s: s["tasks"][1].__setitem__("write_set", ["output/./PITCH.md"]))
+        self.assertNotIn("ARTIFACT_OUTSIDE_WRITE_SET", codes(self.validate()))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import sys
 from dataclasses import dataclass, asdict
@@ -216,11 +217,20 @@ def _check_tasks(state, workspace) -> list[Finding]:
     owner: dict[str, str] = {}
     for t in state["tasks"]:
         for w in t["write_set"]:
-            key = w.replace("\\", "/")
+            key, err = _path_key(workspace, w)
+            if err:
+                out.append(err)
+                continue
             if key in owner and owner[key] != t["id"]:
-                out.append(Finding("WRITE_SET_OVERLAP", "error", key, f"assigned to both {owner[key]} and {t['id']}"))
+                out.append(Finding("WRITE_SET_OVERLAP", "error", w, f"assigned to both {owner[key]} and {t['id']}"))
             owner[key] = t["id"]
     return out
+
+
+def _path_key(workspace: Path, rel: str) -> tuple[Optional[str], Optional[Finding]]:
+    """Ownership key: the resolved workspace path, case-folded on case-insensitive filesystems (normcase)."""
+    full, err = _resolve_inside(workspace, rel)
+    return (None, err) if err else (os.path.normcase(str(full)), None)
 
 
 # ------------------------------------------------------- declared A-E routes
@@ -380,7 +390,8 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
             out.append(Finding("ARTIFACT_PRODUCER_INCOMPLETE", "error", path, f"producing task {art['task']} is {task['status']}, not done"))
         if task is None:
             out.append(Finding("ARTIFACT_TASK_UNKNOWN", "error", path, f"task {art['task']} is not declared"))
-        elif task["write_set"] and path.replace("\\", "/") not in [w.replace("\\", "/") for w in task["write_set"]]:
+        elif os.path.normcase(str(full)) not in {k for k, _ in (_path_key(workspace, w) for w in task["write_set"]) if k}:
+            # an empty write_set means "writes nothing", so it can never own an artifact
             out.append(Finding("ARTIFACT_OUTSIDE_WRITE_SET", "error", path, "artifact is outside the producing task's write set"))
 
         # ready mode checks every manifest artifact; draft mode only those declared ready
@@ -425,7 +436,14 @@ def _check_bindings(art, fields, text, path) -> list[Finding]:
         for cond in field.get("conditions", []):
             if _norm(cond) not in _norm(b["rendered_text"]):
                 out.append(Finding("GUARANTEE_CONDITION_MISSING", "error", path, f"rendered terms for '{name}' omit required condition: {cond}"))
-        if display is not None and b["rendered_text"] != display:
+        # Authoritative wording: explicit display, else a scalar string value. Money with a structured value is
+        # checked deterministically above; anything else with neither has no canonical rendering to compare to.
+        canon = display
+        if canon is None and isinstance(field.get("value"), str) and field["value"].strip():
+            canon = field["value"]
+        if canon is None and not (field.get("kind") == "money" and isinstance(field.get("value"), dict)):
+            out.append(Finding("CANONICAL_RENDERING_MISSING", "error", path, f"approved field '{name}' has no display and no scalar value to derive its canonical wording from"))
+        if canon is not None and b["rendered_text"] != canon:
             out.append(Finding("BINDING_DISPLAY_MISMATCH", "error", path, f"binding for '{name}' differs from the canonical wording"))
         if b["rendered_text"] not in text:
             out.append(Finding("BINDING_TEXT_MISSING", "error", path, f"canonical wording for '{name}' does not appear in the artifact"))
@@ -437,7 +455,7 @@ def _check_bindings(art, fields, text, path) -> list[Finding]:
 
 _KNOWN_CCY = {"USD", "EUR", "GBP", "CAD", "AUD", "NZD", "MXN", "SGD", "HKD", "JPY", "CHF", "INR", "BRL", "SEK", "NOK", "DKK", "ZAR", "AED"}
 _SYMBOL_CCY = {"$": {"USD", "CAD", "AUD", "NZD", "MXN", "SGD", "HKD"}, "\u20ac": {"EUR"}, "\u00a3": {"GBP"}}
-_AMOUNT = re.compile(r"(?:\b([A-Z]{3})\s?|([$\u20ac\u00a3])\s?)(\d[\d,]*(?:\.\d+)?)(?![\d,])")
+_AMOUNT = re.compile(r"(?:\b([A-Z]{3})\s?)?(?:([$\u20ac\u00a3])\s?)?(\d[\d,]*(?:\.\d+)?)(?![\d,])(?:\s?\b([A-Z]{3})\b)?")
 _CADENCE_WORDS = {
     "one_time": r"one[- ]time|\bonce\b|single payment|upfront|lump[- ]sum",
     "monthly": r"monthly|per month|a month|/\s?mo\b|each month|every month",
@@ -455,19 +473,24 @@ def _money_problems(value: dict, rendered: str) -> list[str]:
     ccy, cadence = value["currency"], value["cadence"]
     amounts = []
     for m in _AMOUNT.finditer(rendered):
-        code, sym, num = m.groups()
-        if code and code not in _KNOWN_CCY:
-            continue
-        amounts.append((code, sym, Decimal(num.replace(",", ""))))
+        pre, sym, num, post = m.groups()
+        codes_ = {c for c in (pre, post) if c in _KNOWN_CCY}
+        if not sym and not codes_:
+            continue  # bare number or unknown letters: not a currency-marked amount
+        amounts.append((codes_, sym, Decimal(num.replace(",", ""))))
     if not amounts:
         return [f"no currency-marked amount; expected {ccy} {want.normalize():,f}"]
     problems = []
-    for code, sym, amt in amounts:
+    for codes_, sym, amt in amounts:
         if amt != want:
             problems.append(f"amount {amt.normalize():,f} differs from canonical {want.normalize():,f}")
-        if code and code != ccy:
-            problems.append(f"currency {code} differs from canonical {ccy}")
-        if sym and ccy not in _SYMBOL_CCY[sym]:
+        # an explicit code outranks the bare-symbol assumption; codes and symbol must also agree with each other
+        for code in sorted(codes_):
+            if code != ccy:
+                problems.append(f"currency {code} differs from canonical {ccy}")
+            if sym and code not in _SYMBOL_CCY[sym]:
+                problems.append(f"currency {code} contradicts symbol {sym}")
+        if sym and not codes_ and ccy not in _SYMBOL_CCY[sym]:
             problems.append(f"symbol {sym} does not denote canonical {ccy}")
     found = {k for k, rx in _CADENCE_WORDS.items() if re.search(rx, rendered, re.I)}
     if cadence not in found:
