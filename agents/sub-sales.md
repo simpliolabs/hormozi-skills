@@ -11,12 +11,12 @@ Internal execution specialist. You do not interview the owner and you do not mak
 
 ## Contract
 
-- Workflow, authority and routes: `references/orchestration.md`.
+- `<plugin_root>` is the plugin directory containing this `agents/` folder; the orchestrator gives you its absolute path and `<workspace_root>`. Workflow, authority and routes: `<plugin_root>/references/orchestration.md`.
 - **Methodology:** load the standalone skill for each task you are given. The skill body is authoritative; do not reconstruct it from memory.
-- `skills/hormozi-pitch/SKILL.md`
-- `skills/hormozi-hooks/SKILL.md`
-- `skills/landing-page-copy/SKILL.md`
-- **Read only** the input paths the orchestrator lists, and confirm each sha256 first. An existing `PITCH.md` is reusable only when its inputs match.
+- `<plugin_root>/skills/hormozi-pitch/SKILL.md`
+- `<plugin_root>/skills/hormozi-hooks/SKILL.md`
+- `<plugin_root>/skills/landing-page-copy/SKILL.md`
+- **Read only** the input paths the orchestrator lists, and read nothing else. The orchestrator verified their hashes at dispatch; you cannot calculate hashes, so never state or invent one. An existing `PITCH.md` is reusable only when its inputs match.
 - **Write only** your assigned write set. Legacy names you may be assigned:
 - `output/PITCH.md`
 - `output/HOOKS.md`
@@ -27,4 +27,4 @@ Internal execution specialist. You do not interview the owner and you do not mak
 
 ## Return
 
-Input version and hash, files written, findings, proposals, evidence and its source type (`supplied`, `sourced`, `inferred`, `synthetic`), unknowns, blockers, and the model and effort the runtime showed you (`unknown` if none).
+Input version, files written (paths only; the orchestrator hashes them), findings, proposals, evidence and its source type (`supplied`, `sourced`, `inferred`, `synthetic`), unknowns, blockers, and the model and effort the runtime showed you (`unknown` if none).

@@ -1,8 +1,8 @@
 # Orchestration Workflow (shared)
 
-One workflow, loaded by both entry points: the `hormozi-orchestrator` skill (main conversation, Codex and skill-driven hosts) and `agents/hormozi-orchestrator.md` (Claude native). The owner talks to **one** chat. Specialists never interview the owner.
+One workflow, loaded by both entry points: the `hormozi-orchestrator` skill (main conversation, Codex and skill-driven hosts) and `<plugin_root>/agents/hormozi-orchestrator.md` (Claude native). The owner talks to **one** chat. Specialists never interview the owner.
 
-Original standalone skills in `skills/` stay the authority for methodology. Load a skill only when its task is selected. This file defines who decides, who writes, and in what order. It does not restate the frameworks.
+Original standalone skills in `<plugin_root>/skills/` stay the authority for methodology. Load a skill only when its task is selected. This file defines who decides, who writes, and in what order. It does not restate the frameworks.
 
 ## Authority
 
@@ -15,10 +15,10 @@ Decisions (price, currency, cadence, guarantee, eligibility, audience, scope) ar
 
 ## Workspace and state
 
-Plugin files are read-only. All output goes to the **user's workspace**, never the plugin install cache. Use the invocation workspace's `output/`.
+Plugin files are read-only. Two roots: `plugin_root` (from the host-provided skill/agent base path) holds packaged references, contracts, skills and `scripts/check_outputs.py`; `workspace_root` (the invocation project) holds everything written. Hashes are root's job: children have Read/Write/Glob only, so root hashes inputs before dispatch and inputs plus outputs after return, and compares. Run QA as `python <plugin_root>/scripts/check_outputs.py --workspace <workspace_root> --run <workspace_root>/output/runs/<run_id>`. All output goes to the **user's workspace**, never the plugin install cache. Use the invocation workspace's `output/`.
 
 - Legacy deliverables keep their names: `output/<NAME>.md`.
-- Control records: `output/runs/<run_id>/BRIEF.json`, `OFFER_DECISIONS.json`, `CLAIMS.json`, `RUN_STATE.json` (schemas in `contracts/`).
+- Control records: `output/runs/<run_id>/BRIEF.json`, `OFFER_DECISIONS.json`, `CLAIMS.json`, `RUN_STATE.json` (schemas in `<plugin_root>/contracts/`).
 - `output/CHECKPOINT.md` and `output/QA_REPORT.md` are bound into `RUN_STATE.json` as `checkpoint` and `qa_receipt` (`path`, `sha256`, `decision_version`). An edited file or a newer decision version makes the receipt stale.
 - Before replacing an artifact a prior run needs, keep the superseded copy once under `output/runs/<run_id>/artifacts/`.
 - A file left over from another run is never an implicit input.
@@ -62,4 +62,4 @@ Record `requested_effort` and `observed_model` / `observed_effort` separately in
 
 A clean ledger does not prove clean copy. Semantic review inspects each final artifact and binds its receipt to the artifact hash and decision version. High-risk readiness needs a separate-context reviewer, or it is held.
 
-Check with `python scripts/check_outputs.py --run output/runs/<run_id> --workspace . --mode ready`.
+Check with `python <plugin_root>/scripts/check_outputs.py --workspace <workspace_root> --run <workspace_root>/output/runs/<run_id> --mode ready`.

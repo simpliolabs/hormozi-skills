@@ -264,7 +264,24 @@ class TestAdaptersResolve(unittest.TestCase):
     def test_every_sub_agent_loads_at_least_one_existing_skill(self):
         for name, text in self.agent_texts().items():
             if name.startswith("sub-"):
-                self.assertTrue(re.findall(r"`skills/[\w-]+/SKILL.md`", text), name)
+                self.assertTrue(re.findall(r"`<plugin_root>/skills/[\w-]+/SKILL.md`", text), name)
+
+    def test_packaged_paths_are_plugin_root_anchored(self):
+        """Consumer CWD is the user's project: packaged files and the QA script are never cwd-relative."""
+        bare = re.compile(r"(?<![\w/>])(?:references|contracts|agents)/[\w./-]+|python scripts/|`skills/")
+        files = list((REPO / "agents").glob("*.md")) + [REPO / "references" / "orchestration.md"]
+        files += [p for p in (REPO / "skills").glob("*/SKILL.md") if p.parent.name != "create-plugin"]
+        for f in files:
+            for line in f.read_text(encoding="utf-8").splitlines():
+                anchored = re.sub(r"<plugin_root>/[\w./-]*", "", line)
+                for m in bare.finditer(anchored):
+                    self.fail(f"{f.relative_to(REPO)}: cwd-relative packaged path {m.group(0)!r}")
+
+    def test_children_never_asked_to_hash(self):
+        for f in (REPO / "agents").glob("sub-*.md"):
+            t = f.read_text(encoding="utf-8")
+            self.assertNotIn("confirm each sha256", t, f.name)
+            self.assertIn("cannot calculate hashes", t, f.name)
 
     def test_agent_frontmatter_keeps_identity_and_baseline_model(self):
         for name, text in self.agent_texts().items():

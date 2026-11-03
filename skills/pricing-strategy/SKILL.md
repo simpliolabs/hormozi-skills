@@ -18,7 +18,7 @@ Applies to every task, including a single standalone request. No run files are n
 - **Requested quantity.** Return the number asked for (five hooks means five).
 - **No deployment assertions.** Produce copy and handoff only. Never say anything is live, published, sent or scheduled.
 
-Full rules: `references/evidence-contract.md`. Pricing math: `references/commercial-feasibility.md`.
+Full rules: `<plugin_root>/references/evidence-contract.md`. Pricing math: `<plugin_root>/references/commercial-feasibility.md`. `<plugin_root>` is the plugin directory two levels above this skill's base path (the skill lives at `<plugin_root>/skills/<name>/`). Load packaged files by that absolute path, never relative to the working directory.
 
 ## Purpose
 Set the right price based on value, not guesswork.
@@ -332,6 +332,6 @@ The skill works when:
 
 ## Skill-Specific Evidence Rules
 
-- Weigh buyer value and seller economics together. Contribution is price minus fulfillment cost, and it is not net profit until CAC, payment fees, commission and support are known. See `references/commercial-feasibility.md`.
+- Weigh buyer value and seller economics together. Contribution is price minus fulfillment cost, and it is not net profit until CAC, payment fees, commission and support are known. See `<plugin_root>/references/commercial-feasibility.md`.
 - Write money as an amount, currency and billing cadence. State refund exposure. A guarantee that is not live is excluded, and scenarios are labeled as scenarios.
 - Final pricing runs after the last scope or guarantee change.
