@@ -14,14 +14,14 @@ On first use, ask the user where to install the skills and agents:
 
 **Default:** project-level (`.claude/` in the current working directory).
 
-Installation copies `skills/` and `agents/` into the chosen `.claude/` directory:
+Installation copies `skills/`, `agents/` and the shared assets (`references/`, `contracts/`, `scripts/`) into the chosen `.claude/` directory. Skills load shared files from `<plugin_root>` (two levels above the skill's base path), so the shared folders must sit beside `skills/`:
 
 ```bash
 # Project (default)
-cp -r skills/ agents/ .claude/
+cp -r skills/ agents/ references/ contracts/ scripts/ .claude/
 
 # User (global)
-cp -r skills/ agents/ ~/.claude/
+cp -r skills/ agents/ references/ contracts/ scripts/ ~/.claude/
 ```
 
 > **Important:** After installation, Claude Code must be restarted for the new skills and agents to be available.
@@ -54,6 +54,10 @@ sub-market → sub-offer → sub-value → sub-pricing → sub-sales
 ### Output
 
 All generated documents write to `output/`. The orchestrator produces a final `output/SUMMARY.md` after all subagents complete. The `output/` folder ships empty (`.gitkeep`).
+
+## Paths
+
+`plugin_root` is read-only packaged content (skills, agents, references, contracts, `scripts/check_outputs.py`); `workspace_root` is the invocation project and the only place output is written. Never use cwd-relative `references/...` or `python scripts/...` in a skill or agent; tests enforce `<plugin_root>/` anchoring. Children cannot calculate hashes; the root hashes before and after dispatch.
 
 ## Skill Structure Convention
 
