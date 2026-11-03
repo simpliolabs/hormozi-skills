@@ -145,6 +145,9 @@ def validate_run(run_dir: Path, workspace_root: Path, mode: str = "ready") -> li
             elif not full.exists() or sha256_bytes(full.read_bytes()) != src["sha256"]:
                 findings.append(Finding("SOURCE_HASH_MISMATCH", "error", src["path"], "source changed or missing since the brief was frozen"))
 
+    if claims:
+        findings += [Finding("CLAIM_ID_DUPLICATE", "error", d, f"claim id {d} appears more than once in CLAIMS.json; a later entry would shadow the earlier one")
+                     for d in _duplicates(c["id"] for c in claims["claims"])]
     findings += _check_identity(brief, decisions, state)
     if decisions and state:
         findings += _check_decisions_vs_state(run_dir, decisions, state)
@@ -189,8 +192,21 @@ def _check_decisions_vs_state(run_dir, decisions, state) -> list[Finding]:
     return out
 
 
+def _duplicates(ids) -> list[str]:
+    """Ids that occur more than once. JSON Schema uniqueItems compares whole objects, not one property, so
+    property uniqueness is enforced here, before any lookup dict can silently keep only the last entry."""
+    seen, dup = set(), []
+    for i in ids:
+        if i in seen and i not in dup:
+            dup.append(i)
+        seen.add(i)
+    return dup
+
+
 def _check_tasks(state, workspace) -> list[Finding]:
-    out, tasks = [], {t["id"]: t for t in state["tasks"]}
+    out = [Finding("TASK_ID_DUPLICATE", "error", d, f"task id {d} is declared more than once; ownership would collapse onto the last entry")
+           for d in _duplicates(t["id"] for t in state["tasks"])]
+    tasks = {t["id"]: t for t in state["tasks"]}
     satisfied = {"done", "not_requested", "not_applicable"}
     for t in state["tasks"]:
         for dep in t["depends_on"]:
@@ -422,7 +438,8 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
 
 
 def _check_bindings(art, fields, text, path) -> list[Finding]:
-    out = []
+    out = [Finding("BINDING_FIELD_DUPLICATE", "error", path, f"field '{d}' is bound more than once; only one registered rendering per field is allowed")
+           for d in _duplicates(b["field"] for b in art.get("bindings", []))]
     bound = {b["field"]: b for b in art.get("bindings", [])}
     for name in art.get("uses_fields", []):
         field = fields.get(name)
@@ -460,11 +477,21 @@ def _check_bindings(art, fields, text, path) -> list[Finding]:
     return out
 
 
-_KNOWN_CCY = {"USD", "EUR", "GBP", "CAD", "AUD", "NZD", "MXN", "SGD", "HKD", "JPY", "CHF", "INR", "BRL", "SEK", "NOK", "DKK", "ZAR", "AED"}
+# Minor-unit exponent per supported currency (ISO 4217: JPY has 0 minor-unit digits, per the SIX maintenance agency
+# and Adyen's currency-code docs). Only these are supported; a canonical currency absent here fails closed rather
+# than being assumed to have two decimals. This is a small explicit table, not a currency engine: the schema may
+# admit more codes than this checker can verify, and those hold (known limitation).
+_CCY_EXPONENT = {c: 2 for c in ("USD", "EUR", "GBP", "CAD", "AUD", "NZD", "MXN", "SGD", "HKD", "CHF", "INR", "BRL", "SEK", "NOK", "DKK", "ZAR", "AED")}
+_CCY_EXPONENT["JPY"] = 0
+_KNOWN_CCY = set(_CCY_EXPONENT)
 _SYMBOL_CCY = {"$": {"USD", "CAD", "AUD", "NZD", "MXN", "SGD", "HKD"}, "\u20ac": {"EUR"}, "\u00a3": {"GBP"}}
 # A trailing code is a lookahead and only belongs to this amount when it is not itself the prefix of the next one,
 # so a code is never consumed away from the following amount; whitespace of any kind/width may separate token and number.
-_AMOUNT = re.compile(r"(?:\b([A-Z]{3})\s*)?(?:([$\u20ac\u00a3])\s*)?(\d[\d,]*(?:\.\d+)?)(?![\d,])(?=(?:\s*\b([A-Z]{3})\b(?!\s*[$\u20ac\u00a3]?\s*\d))?)")
+# A sign (ASCII hyphen, minus, figure/en/em dash, small/fullwidth hyphen-minus) may precede the code, symbol or number.
+_SG = r"[-\u2212\u2012\u2013\u2014\ufe63\uff0d]"
+_AMOUNT = re.compile(
+    rf"(?:(?P<s1>{_SG}\s*))?(?:\b(?P<pre>[A-Z]{{3}})\s*)?(?:(?P<s2>{_SG}\s*))?(?:(?P<sym>[$\u20ac\u00a3])\s*)?(?:(?P<s3>{_SG}\s*))?"
+    rf"(?P<num>\d[\d,]*(?:\.\d+)?)(?![\d,])(?=(?:\s*\b(?P<post>[A-Z]{{3}})\b(?!\s*{_SG}?\s*[$\u20ac\u00a3]?\s*{_SG}?\s*\d))?)")
 _CADENCE_WORDS = {
     "one_time": r"one[- ]time|\bonce\b|single payment|upfront|lump[- ]sum",
     "monthly": r"monthly|per month|a month|/\s?mo\b|each month|every month",
@@ -478,18 +505,31 @@ def _money_problems(value: dict, rendered: str) -> list[str]:
     """Deterministic rendering check: every currency-marked amount, its currency and the cadence wording
     in `rendered` must equal the structured money value. Unrelated example amounts live in prose, not in a bound rendering."""
     from decimal import Decimal
-    want = Decimal(value["amount_minor"]) / 100
     ccy, cadence = value["currency"], value["cadence"]
-    amounts = []
+    if ccy not in _CCY_EXPONENT:
+        return [f"currency {ccy} has no supported minor-unit exponent; a rendering of it cannot be verified here"]
+    want = Decimal(value["amount_minor"]).scaleb(-_CCY_EXPONENT[ccy])
+    amounts, signed = [], []
     for m in _AMOUNT.finditer(rendered):
-        pre, sym, num, post = m.groups()
+        pre, sym, num, post = m["pre"], m["sym"], m["num"], m["post"]
         codes_ = {c for c in (pre, post) if c in _KNOWN_CCY}
         if not sym and not codes_:
             continue  # bare number or unknown letters: not a currency-marked amount
+        # A canonical amount is never negative: any sign attached to the amount, its code or its symbol is held, and so
+        # is a spaced sign mid-line (ambiguous). The one exception is a bare ASCII hyphen + blanks opening its line
+        # (behind optional blockquote markers): that is a Markdown list bullet, not a minus.
+        for g in ("s1", "s2", "s3"):
+            sg = m[g]
+            if sg is None:
+                continue
+            if g == "s1" and sg[0] == "-" and sg[1:] != "" and not sg[1:].strip() and "\n" not in sg \
+                    and not rendered[rendered.rfind("\n", 0, m.start("s1")) + 1:m.start("s1")].strip(" \t>"):
+                continue
+            signed.append(num)
         amounts.append((codes_, sym, Decimal(num.replace(",", ""))))
     if not amounts:
         return [f"no currency-marked amount; expected {ccy} {want.normalize():,f}"]
-    problems = []
+    problems = [f"negative or sign-prefixed amount {n}; a canonical amount is non-negative" for n in signed]
     for codes_, sym, amt in amounts:
         if amt != want:
             problems.append(f"amount {amt.normalize():,f} differs from canonical {want.normalize():,f}")
