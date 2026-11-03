@@ -1,0 +1,5 @@
+# Optional project-scoped Codex configuration for a trusted checkout of this repository.
+# It does NOT register plugin roles for a plugin installed elsewhere, and it is never copied into a consumer's project or home.
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 3

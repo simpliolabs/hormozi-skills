@@ -1,7 +1,7 @@
 {
   "name": "hormozi-skills",
-  "version": "1.0.0",
-  "description": "Grand Slam Offer framework. Skills and agents for market research, offer building, value optimization, pricing, positioning, hooks, and landing page copy — based on Alex Hormozi's methodology.",
+  "version": "1.1.0",
+  "description": "Grand Slam Offer framework. 19 skills (18 originals plus a one-chat orchestrator entry) and 6 agents for market research, offer building, value optimization, pricing, positioning, hooks, and landing page copy - based on Alex Hormozi's methodology.",
   "author": {
     "name": "Alessandro Smedile"
   },
