@@ -426,3 +426,8 @@ The skill works when:
 	•	complexity is reduced
 	•	execution feels doable
 
+
+## Skill-Specific Evidence Rules
+
+- A stated conditional refund is a sufficient condition, not proof that no other refunds happen: never infer exclusivity, low refund exposure or a complete policy from silence.
+- An unknown refund or cancellation cost is unknown, not zero. Do not call exposure low, a cost avoided, or a loss bounded without supplied figures; label any scenario as a scenario.

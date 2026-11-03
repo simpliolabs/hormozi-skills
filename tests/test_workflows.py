@@ -304,6 +304,18 @@ class TestAdaptersResolve(unittest.TestCase):
         for m in modes:
             self.assertIn(f"`{m}`", doc, f"mode {m} enforced by the checker but undocumented")
 
+    def test_method_loading_requirement_is_in_both_entry_points_and_shared_workflow(self):
+        """Static text only; it is not runtime proof that a method was loaded."""
+        shared = (REPO / "references" / "orchestration.md").read_text(encoding="utf-8")
+        root = (REPO / "skills" / "hormozi-orchestrator" / "SKILL.md").read_text(encoding="utf-8")
+        agent = (REPO / "agents" / "hormozi-orchestrator.md").read_text(encoding="utf-8")
+        self.assertIn("## Method loading and delegation", shared)
+        for needle in ("exact packaged", "Do not infer a method", "unavailable or refused", "legacy"):
+            self.assertIn(needle, shared, needle)
+        for name, text in (("skill", root), ("agent", agent)):
+            for needle in ("references/orchestration.md", "unavailable or refused", "schemas"):
+                self.assertIn(needle, text, f"{name}: {needle}")
+
 
 if __name__ == "__main__":
     unittest.main()

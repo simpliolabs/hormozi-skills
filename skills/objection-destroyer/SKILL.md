@@ -313,3 +313,8 @@ The skill works when:
 	•	trust increases
 	•	hesitation decreases
 	•	conversions improve
+
+## Skill-Specific Evidence Rules
+
+- A stated conditional refund or guarantee answers an objection only for the cases it names. Never imply it is the only refund path, that risk is low or removed, or that the policy is complete from silence.
+- An unknown refund or cancellation cost is unknown, not zero. Never write "no risk", "nothing to lose" or a bounded loss without supplied terms; DM-ready responses must not promise more than the stated terms.

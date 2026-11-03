@@ -10,7 +10,7 @@ FIX = REPO / "tests" / "fixtures"
 INV = json.loads((FIX / "expected_inventory.json").read_text(encoding="utf-8"))
 BASE = json.loads((FIX / "baseline_skills.json").read_text(encoding="utf-8"))
 TARGETED = ["market-research", "hormozi-offer", "audit-offer", "pricing-strategy", "bonus-stack",
-            "hormozi-pitch", "hormozi-hooks", "landing-page-copy"]
+            "hormozi-pitch", "hormozi-hooks", "landing-page-copy", "business-model", "objection-destroyer"]
 REFS = ["skills/hormozi-hooks/references/hormozi-style-hooks.md", "skills/idea-to-product/references/offer-key-points.md"]
 PRE = "## Evidence & Authority Preflight"
 SPECIFIC = "## Skill-Specific Evidence Rules"

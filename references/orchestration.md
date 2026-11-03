@@ -58,6 +58,14 @@ Rules that follow:
 
 Record `requested_effort` and `observed_model` / `observed_effort` separately in `routing`. Use `unknown` when the runtime reports nothing. Never copy the request into the observation. Never substitute a costlier model silently. Requested defaults: `sub-market` medium, `sub-offer` high, `sub-value` medium, `sub-pricing` high, `sub-sales` medium. Escalate to high for conflicting evidence, failed offers, or high-risk copy.
 
+## Method loading and delegation (required)
+
+Structural `READY` from `check_outputs.py` is not proof that a method was applied. Before each selected task is drafted, its standalone method must actually be loaded: invoke the skill, or Read its `<plugin_root>/skills/<name>/SKILL.md` body and every reference that body names as required. Do not infer a method from the schemas, the checker source, or the role summaries in `<plugin_root>/agents/sub-*.md`, and do not shape output to pass the checker instead of the method.
+
+- **Delegated task:** give the worker the exact packaged `<plugin_root>/skills/<name>/SKILL.md` path (and its required references) as an allowed input, and require the worker to read it before drafting. Use the host's observed native subagent tool (`Agent`; legacy hosts may call it `Task`). Never name a tool the runtime did not show.
+- **Root fallback:** root may run the task itself only when native dispatch is unavailable or refused, never silently because it is convenient. Record the exact reason (tool absent, or the refusal text) in the owner summary or QA note. Root then loads the same skill body itself.
+- **Report what was loaded.** The owner summary or QA note names, per selected task, the skill and references actually loaded, or `not loaded` / `unknown` when the runtime did not show it. This is a statement in the report, not a new schema, ledger or instrumentation.
+
 ## Evidence and QA
 
 A clean ledger does not prove clean copy. Semantic review inspects each final artifact and binds its receipt to the artifact hash and decision version. High-risk readiness needs a separate-context reviewer, or it is held.
