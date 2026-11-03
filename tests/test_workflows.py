@@ -315,6 +315,9 @@ class TestAdaptersResolve(unittest.TestCase):
         for name, text in (("skill", root), ("agent", agent)):
             for needle in ("references/orchestration.md", "unavailable or refused", "schemas"):
                 self.assertIn(needle, text, f"{name}: {needle}")
+        for name, text in (("shared", shared), ("skill", root), ("agent", agent)):
+            for needle in ("read-only instruction context", "BRIEF.sources", "RUN_STATE.tasks[].inputs"):
+                self.assertIn(needle, text, f"{name}: {needle}")
 
 
 if __name__ == "__main__":
