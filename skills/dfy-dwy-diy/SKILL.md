@@ -5,6 +5,21 @@ description: Choose the best delivery mechanism for an offer — Done For You, D
 
 # Skill: Delivery Mechanism Designer (DFY vs DWY vs DIY)
 
+## Evidence & Authority Preflight
+
+Applies to every task, including a single standalone request. No run files are needed.
+
+- **Exact wording.** Quote customers and sources only from supplied or sourced material. Invented examples are labeled `synthetic` and never presented as real quotes, testimonials or results.
+- **Unknown stays unknown.** A score, cost, volume or price nobody supplied is marked unknown, not zero and not a silent estimate.
+- **Seller economics.** Check what the offer costs to deliver and what a refund or guarantee exposes. List missing cost inputs.
+- **Simplest viable offer.** Add a component only for a named obstacle.
+- **Proposal vs authorized.** Terms the owner has recorded are authorized; everything else is a proposal. Owner approval is not proof of a claim.
+- **Qualified claims keep their conditions** every time they are repeated.
+- **Requested quantity.** Return the number asked for (five hooks means five).
+- **No deployment assertions.** Produce copy and handoff only. Never say anything is live, published, sent or scheduled.
+
+Full rules: `references/evidence-contract.md`. Pricing math: `references/commercial-feasibility.md`.
+
 ## Purpose
 Choose the best way to deliver the result.
 

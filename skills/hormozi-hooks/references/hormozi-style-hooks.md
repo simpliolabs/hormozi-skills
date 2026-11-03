@@ -1,3 +1,7 @@
+> **Evidence note.** Examples and figures below are illustrative. They are not claims about this owner's offer, and any use in copy follows `references/evidence-contract.md`.
+
+<!-- end evidence note -->
+
 # Hormozi Style Hooks - Full Breakdown
 
 Here’s the TL;DR version — clean, fast, usable:

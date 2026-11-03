@@ -5,6 +5,21 @@ description: Build a Grand Slam Offer from any idea, product, service, or expert
 
 # Skill: Build a Grand Slam Offer → `OFFER.md`
 
+## Evidence & Authority Preflight
+
+Applies to every task, including a single standalone request. No run files are needed.
+
+- **Exact wording.** Quote customers and sources only from supplied or sourced material. Invented examples are labeled `synthetic` and never presented as real quotes, testimonials or results.
+- **Unknown stays unknown.** A score, cost, volume or price nobody supplied is marked unknown, not zero and not a silent estimate.
+- **Seller economics.** Check what the offer costs to deliver and what a refund or guarantee exposes. List missing cost inputs.
+- **Simplest viable offer.** Add a component only for a named obstacle.
+- **Proposal vs authorized.** Terms the owner has recorded are authorized; everything else is a proposal. Owner approval is not proof of a claim.
+- **Qualified claims keep their conditions** every time they are repeated.
+- **Requested quantity.** Return the number asked for (five hooks means five).
+- **No deployment assertions.** Produce copy and handoff only. Never say anything is live, published, sent or scheduled.
+
+Full rules: `references/evidence-contract.md`. Pricing math: `references/commercial-feasibility.md`.
+
 ## Purpose
 Help the user turn a rough business idea, product, service, audience, or expertise into a clear, valuable, specific offer.
 
@@ -518,3 +533,8 @@ The skill succeeds when:
 	•	the guarantee reduces risk
 	•	the messaging is easy to use
 	•	the final OFFER.md is ready for sales-page, landing-page, or content use
+
+## Skill-Specific Evidence Rules
+
+- Start from the simplest viable offer. Broad obstacle exploration does not require shipping ten components or inventing bonuses.
+- Check delivery cost and capacity before the stack grows. Price, currency, cadence, guarantee and eligibility you write are proposals until the owner's decision record authorizes them.

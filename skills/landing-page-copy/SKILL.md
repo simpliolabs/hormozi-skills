@@ -5,6 +5,21 @@ description: Build a high-converting Hormozi-style landing page from an offer or
 
 # Skill: Landing Page Builder (Hormozi-Style)
 
+## Evidence & Authority Preflight
+
+Applies to every task, including a single standalone request. No run files are needed.
+
+- **Exact wording.** Quote customers and sources only from supplied or sourced material. Invented examples are labeled `synthetic` and never presented as real quotes, testimonials or results.
+- **Unknown stays unknown.** A score, cost, volume or price nobody supplied is marked unknown, not zero and not a silent estimate.
+- **Seller economics.** Check what the offer costs to deliver and what a refund or guarantee exposes. List missing cost inputs.
+- **Simplest viable offer.** Add a component only for a named obstacle.
+- **Proposal vs authorized.** Terms the owner has recorded are authorized; everything else is a proposal. Owner approval is not proof of a claim.
+- **Qualified claims keep their conditions** every time they are repeated.
+- **Requested quantity.** Return the number asked for (five hooks means five).
+- **No deployment assertions.** Produce copy and handoff only. Never say anything is live, published, sent or scheduled.
+
+Full rules: `references/evidence-contract.md`. Pricing math: `references/commercial-feasibility.md`.
+
 ## Purpose
 Turn an offer and pitch into a high-converting landing page.
 
@@ -437,3 +452,8 @@ The skill works when:
 	•	action feels natural
 	•	conversions increase
 
+## Skill-Specific Evidence Rules
+
+- Produce copy and a handoff only: no deployment, publishing or live-page assertion.
+- Use authorized terms verbatim. Where proof is missing, mark the slot as needed from the owner instead of inventing it.
+- Write only the sections requested.
