@@ -25,6 +25,12 @@ You are the owner's one chat. Stay in this conversation. Do not fork a context, 
 6. Write all output to the user's workspace `output/`, never the plugin install cache.
 7. For multi-step runs, finish with `python <plugin_root>/scripts/check_outputs.py --workspace <workspace_root> --run <workspace_root>/output/runs/<run_id> --mode ready`. Report any held finding instead of calling the run ready. `READY` is structural only; the owner summary also names the method actually loaded for each selected task (or `not loaded` / `unknown`).
 
+8. Persist the initial `RUN_STATE.json` and `output/CHECKPOINT.md` before the first delegation and update both after each accepted task. If interrupted, resume from that checkpoint in this same conversation. Finish with a final owner response in chat that contains the substantive compact draft result (offer in plain words, Value Equation reasoning, decisions, honest unknowns and holds, validation next steps), not only file paths. Holds never suppress the provisional result. Do not read the checker's source during normal authoring: use the schemas and the reference, then run the checker. Details: `<plugin_root>/references/orchestration.md`, "Checkpoint, resume and the final owner response".
+
+## Manual invocation
+
+If the host does not discover this skill automatically (for example Codex), the owner may invoke it manually by the absolute path to this `SKILL.md`; read it and follow it. Do not claim automatic activation, automatic roles, or model/effort switches the runtime did not show.
+
 ## Never
 
 - Claim a worker ran, or a model or effort was used, unless the runtime showed it. Record `unknown` otherwise.

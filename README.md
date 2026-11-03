@@ -48,7 +48,7 @@ codex plugin list --available
 codex plugin add hormozi-skills@hormozi-skills
 ```
 
-Use the `hormozi-orchestrator` skill as the one-chat entry. The optional `.codex/` role adapters apply only when you work inside a trusted checkout of this repository; they are not copied into your project and do not register roles for a plugin installed elsewhere.
+Use the `hormozi-orchestrator` skill as the one-chat entry. If your Codex build does not discover it automatically, invoke it manually by naming the absolute path to its `SKILL.md` in your prompt. Non-interactive runs use `codex exec "<prompt>"`, and an interrupted run continues in the same session with `codex exec resume --last "<prompt>"` (both subcommands are listed by `codex exec --help`). Automatic activation and model/effort switching are not promised. The optional `.codex/` role adapters apply only when you work inside a trusted checkout of this repository; they are not copied into your project and do not register roles for a plugin installed elsewhere.
 
 ### Manual Install
 

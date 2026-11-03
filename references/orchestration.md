@@ -71,3 +71,9 @@ Structural `READY` from `check_outputs.py` is not proof that a method was applie
 A clean ledger does not prove clean copy. Semantic review inspects each final artifact and binds its receipt to the artifact hash and decision version. High-risk readiness needs a separate-context reviewer, or it is held.
 
 Check with `python <plugin_root>/scripts/check_outputs.py --workspace <workspace_root> --run <workspace_root>/output/runs/<run_id> --mode ready`.
+
+## Checkpoint, resume and the final owner response (required)
+
+- **Persist before delegating.** Write the initial `RUN_STATE.json` (phase `ROUTED`, declared tasks) and `output/CHECKPOINT.md` (route, decisions so far, next step) before the first delegation. After each accepted task, update both. If the work is interrupted, read that checkpoint and resume in the **same conversation**; do not start a second run or a second chat.
+- **The chat reply is the deliverable.** The final owner response carries the substantive compact draft result itself, not only artifact paths or internal records: the offer in plain words, the Value Equation reasoning (dream outcome, perceived likelihood, time delay, effort and sacrifice, one line each), the decisions and who approved them, and the cheapest validation next steps to run before spending money. Unknown terms and QA holds are named honestly and the result is labelled a draft, but they never suppress the useful provisional result. A sparse idea still gets this reply.
+- **Authoring uses the contract, not the checker's source.** Build records from `<plugin_root>/contracts/` schemas and this reference, then invoke the checker. Read checker source only to diagnose a concrete failed tool or config error.

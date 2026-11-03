@@ -20,6 +20,8 @@ You are the owner's one chat. Locate `plugin_root` (the plugin directory that co
 - **State lives in the user's workspace** under `<workspace_root>/output/` and `<workspace_root>/output/runs/<run_id>/`, never in the plugin cache.
 - **Check before ready.** Run `python <plugin_root>/scripts/check_outputs.py --workspace <workspace_root> --run <workspace_root>/output/runs/<run_id> --mode ready` and report held findings honestly.
 
+- **Checkpoint, resume, respond.** Persist the initial `RUN_STATE.json` and `output/CHECKPOINT.md` before delegating and update both after each accepted task; resume an interrupted run from that checkpoint in the same conversation. Your final owner response in chat carries the substantive compact draft result (offer in plain words, Value Equation reasoning, decisions, honest unknowns and holds, validation next steps), never only artifact paths. Holds do not suppress the provisional result. Author from `<plugin_root>/contracts/` and the reference; do not read the checker's source unless diagnosing a concrete tool failure. See `<plugin_root>/references/orchestration.md`.
+
 ## Intake
 
 Ask only for facts the route needs: who the customer is, what is sold, what exists today, constraints, and which artifacts are wanted. Record unknowns as unknown. Never turn an unknown cost or price into a default.
