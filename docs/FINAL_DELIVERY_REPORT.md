@@ -1,17 +1,11 @@
-# Final Delivery Report (provisional)
+# Delivery report: draft for review
 
-Status: **provisional**. Native gates below are pending; nothing here is a launch, conversion or improvement claim. Measured gates: `docs/QA_AND_COMPATIBILITY.md`.
+The implementation adds a main-conversation entry over the preserved 17 Hormozi business skills, existing create-plugin helper and five specialist roles. Thin role adapters share the existing methodology; four JSON contracts and one local checker manage decisions, evidence, task dependencies and output consistency. There is no model-calling engine, server, CRM integration or permanent writer fleet. [references/orchestration.md:3](../references/orchestration.md#L3) [scripts/check_outputs.py:107](../scripts/check_outputs.py#L107) [.codex-plugin/plugin.json:4](../.codex-plugin/plugin.json#L4)
 
-## What changed in this stage
-- The root skill, Claude agent and shared `references/orchestration.md` now require loading each selected standalone method (invoke the skill, or read its `SKILL.md` body and required references) before drafting; passing the exact packaged skill path to delegated workers; and recording an exact reason for any root fallback. The owner summary names the method actually loaded per task. No new schema, checker or ledger was added.
-- `pricing-strategy`, `business-model` and `objection-destroyer` carry Skill-Specific Evidence Rules: a conditional refund does not imply exclusivity or low exposure, and an unknown refund cost is not zero. Original methodology bodies and the shared preflight are unchanged.
+[QA and compatibility](QA_AND_COMPATIBILITY.md) records the measured acceptance work; [the evidence record](QA_EVIDENCE.json) retains settings, source pins and raw failures. Source correctness review passed through `28f810b`, with 167 full-suite tests, 35 subsequent affected workflow tests and 128 independent currency variants verified at their recorded pins.
 
-## Evidence summary
-- Unit tests: 166 passed on the prior head; 167 after this change (one static test added); repo check passes.
-- Native actual-invocation rubric: 17/17 skills; three refund/exposure failures from semantic review are repaired, rerun pending.
-- Paired benchmark: baseline 6/6 vs candidate raw 5/6; the sparse-idea case failed on a last-message grader while `OFFER.md` held all four Value Equation levers. Raw failure retained.
-- Native controller (8ab69ec): structure, order, path and hash ready PASS; method load not observed; rerun pending.
-- Native Codex: install and root/audit method reads observed; automatic activation not observed; runtime model and effort unknown; project-TOML execution untested.
+The Stage B dependency is original audit ? revision ? separate revised check ? final economics. Packaged methods are read-only instruction context; hashed task inputs are workspace business data. Root retains commercial decisions, and actual prose/source review remains mandatory. [references/orchestration.md:45](../references/orchestration.md#L45) [references/orchestration.md:65](../references/orchestration.md#L65)
 
-## Remaining gates
-Native controller rerun, targeted refund rerun, independent exact-fix review (not yet passed), fresh public QA receipt.
+This PR remains a **draft**: the method-loading native controller persisted its artifacts and state but hit its ten-minute bound before its final owner response; root subsequently checked the same persisted run successfully. One standalone generated refund sentence remains held for semantic ambiguity. Codex automatic activation, final instruction changes in Codex, and optional project-role execution are not proven. The paired comparison was baseline 6/6 versus candidate raw 5/6; no improvement claim is made.
+
+All work is local draft/source work. No merge, deployment, commercial publication or external business-system modification is included.

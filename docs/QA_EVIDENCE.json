@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "scope": "Synthetic local engineering acceptance; no publication, deployment or commercial-performance inference.",
+  "baseline": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
+  "method_candidate": "49ba1dbbf97ea066198ed0be33c40b84554a5a23",
+  "tools": {
+    "claude": "2.1.311",
+    "codex": "0.164.0-alpha.11.1"
+  },
+  "model_settings": {
+    "claude_generator_requested": "sonnet",
+    "claude_generator_observed": "claude-sonnet-5-5",
+    "effort_requested": "medium",
+    "effort_runtime_observed": "unknown",
+    "judge_requested": "fable",
+    "judge_runtime_observed": "unknown"
+  },
+  "standalone": {
+    "original_business_skills": 17,
+    "initial_raw_rubric_passes": 17,
+    "cases": [
+      {
+        "skill": "audit-offer",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "ae3e4d7f6b45115c208634564da112f49b08bd460c9401169dc956b1c0c0d2ca"
+      },
+      {
+        "skill": "bonus-stack",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "1756c149d1d33234fefe49de8aeef37f2820d7f257f96f3a2cd152b40d16fb1f"
+      },
+      {
+        "skill": "business-model",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "8c838c29ebd1f3f56ce32211ed7172ed782948b3fc4f509d79fe4dedb183a433"
+      },
+      {
+        "skill": "dfy-dwy-diy",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "b344655d18ba9a24386fef193a5ebcd56f8eae0e87a31f3a142f31222cf5c29d"
+      },
+      {
+        "skill": "effort-reduction",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "378ed912f26e75699f9574f03339a6e6c8e23bf9179666f29bd8fc3f26b613af"
+      },
+      {
+        "skill": "hormozi-hooks",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "7669eeee0c2db4cedffb130456d6c486b4511e12c246fbce3bf7cc00f5198c6d"
+      },
+      {
+        "skill": "hormozi-offer",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "591934480cdf17874c98b1f06958c0446975181fdb2f5e560c9cb61b20f013e4"
+      },
+      {
+        "skill": "hormozi-pitch",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "aff1a392012297e30d6dfbdcdd1a8923aa9cbdecac4e624a139bc3cd6323fc93"
+      },
+      {
+        "skill": "idea-to-product",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "9b17e0544553ce7a486606727ac1e80b93b3bfdeb2ee07477dec9c9dc2bb5349"
+      },
+      {
+        "skill": "landing-page-copy",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "5592c6336f585a08469c1d8281e48334e47fa12c067cdd4e50abbb6e236e83c2"
+      },
+      {
+        "skill": "market-research",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "6cdeaae82040fa73ca3e1855ea25dd127339b2acf60693176f9077d624726fdd"
+      },
+      {
+        "skill": "objection-destroyer",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "2a2dd1a462c587dc41e4f33272f8a38ebda4aecfa21f52deb0e6b95daee64302"
+      },
+      {
+        "skill": "offer-angles",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "457ccb3d0acba2bf2914443928a8377020ac025d30398703fff35224b8d0782a"
+      },
+      {
+        "skill": "pricing-strategy",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "14c111fefd6a6195de7cf68f6a38486be05a45bd6d8a46e1d9ca5bb7371f663c"
+      },
+      {
+        "skill": "productize",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "85c8b33cb37d1634d3fd66c5efca4a3f877504567c4b57f828d2560a820eccce"
+      },
+      {
+        "skill": "value-accelerator",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "d5fefbe75fb219ccd23728c9060b1574573702e790d914bab01b24f9d9771802"
+      },
+      {
+        "skill": "value-perception",
+        "native_skill_calls": 1,
+        "raw_pass": true,
+        "final_text_sha256": "f0c7062805133bd95a7ed93b822737107291d356a5a6655babbb479df5290839"
+      }
+    ],
+    "semantic_failures_detected": [
+      "pricing-strategy unsupported maximum cancellation loss",
+      "business-model refund exclusivity/low exposure",
+      "objection-destroyer refund exclusivity inference"
+    ],
+    "targeted_repairs": {
+      "pricing-strategy": "raw PASS; actual artifact preserves unknown fee/facilitator/support treatment",
+      "business-model": "raw PASS; actual artifact does not infer low/exclusive exposure",
+      "objection-destroyer": "raw PASS; actual artifact retains an ambiguous only-if sentence despite later unknown-policy qualification; hold that sentence in semantic review"
+    },
+    "limits": "One example per skill and targeted repair. Prompt instructions and rubric votes do not guarantee all future prose. Semantic review of actual text remains required."
+  },
+  "paired": {
+    "baseline_raw_passes": 6,
+    "candidate_raw_passes": 5,
+    "total_cases": 6,
+    "cases": [
+      {
+        "scenario": "contradictory-sources",
+        "candidate_raw_pass": true
+      },
+      {
+        "scenario": "focused-hooks",
+        "candidate_raw_pass": true
+      },
+      {
+        "scenario": "mature-b2b",
+        "candidate_raw_pass": true
+      },
+      {
+        "scenario": "sparse-idea",
+        "candidate_raw_pass": false
+      },
+      {
+        "scenario": "strong-proof",
+        "candidate_raw_pass": true
+      },
+      {
+        "scenario": "weak-existing-offer",
+        "candidate_raw_pass": true
+      }
+    ],
+    "sparse_case_observation": "OFFER.md includes dream outcome, likelihood, time/effort hypotheses and explicit holds; last-message judge did not see artifact body. Raw failure retained. No causal improvement claim.",
+    "improvement_claim": false
+  },
+  "native_evaluator_limits": [
+    "Windows native evaluator shell sandbox unavailable; supported shell-disallow flags used for file-tool draft tests, not full QA.",
+    "One result per case; requested runs1. Three judge votes per rubric are not three independent generation runs.",
+    "Long nested fixture paths reported unresolved-symlink errors before generation; byte-identical short paths executed. Native observer failure not a product pass or failure."
+  ],
+  "native_specialist": {
+    "type": "hormozi-skills:sub-offer",
+    "observed_handle": "a380c09e40ac2a2e0",
+    "completed_children": 1,
+    "requested_model": "sonnet",
+    "child_effort_observed": "unknown",
+    "initial_admission_refused": true,
+    "retry": "Read-only audit admitted via documented research exemption; no gate/config edits."
+  },
+  "codex": {
+    "installed_skill_directories": 19,
+    "installed_assets": [
+      "references",
+      "contracts",
+      "scripts/check_outputs.py"
+    ],
+    "installed_methods_read": [
+      "hormozi-orchestrator",
+      "audit-offer"
+    ],
+    "credit_claim_audit": "HOLD: advertised maximum versus usable approved amount; prepared versus accepted reporting; draft versus live refund",
+    "automatic_activation_observed": false,
+    "exact_runtime_model_observed": "unknown",
+    "exact_runtime_effort_observed": "unknown",
+    "optional_project_toml_execution": "untested",
+    "final_method_loading_instruction_changes_retested_in_codex": false
+  },
+  "controller": {
+    "first_run": "Structural ready PASS; selected-method loading not observed; corrected instructions and rerun required.",
+    "final_run": {
+      "method_source_head": "49ba1dbbf97ea066198ed0be33c40b84554a5a23",
+      "native_status": "timeout",
+      "elapsed_seconds": 600.59,
+      "specialist_calls": 6,
+      "methods_actually_read": [
+        "audit-offer",
+        "hormozi-offer",
+        "value-perception",
+        "pricing-strategy"
+      ],
+      "original_input_unchanged": true,
+      "persisted_artifacts": [
+        "ORIGINAL_OFFER_AUDIT.md",
+        "OFFER.md",
+        "REVISED_OFFER_CHECK.md",
+        "PRICING.md",
+        "CHECKPOINT.md",
+        "QA_REPORT.md",
+        "BRIEF.json",
+        "OFFER_DECISIONS.json",
+        "CLAIMS.json",
+        "RUN_STATE.json"
+      ],
+      "persisted_phase": "READY",
+      "validator_executed_by_native_controller_observed": false,
+      "root_followup_ready_validator_exit": 0,
+      "root_followup_ready_validator_result": "PASS",
+      "final_native_owner_response_observed": false,
+      "limits": "Parent hit worker wall bound after persisting state. Root completed deterministic QA using that same persisted fixture; no restart or new fixture. A completed native conversational handoff within the bound is not proven."
+    }
+  },
+  "local_checks": {
+    "unit_tests": 167,
+    "unit_result": "PASS",
+    "repo_check": "PASS",
+    "claude_manifest": "PASS with listing/context warnings"
+  },
+  "release_status": "DRAFT PR: source review passed; timed native handoff, optional Codex runtime coverage and semantic prose limits remain explicit.",
+  "implementation_reviewed_head": "28f810b8ad4698aecd485249e385bf37b6f3f347",
+  "code_review": {
+    "verdict": "PASS",
+    "scope": "Currency fixes at49ba reviewed with128 whole-READY variants; final context-only correction at28f independently reviewed.",
+    "full_units": 167,
+    "units_head": "49ba1dbbf97ea066198ed0be33c40b84554a5a23",
+    "subsequent_focused_workflow_tests": 35,
+    "focused_tests_head": "28f810b8ad4698aecd485249e385bf37b6f3f347"
+  }
+}
