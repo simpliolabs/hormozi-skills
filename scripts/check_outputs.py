@@ -142,6 +142,9 @@ def validate_run(run_dir: Path, workspace_root: Path, mode: str = "ready") -> li
 
     if state:
         findings += _check_tasks(state, workspace)
+        findings += _check_inputs(state, brief)
+        findings += _check_routes(state, brief, mode)
+        findings += _check_receipts(state, workspace)
         findings += _check_routing(state)
         findings += _check_artifacts(state, decisions, claims, brief, workspace, mode)
     return findings
@@ -195,6 +198,127 @@ def _check_tasks(state, workspace) -> list[Finding]:
             if key in owner and owner[key] != t["id"]:
                 out.append(Finding("WRITE_SET_OVERLAP", "error", key, f"assigned to both {owner[key]} and {t['id']}"))
             owner[key] = t["id"]
+    return out
+
+
+# ------------------------------------------------------- declared A-E routes
+_NOT_RUN = {"not_requested", "not_applicable"}
+# Each rule: (role, mode) must be an ancestor of (role, mode) whenever both exist in the run.
+ROUTES = {
+    "A": {"required": [("sub-offer", "proposal"), ("sub-pricing", "final_feasibility")],
+          "order": [(("sub-offer", "proposal"), ("sub-value", "audit")),
+                    (("sub-offer", "proposal"), ("sub-pricing", "final_feasibility")),
+                    (("sub-value", "audit"), ("sub-pricing", "final_feasibility"))]},
+    "B": {"required": [("sub-value", "diagnostic"), ("sub-offer", "revision"),
+                       ("sub-value", "revised_check"), ("sub-pricing", "final_feasibility")],
+          "order": [(("sub-value", "diagnostic"), ("sub-offer", "revision")),
+                    (("sub-offer", "revision"), ("sub-value", "revised_check")),
+                    (("sub-offer", "revision"), ("sub-pricing", "final_feasibility")),
+                    (("sub-value", "revised_check"), ("sub-pricing", "final_feasibility"))]},
+    "D": {"required": [("sub-offer", "revision"), ("sub-pricing", "final_feasibility")],
+          "order": [(("sub-pricing", "packaging_exploration"), ("sub-offer", "revision")),
+                    (("sub-offer", "revision"), ("sub-value", "revised_check")),
+                    (("sub-offer", "revision"), ("sub-pricing", "final_feasibility")),
+                    (("sub-value", "revised_check"), ("sub-pricing", "final_feasibility"))]},
+    "C": {"required": [], "order": []},
+    "E": {"required": [], "order": []},
+}
+PRICED_STAGES = ("A", "B", "D")
+
+
+def _norm_path(p: str) -> str:
+    return p.replace("\\", "/")
+
+
+def _ancestors(tasks: dict, tid: str) -> set:
+    seen, stack = set(), list(tasks[tid]["depends_on"])
+    while stack:
+        n = stack.pop()
+        if n in seen or n not in tasks:
+            continue
+        seen.add(n)
+        stack.extend(tasks[n]["depends_on"])
+    return seen
+
+
+def _check_inputs(state, brief) -> list[Finding]:
+    """A task reads only brief sources and the frozen outputs of its declared dependencies."""
+    out, tasks = [], {t["id"]: t for t in state["tasks"]}
+    sources = {_norm_path(s["path"]) for s in brief["sources"]} if brief else set()
+    for t in state["tasks"]:
+        if t["status"] not in ("done", "running"):
+            continue
+        have = {_norm_path(i["path"]) for i in t["inputs"]}
+        for dep in t["depends_on"]:
+            d = tasks.get(dep)
+            if d is None or d["status"] != "done":
+                continue
+            for w in d["write_set"]:
+                if _norm_path(w) not in have:
+                    out.append(Finding("INPUT_UNBOUND", "error", t["id"], f"output {w} of dependency {dep} is not frozen as a hashed input"))
+        allowed = set(sources)
+        for a in _ancestors(tasks, t["id"]):
+            allowed |= {_norm_path(w) for w in tasks[a]["write_set"]}
+        for path in sorted(have - allowed):
+            if brief:
+                out.append(Finding("INPUT_UNDECLARED", "error", t["id"], f"input {path} is neither a brief source nor the output of a declared dependency"))
+    return out
+
+
+def _matching(state, role, mode):
+    return [t for t in state["tasks"] if t["role"] == role and t.get("mode") == mode and t["status"] not in _NOT_RUN]
+
+
+def _check_routes(state, brief, mode) -> list[Finding]:
+    if not brief:
+        return []
+    stage = brief["stage"]
+    route, out = ROUTES[stage], []
+    tasks = {t["id"]: t for t in state["tasks"]}
+    for before, after in route["order"]:
+        for a in _matching(state, *after):
+            for b in _matching(state, *before):
+                if b["id"] not in _ancestors(tasks, a["id"]):
+                    out.append(Finding("ROUTE_ORDER_VIOLATION", "error", a["id"], f"stage {stage}: {before[1]} ({b['id']}) must be a declared dependency of {after[1]}"))
+    if stage in PRICED_STAGES:
+        for sales in (t for t in state["tasks"] if t["role"] == "sub-sales" and t["status"] not in _NOT_RUN):
+            for p in _matching(state, "sub-pricing", "final_feasibility"):
+                if p["id"] not in _ancestors(tasks, sales["id"]):
+                    out.append(Finding("ROUTE_ORDER_VIOLATION", "error", sales["id"], f"stage {stage}: copy must follow final pricing {p['id']}"))
+    if stage == "C":
+        for t in state["tasks"]:
+            if t["role"] in ("sub-market", "sub-offer", "sub-pricing") and t["status"] not in _NOT_RUN:
+                out.append(Finding("ROUTE_COPY_ONLY_REWORKS_TERMS", "error", t["id"], "stage C is copy-only; terms, pricing and market work stay as authorized"))
+    if stage == "B":
+        frozen = {(_norm_path(s["path"]), s["sha256"]) for s in brief["sources"]}
+        for t in _matching(state, "sub-value", "diagnostic"):
+            if t["status"] == "done" and not any((_norm_path(i["path"]), i["sha256"]) in frozen for i in t["inputs"]):
+                out.append(Finding("ORIGINAL_SNAPSHOT_NOT_AUDITED", "error", t["id"], "the diagnostic must read the frozen original offer, not a later or pre-existing file"))
+    if mode == "ready":
+        if stage == "C" and not any(t["role"] == "sub-sales" and t["status"] == "done" for t in state["tasks"]):
+            out.append(Finding("ROUTE_TASK_MISSING", "error", "RUN_STATE.json", "stage C needs a completed sub-sales task"))
+        for role, md in route["required"]:
+            if not any(t["role"] == role and t.get("mode") == md and t["status"] == "done" for t in state["tasks"]):
+                out.append(Finding("ROUTE_TASK_MISSING", "error", "RUN_STATE.json", f"stage {stage} requires a completed {role} task in mode '{md}'"))
+    return out
+
+
+def _check_receipts(state, workspace) -> list[Finding]:
+    """Checkpoint and QA receipts are bound to file bytes and the decision version."""
+    out = []
+    for key, code in (("checkpoint", "CHECKPOINT_STALE"), ("qa_receipt", "QA_RECEIPT_STALE")):
+        rec = state.get(key)
+        if not rec:
+            continue
+        full, err = _resolve_inside(workspace, rec["path"])
+        if err:
+            out.append(err)
+        elif not full.exists() or sha256_bytes(full.read_bytes()) != rec["sha256"]:
+            out.append(Finding(code, "error", rec["path"], "file is missing or its bytes changed since the receipt was bound"))
+        elif rec["decision_version"] != state["decision_version"]:
+            out.append(Finding(code, "error", rec["path"], "receipt was bound to a different decision version"))
+    if state["qa_result"] == "pass" and not state.get("qa_receipt"):
+        out.append(Finding("QA_RECEIPT_MISSING", "error", "RUN_STATE.json", "qa_result 'pass' needs a hash-bound QA receipt"))
     return out
 
 

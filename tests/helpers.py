@@ -79,7 +79,7 @@ def build_run(workspace: Path, body: str = PITCH_BODY):
     state = {
         "schema_version": 1, "run_id": RUN_ID, "phase": "READY",
         "tasks": [
-            {"id": "t_offer", "role": "sub-offer", "status": "done", "depends_on": [], "inputs": [], "write_set": []},
+            {"id": "t_offer", "role": "sub-offer", "status": "not_applicable", "depends_on": [], "inputs": [], "write_set": []},
             {"id": "t_sales", "role": "sub-sales", "status": "done", "depends_on": ["t_offer"],
              "inputs": [{"path": "input/offer.md", "sha256": sha(src.read_bytes())}], "write_set": ["output/PITCH.md"]},
         ],

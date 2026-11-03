@@ -81,6 +81,8 @@
         }
       }
     },
+    "checkpoint": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "decision_version"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "decision_version": {"type": "integer", "minimum": 1}}},
+    "qa_receipt": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "decision_version"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "decision_version": {"type": "integer", "minimum": 1}}},
     "blockers": {"type": "array", "items": {"type": "string"}},
     "qa_result": {"enum": ["not_run", "pass", "held", "invalid"]}
   }
