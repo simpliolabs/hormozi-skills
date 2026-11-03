@@ -455,7 +455,9 @@ def _check_bindings(art, fields, text, path) -> list[Finding]:
 
 _KNOWN_CCY = {"USD", "EUR", "GBP", "CAD", "AUD", "NZD", "MXN", "SGD", "HKD", "JPY", "CHF", "INR", "BRL", "SEK", "NOK", "DKK", "ZAR", "AED"}
 _SYMBOL_CCY = {"$": {"USD", "CAD", "AUD", "NZD", "MXN", "SGD", "HKD"}, "\u20ac": {"EUR"}, "\u00a3": {"GBP"}}
-_AMOUNT = re.compile(r"(?:\b([A-Z]{3})\s?)?(?:([$\u20ac\u00a3])\s?)?(\d[\d,]*(?:\.\d+)?)(?![\d,])(?:\s?\b([A-Z]{3})\b)?")
+# A trailing code is a lookahead and only belongs to this amount when it is not itself the prefix of the next one,
+# so a code is never consumed away from the following amount; whitespace of any kind/width may separate token and number.
+_AMOUNT = re.compile(r"(?:\b([A-Z]{3})\s*)?(?:([$\u20ac\u00a3])\s*)?(\d[\d,]*(?:\.\d+)?)(?![\d,])(?=(?:\s*\b([A-Z]{3})\b(?!\s*[$\u20ac\u00a3]?\s*\d))?)")
 _CADENCE_WORDS = {
     "one_time": r"one[- ]time|\bonce\b|single payment|upfront|lump[- ]sum",
     "monthly": r"monthly|per month|a month|/\s?mo\b|each month|every month",

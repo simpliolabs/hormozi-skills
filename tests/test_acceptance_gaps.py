@@ -12,7 +12,7 @@ class MoneyCase(RunCase):
         refresh_artifact_hash(self.run_dir, self.ws)
         self.edit_state(lambda s: s["artifacts"][0]["bindings"][0].__setitem__("rendered_text", new))
         if drop_display:
-            self.edit_decisions(lambda d: d["fields"]["price"].pop("display"))
+            self.edit_decisions(lambda d: d["fields"]["price"].pop("display", None))
 
 
 class TestCanonicalMoney(MoneyCase):
@@ -160,6 +160,39 @@ class TestRegressionsOnWholeRun(MoneyCase):
     def test_code_contradicting_symbol_held(self):
         self.render("$2,500 one-time", "EUR $2,500 one-time")
         self.assertIn("MONEY_RENDER_MISMATCH", codes(self.validate()))
+
+    # --- 2b. explicit codes must survive arbitrary whitespace and adjacent currency tokens
+    def test_code_survives_multiple_whitespace_held(self):
+        for text in ("CAD  $2,500 one-time", "$2,500  CAD one-time", "CAD\t$2,500 one-time",
+                     "$2,500\nCAD one-time", "CAD \n $2,500 one-time"):
+            with self.subTest(text=text):
+                self.render("$2,500 one-time", text)
+                self.assertIn("MONEY_RENDER_MISMATCH", codes(self.validate()))
+                self.render(text, "$2,500 one-time", drop_display=False)
+
+    def test_second_currency_marked_amount_is_still_checked(self):
+        for text in ("USD 2,500\tUSD 9,999 one-time", "USD 2,500 USD 9,999 one-time",
+                     "USD 2,500 one-time, USD 9,999"):
+            with self.subTest(text=text):
+                self.render("$2,500 one-time", text)
+                self.assertIn("MONEY_RENDER_MISMATCH", codes(self.validate()))
+                self.render(text, "$2,500 one-time", drop_display=False)
+
+    def test_second_amount_wrong_code_after_matching_first_held(self):
+        self.render("$2,500 one-time", "USD 2,500 one-time CAD 2,500")
+        self.assertIn("MONEY_RENDER_MISMATCH", codes(self.validate()))
+
+    def test_matching_codes_with_arbitrary_whitespace_pass(self):
+        for text in ("USD  $2,500 one-time", "$2,500  USD one-time", "USD\t2,500 one-time",
+                     "$2,500 USD\t$2,500 USD one-time"):
+            with self.subTest(text=text):
+                self.render("$2,500 one-time", text)
+                self.assertEqual(self.validate(), [])
+                self.render(text, "$2,500 one-time", drop_display=False)
+
+    def test_unrelated_prose_with_codes_and_numbers_is_not_a_money_claim(self):
+        self.render("$2,500 one-time", "$2,500 one-time. The CEO  2,000 staff and 3 USA offices.")
+        self.assertEqual(self.validate(), [])
 
     def test_matching_code_with_symbol_passes_usd_and_cad(self):
         self.render("$2,500 one-time", "USD $2,500 one-time")
