@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/simpliolabs/hormozi-skills/contracts/offer-decisions.schema.json",
+  "title": "OFFER_DECISIONS",
+  "description": "Root-owned commercial record. Unknown is never zero: a field whose status is unknown must have a null value.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "offer_id", "version", "parent_hash", "fields"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "offer_id": {"type": "string", "minLength": 1},
+    "version": {"type": "integer", "minimum": 1},
+    "parent_hash": {"oneOf": [{"type": "null"}, {"type": "string", "pattern": "^[0-9a-f]{64}$"}]},
+    "fields": {"type": "object", "additionalProperties": {"$ref": "#/$defs/field"}}
+  },
+  "$defs": {
+    "money": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount_minor", "currency", "cadence"],
+      "properties": {
+        "amount_minor": {"type": "integer", "minimum": 0},
+        "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+        "cadence": {"enum": ["one_time", "monthly", "quarterly", "yearly", "per_unit"]}
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "status", "owner", "updated"],
+      "properties": {
+        "value": {},
+        "display": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["text", "money", "guarantee", "eligibility", "list"]},
+        "status": {"enum": ["unknown", "proposed", "approved", "held", "superseded"]},
+        "owner": {"type": "string", "minLength": 1},
+        "updated": {"type": "string", "minLength": 1},
+        "evidence": {"type": "array", "items": {"type": "string"}},
+        "authorization_ref": {"type": "string"},
+        "claim_refs": {"type": "array", "items": {"type": "string"}},
+        "conditions": {"type": "array", "items": {"type": "string"}}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "unknown"}}, "required": ["status"]}, "then": {"properties": {"value": {"type": "null"}}}},
+        {"if": {"properties": {"kind": {"const": "money"}, "status": {"not": {"const": "unknown"}}}, "required": ["kind", "status"]}, "then": {"properties": {"value": {"$ref": "#/$defs/money"}}}}
+      ]
+    }
+  }
+}
