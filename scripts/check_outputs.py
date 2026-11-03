@@ -137,17 +137,39 @@ def validate_run(run_dir: Path, workspace_root: Path, mode: str = "ready") -> li
             elif not full.exists() or sha256_bytes(full.read_bytes()) != src["sha256"]:
                 findings.append(Finding("SOURCE_HASH_MISMATCH", "error", src["path"], "source changed or missing since the brief was frozen"))
 
+    findings += _check_identity(brief, decisions, state)
     if decisions and state:
         findings += _check_decisions_vs_state(run_dir, decisions, state)
 
     if state:
         findings += _check_tasks(state, workspace)
+        if mode == "ready":
+            findings += _check_ready_state(state)
         findings += _check_inputs(state, brief)
         findings += _check_routes(state, brief, mode)
         findings += _check_receipts(state, workspace)
         findings += _check_routing(state)
         findings += _check_artifacts(state, decisions, claims, brief, workspace, mode)
     return findings
+
+
+def _check_identity(brief, decisions, state) -> list[Finding]:
+    """BRIEF, OFFER_DECISIONS and RUN_STATE must describe the same run and offer."""
+    out = []
+    if brief and state and brief["run_id"] != state["run_id"]:
+        out.append(Finding("RUN_IDENTITY_MISMATCH", "error", "RUN_STATE.json", f"run_id {state['run_id']!r} differs from BRIEF run_id {brief['run_id']!r}"))
+    if brief and decisions and brief["offer_id"] != decisions["offer_id"]:
+        out.append(Finding("RUN_IDENTITY_MISMATCH", "error", "OFFER_DECISIONS.json", f"offer_id {decisions['offer_id']!r} differs from BRIEF offer_id {brief['offer_id']!r}"))
+    return out
+
+
+def _check_ready_state(state) -> list[Finding]:
+    """Ready means nothing is open: no blockers and every declared task finished or explicitly not run."""
+    out = [Finding("BLOCKER_OPEN", "error", "RUN_STATE.json", f"unresolved blocker: {b}") for b in state["blockers"]]
+    for t in state["tasks"]:
+        if t["status"] not in ("done", "not_requested", "not_applicable"):
+            out.append(Finding("TASK_INCOMPLETE_IN_READY", "error", t["id"], f"task is {t['status']}; ready needs every task done or explicitly not run"))
+    return out
 
 
 def _check_decisions_vs_state(run_dir, decisions, state) -> list[Finding]:
@@ -335,11 +357,11 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
     tasks = {t["id"]: t for t in state["tasks"]}
     fields = decisions["fields"] if decisions else {}
     ledger = {c["id"]: c for c in claims["claims"]} if claims else {}
-    manifest_names = set()
+    manifest_paths = set()
 
     for art in state["artifacts"]:
         path = art["path"]
-        manifest_names.add(Path(path).name)
+        manifest_paths.add(_norm_path(path))
         full, err = _resolve_inside(workspace, path)
         if err:
             out.append(err)
@@ -354,6 +376,8 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
         if art["decision_version"] != state["decision_version"]:
             out.append(Finding("ARTIFACT_DECISION_STALE", "error", path, "built against an older decision version"))
         task = tasks.get(art["task"])
+        if task is not None and mode == "ready" and task["status"] != "done":
+            out.append(Finding("ARTIFACT_PRODUCER_INCOMPLETE", "error", path, f"producing task {art['task']} is {task['status']}, not done"))
         if task is None:
             out.append(Finding("ARTIFACT_TASK_UNKNOWN", "error", path, f"task {art['task']} is not declared"))
         elif task["write_set"] and path.replace("\\", "/") not in [w.replace("\\", "/") for w in task["write_set"]]:
@@ -371,7 +395,10 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
 
     if brief:
         for req in brief["requested_artifacts"]:
-            if Path(req).name not in manifest_names and mode == "ready":
+            # exact path: a bare name means output/<name>; never match on basename alone
+            wanted = _norm_path(req)
+            wanted = wanted[2:] if wanted.startswith("./") else wanted
+            if mode == "ready" and wanted not in manifest_paths and f"output/{wanted}" not in manifest_paths:
                 out.append(Finding("REQUESTED_ARTIFACT_MISSING", "error", req, "requested artifact is not in the output manifest"))
     return out
 
@@ -391,6 +418,13 @@ def _check_bindings(art, fields, text, path) -> list[Finding]:
             out.append(Finding("BINDING_MISSING", "error", path, f"uses '{name}' without binding it to rendered text"))
             continue
         display = field.get("display")
+        if field.get("kind") == "money" and isinstance(field.get("value"), dict):
+            for label, rendered in (("display", display), ("binding", b["rendered_text"])):
+                if rendered is not None:
+                    out += [Finding("MONEY_RENDER_MISMATCH", "error", path, f"'{name}' {label}: {why}") for why in _money_problems(field["value"], rendered)]
+        for cond in field.get("conditions", []):
+            if _norm(cond) not in _norm(b["rendered_text"]):
+                out.append(Finding("GUARANTEE_CONDITION_MISSING", "error", path, f"rendered terms for '{name}' omit required condition: {cond}"))
         if display is not None and b["rendered_text"] != display:
             out.append(Finding("BINDING_DISPLAY_MISMATCH", "error", path, f"binding for '{name}' differs from the canonical wording"))
         if b["rendered_text"] not in text:
@@ -399,6 +433,48 @@ def _check_bindings(art, fields, text, path) -> list[Finding]:
         if name not in art.get("uses_fields", []):
             out.append(Finding("BINDING_MISSING", "error", path, f"binding for '{name}' is not declared in uses_fields"))
     return out
+
+
+_KNOWN_CCY = {"USD", "EUR", "GBP", "CAD", "AUD", "NZD", "MXN", "SGD", "HKD", "JPY", "CHF", "INR", "BRL", "SEK", "NOK", "DKK", "ZAR", "AED"}
+_SYMBOL_CCY = {"$": {"USD", "CAD", "AUD", "NZD", "MXN", "SGD", "HKD"}, "\u20ac": {"EUR"}, "\u00a3": {"GBP"}}
+_AMOUNT = re.compile(r"(?:\b([A-Z]{3})\s?|([$\u20ac\u00a3])\s?)(\d[\d,]*(?:\.\d+)?)(?![\d,])")
+_CADENCE_WORDS = {
+    "one_time": r"one[- ]time|\bonce\b|single payment|upfront|lump[- ]sum",
+    "monthly": r"monthly|per month|a month|/\s?mo\b|each month|every month",
+    "quarterly": r"quarterly|per quarter|a quarter|each quarter",
+    "yearly": r"yearly|annual|per year|a year|/\s?yr\b|each year|every year",
+    "per_unit": r"per (?!month|year|quarter)[a-z]+|each (?!month|year|quarter)[a-z]+|/\s?(?:seat|user|unit)\b",
+}
+
+
+def _money_problems(value: dict, rendered: str) -> list[str]:
+    """Deterministic rendering check: every currency-marked amount, its currency and the cadence wording
+    in `rendered` must equal the structured money value. Unrelated example amounts live in prose, not in a bound rendering."""
+    from decimal import Decimal
+    want = Decimal(value["amount_minor"]) / 100
+    ccy, cadence = value["currency"], value["cadence"]
+    amounts = []
+    for m in _AMOUNT.finditer(rendered):
+        code, sym, num = m.groups()
+        if code and code not in _KNOWN_CCY:
+            continue
+        amounts.append((code, sym, Decimal(num.replace(",", ""))))
+    if not amounts:
+        return [f"no currency-marked amount; expected {ccy} {want.normalize():,f}"]
+    problems = []
+    for code, sym, amt in amounts:
+        if amt != want:
+            problems.append(f"amount {amt.normalize():,f} differs from canonical {want.normalize():,f}")
+        if code and code != ccy:
+            problems.append(f"currency {code} differs from canonical {ccy}")
+        if sym and ccy not in _SYMBOL_CCY[sym]:
+            problems.append(f"symbol {sym} does not denote canonical {ccy}")
+    found = {k for k, rx in _CADENCE_WORDS.items() if re.search(rx, rendered, re.I)}
+    if cadence not in found:
+        problems.append(f"cadence '{cadence}' is not stated")
+    for other in sorted(found - {cadence}):
+        problems.append(f"cadence wording for '{other}' conflicts with canonical '{cadence}'")
+    return problems
 
 
 def _norm(s: str) -> str:

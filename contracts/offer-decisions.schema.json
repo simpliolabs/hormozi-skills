@@ -42,6 +42,7 @@
       },
       "allOf": [
         {"if": {"properties": {"status": {"const": "unknown"}}, "required": ["status"]}, "then": {"properties": {"value": {"type": "null"}}}},
+        {"if": {"properties": {"value": {"type": "object", "required": ["amount_minor"]}}, "required": ["value"]}, "then": {"required": ["kind"], "properties": {"kind": {"const": "money"}}}},
         {"if": {"properties": {"kind": {"const": "money"}, "status": {"not": {"const": "unknown"}}}, "required": ["kind", "status"]}, "then": {"properties": {"value": {"$ref": "#/$defs/money"}}}}
       ]
     }
