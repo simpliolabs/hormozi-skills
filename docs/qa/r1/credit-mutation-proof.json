@@ -1,0 +1,429 @@
+{
+  "classification": "tested simulated mutation of observed native credit assets, not another generated run",
+  "checker_source_commit": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7",
+  "baseline_claim_findings": 0,
+  "mutations_total": 30,
+  "all_rejected": true,
+  "mutations": [
+    {
+      "asset": "output/OFFER.md",
+      "claim_id": "C2",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/OFFER.md",
+          "reason": "blocked claim C2 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/OFFER.md",
+      "claim_id": "C3",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/OFFER.md",
+          "reason": "blocked claim C3 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/OFFER.md",
+      "claim_id": "C4",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/OFFER.md",
+          "reason": "blocked claim C4 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/OFFER.md",
+      "claim_id": "C5",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/OFFER.md",
+          "reason": "blocked claim C5 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/OFFER.md",
+      "claim_id": "C6",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/OFFER.md",
+          "reason": "blocked claim C6 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/OFFER.md",
+      "claim_id": "C7",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/OFFER.md",
+          "reason": "blocked claim C7 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PRICING.md",
+      "claim_id": "C2",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PRICING.md",
+          "reason": "blocked claim C2 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PRICING.md",
+      "claim_id": "C3",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PRICING.md",
+          "reason": "blocked claim C3 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PRICING.md",
+      "claim_id": "C4",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PRICING.md",
+          "reason": "blocked claim C4 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PRICING.md",
+      "claim_id": "C5",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PRICING.md",
+          "reason": "blocked claim C5 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PRICING.md",
+      "claim_id": "C6",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PRICING.md",
+          "reason": "blocked claim C6 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PRICING.md",
+      "claim_id": "C7",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PRICING.md",
+          "reason": "blocked claim C7 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PITCH.md",
+      "claim_id": "C2",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PITCH.md",
+          "reason": "blocked claim C2 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PITCH.md",
+      "claim_id": "C3",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PITCH.md",
+          "reason": "blocked claim C3 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PITCH.md",
+      "claim_id": "C4",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PITCH.md",
+          "reason": "blocked claim C4 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PITCH.md",
+      "claim_id": "C5",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PITCH.md",
+          "reason": "blocked claim C5 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PITCH.md",
+      "claim_id": "C6",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PITCH.md",
+          "reason": "blocked claim C6 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/PITCH.md",
+      "claim_id": "C7",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/PITCH.md",
+          "reason": "blocked claim C7 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/LANDING_PAGE.md",
+      "claim_id": "C2",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/LANDING_PAGE.md",
+          "reason": "blocked claim C2 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/LANDING_PAGE.md",
+      "claim_id": "C3",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/LANDING_PAGE.md",
+          "reason": "blocked claim C3 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/LANDING_PAGE.md",
+      "claim_id": "C4",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/LANDING_PAGE.md",
+          "reason": "blocked claim C4 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/LANDING_PAGE.md",
+      "claim_id": "C5",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/LANDING_PAGE.md",
+          "reason": "blocked claim C5 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/LANDING_PAGE.md",
+      "claim_id": "C6",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/LANDING_PAGE.md",
+          "reason": "blocked claim C6 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/LANDING_PAGE.md",
+      "claim_id": "C7",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/LANDING_PAGE.md",
+          "reason": "blocked claim C7 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/SUMMARY.md",
+      "claim_id": "C2",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/SUMMARY.md",
+          "reason": "blocked claim C2 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/SUMMARY.md",
+      "claim_id": "C3",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/SUMMARY.md",
+          "reason": "blocked claim C3 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/SUMMARY.md",
+      "claim_id": "C4",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/SUMMARY.md",
+          "reason": "blocked claim C4 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/SUMMARY.md",
+      "claim_id": "C5",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/SUMMARY.md",
+          "reason": "blocked claim C5 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/SUMMARY.md",
+      "claim_id": "C6",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/SUMMARY.md",
+          "reason": "blocked claim C6 wording appears in the artifact"
+        }
+      ]
+    },
+    {
+      "asset": "output/SUMMARY.md",
+      "claim_id": "C7",
+      "fresh_artifact_and_review_hashes": true,
+      "claim_ids_not_added": true,
+      "detected": [
+        {
+          "code": "CLAIM_UNSUPPORTED_IN_READY",
+          "severity": "error",
+          "artifact": "output/SUMMARY.md",
+          "reason": "blocked claim C7 wording appears in the artifact"
+        }
+      ]
+    }
+  ]
+}

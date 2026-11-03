@@ -1,0 +1,21 @@
+{
+  "classification": "raw observed synthetic consumer inputs/artifacts; no session transcript or private reasoning",
+  "sha256": "e98b00a9a6c6209e49e8acea6827524e9eecd2a26202a76db48a800d7daab1f2",
+  "cases": [
+    "stage-a",
+    "stage-b",
+    "credit-negative"
+  ],
+  "source_pins": [
+    "27484b1a944a06b1f17f45a7a912d2490137aa72",
+    "1c365c2a2c2b0f34ccf2ae39b98b7fcc9486b3e5"
+  ],
+  "rechecked_with": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7",
+  "expected_ready_results": {
+    "stage-a": "HELD2realbusiness/hypothesisholds",
+    "stage-b-pass2": "HELD11realbusiness/independentreviewholds",
+    "credit-negative": "HELD11admission/operation/economics/independentreviewholds"
+  },
+  "note": "Historical firstB record refers to then-active paths; exact prior bytes are in its archive. Validate latest pass2 record for current workspace. Absolute recorded paths may appear in raw receipts; runtime instructions use plugin/workspace roots.",
+  "readable_copy_note": "Readable MD/JSON copies may receive normal Git newline conversion. The binary ZIP is authoritative for exact original byte hashes."
+}

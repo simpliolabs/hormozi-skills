@@ -1,0 +1,33 @@
+{
+  "type": "observed actual generated text plus principal semantic review",
+  "source_commit": "1c365c2a2c2b0f34ccf2ae39b98b7fcc9486b3e5",
+  "all_customer_assets_reviewed": [
+    "OFFER",
+    "PRICING",
+    "PITCH",
+    "LANDING_PAGE",
+    "SUMMARY"
+  ],
+  "blocked_from_customer_assets": [
+    "promotional5500 as approved/usable amount",
+    "single-case800 generalized to all buyers",
+    "monthly bureau reporting without acceptedfileproof",
+    "live annualfee refund without launchedprogram",
+    "synthetic customerquote as realtestimonial",
+    "invented scarcity/deadline"
+  ],
+  "result": "PASS for this exact synthetic negative fixture; customer assets remain DRAFT/HELD, not publishable",
+  "checks": {
+    "OFFER": "1ca0c1623b4b927a6b83a9bd853d9e37ae308060d1145b952e1ea2f18784cece",
+    "PRICING": "de65e0889f8733b2b77ca998dba229014ea2a55583e285e4f33f7bbea9781665",
+    "PITCH": "019857e753a6222020339b712fd2726b3e35e75bde7a1250c3a47306a15ee252",
+    "LANDING_PAGE": "5fda23f4e81a546a91bb81b719bc722d39dc8d07926ca56a727f8946d439e9d9",
+    "SUMMARY": "ead67d348fe816bc7af455caea0357774ce77d451ed704a72cf041276aded082"
+  },
+  "limits": [
+    "Not a proof that all possible paraphrases are machine-detected.",
+    "Control records are cooperative and not authenticated.",
+    "Independent-review and commercial-operation holds remain in native records.",
+    "Final corrected checker will be rerun against these exact persisted files."
+  ]
+}

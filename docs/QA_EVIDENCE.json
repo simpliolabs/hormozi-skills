@@ -1,252 +1,197 @@
 {
-  "schema_version": 1,
-  "scope": "Synthetic local engineering acceptance; no publication, deployment or commercial-performance inference.",
-  "baseline": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
-  "method_candidate": "49ba1dbbf97ea066198ed0be33c40b84554a5a23",
-  "tools": {
-    "claude": "2.1.311",
-    "codex": "0.164.0-alpha.11.1"
-  },
-  "model_settings": {
-    "claude_generator_requested": "sonnet",
-    "claude_generator_observed": "claude-sonnet-5-5",
-    "effort_requested": "medium",
-    "effort_runtime_observed": "unknown",
-    "judge_requested": "fable",
-    "judge_runtime_observed": "unknown"
-  },
-  "standalone": {
-    "original_business_skills": 17,
-    "initial_raw_rubric_passes": 17,
-    "cases": [
-      {
-        "skill": "audit-offer",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "ae3e4d7f6b45115c208634564da112f49b08bd460c9401169dc956b1c0c0d2ca"
-      },
-      {
-        "skill": "bonus-stack",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "1756c149d1d33234fefe49de8aeef37f2820d7f257f96f3a2cd152b40d16fb1f"
-      },
-      {
-        "skill": "business-model",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "8c838c29ebd1f3f56ce32211ed7172ed782948b3fc4f509d79fe4dedb183a433"
-      },
-      {
-        "skill": "dfy-dwy-diy",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "b344655d18ba9a24386fef193a5ebcd56f8eae0e87a31f3a142f31222cf5c29d"
-      },
-      {
-        "skill": "effort-reduction",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "378ed912f26e75699f9574f03339a6e6c8e23bf9179666f29bd8fc3f26b613af"
-      },
-      {
-        "skill": "hormozi-hooks",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "7669eeee0c2db4cedffb130456d6c486b4511e12c246fbce3bf7cc00f5198c6d"
-      },
-      {
-        "skill": "hormozi-offer",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "591934480cdf17874c98b1f06958c0446975181fdb2f5e560c9cb61b20f013e4"
-      },
-      {
-        "skill": "hormozi-pitch",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "aff1a392012297e30d6dfbdcdd1a8923aa9cbdecac4e624a139bc3cd6323fc93"
-      },
-      {
-        "skill": "idea-to-product",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "9b17e0544553ce7a486606727ac1e80b93b3bfdeb2ee07477dec9c9dc2bb5349"
-      },
-      {
-        "skill": "landing-page-copy",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "5592c6336f585a08469c1d8281e48334e47fa12c067cdd4e50abbb6e236e83c2"
-      },
-      {
-        "skill": "market-research",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "6cdeaae82040fa73ca3e1855ea25dd127339b2acf60693176f9077d624726fdd"
-      },
-      {
-        "skill": "objection-destroyer",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "2a2dd1a462c587dc41e4f33272f8a38ebda4aecfa21f52deb0e6b95daee64302"
-      },
-      {
-        "skill": "offer-angles",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "457ccb3d0acba2bf2914443928a8377020ac025d30398703fff35224b8d0782a"
-      },
-      {
-        "skill": "pricing-strategy",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "14c111fefd6a6195de7cf68f6a38486be05a45bd6d8a46e1d9ca5bb7371f663c"
-      },
-      {
-        "skill": "productize",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "85c8b33cb37d1634d3fd66c5efca4a3f877504567c4b57f828d2560a820eccce"
-      },
-      {
-        "skill": "value-accelerator",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "d5fefbe75fb219ccd23728c9060b1574573702e790d914bab01b24f9d9771802"
-      },
-      {
-        "skill": "value-perception",
-        "native_skill_calls": 1,
-        "raw_pass": true,
-        "final_text_sha256": "f0c7062805133bd95a7ed93b822737107291d356a5a6655babbb479df5290839"
-      }
-    ],
-    "semantic_failures_detected": [
-      "pricing-strategy unsupported maximum cancellation loss",
-      "business-model refund exclusivity/low exposure",
-      "objection-destroyer refund exclusivity inference"
-    ],
-    "targeted_repairs": {
-      "pricing-strategy": "raw PASS; actual artifact preserves unknown fee/facilitator/support treatment",
-      "business-model": "raw PASS; actual artifact does not infer low/exclusive exposure",
-      "objection-destroyer": "raw PASS; actual artifact retains an ambiguous only-if sentence despite later unknown-policy qualification; hold that sentence in semantic review"
+  "schema_version": 2,
+  "status": "DRAFT; no ready-state/merge/publication authorization",
+  "review_input_sha256": "c30dd3c4e16a4265820333aa5fc22feb4301a213a4cfa51a9a6324a6a5b15029",
+  "reviewed_implementation_commit": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7",
+  "previous_pr_head": "735c0ced7941b1d678f235c5a3f05c0750d3d734",
+  "instruction_fix_commit": "1ee0c25",
+  "native_and_benchmark_component_reuse": "All loaded skills/agents/references/contracts/README/dependencies identical27484..9cd; checker-only changes independentlytested and rerunagainstpersistednativeoutputs.",
+  "requirements": [
+    {
+      "requirement": "P0-1",
+      "result": "PASS",
+      "verification_type": "observed native paired comparison",
+      "command_summary": "claude plugin eval <source> --eval-dir evals/paired --model sonnet --judge-model fable --runs 1 --concurrency 1 --ablation none --no-publish --no-scaffold --trust-plugin --allow-tools Write Edit --disallow-tools Bash PowerShell",
+      "fixture": "six identical hash-pinned fixtures",
+      "source_commit": "910545c baseline /27484b1 candidate; unchanged loaded methods through9cd252a",
+      "artifact": "qa/r1/paired-results.json",
+      "limitation": "Baseline6/6 candidate6/6; one sample, no superiorityclaim.",
+      "environment": "Claude Code2.1.311, requestedsonnet/medium andfablejudge",
+      "exact_command_artifact": "../evals/README.md"
     },
-    "limits": "One example per skill and targeted repair. Prompt instructions and rubric votes do not guarantee all future prose. Semantic review of actual text remains required."
-  },
-  "paired": {
-    "baseline_raw_passes": 6,
-    "candidate_raw_passes": 5,
-    "total_cases": 6,
-    "cases": [
-      {
-        "scenario": "contradictory-sources",
-        "candidate_raw_pass": true
-      },
-      {
-        "scenario": "focused-hooks",
-        "candidate_raw_pass": true
-      },
-      {
-        "scenario": "mature-b2b",
-        "candidate_raw_pass": true
-      },
-      {
-        "scenario": "sparse-idea",
-        "candidate_raw_pass": false
-      },
-      {
-        "scenario": "strong-proof",
-        "candidate_raw_pass": true
-      },
-      {
-        "scenario": "weak-existing-offer",
-        "candidate_raw_pass": true
-      }
-    ],
-    "sparse_case_observation": "OFFER.md includes dream outcome, likelihood, time/effort hypotheses and explicit holds; last-message judge did not see artifact body. Raw failure retained. No causal improvement claim.",
-    "improvement_claim": false
-  },
-  "native_evaluator_limits": [
-    "Windows native evaluator shell sandbox unavailable; supported shell-disallow flags used for file-tool draft tests, not full QA.",
-    "One result per case; requested runs1. Three judge votes per rubric are not three independent generation runs.",
-    "Long nested fixture paths reported unresolved-symlink errors before generation; byte-identical short paths executed. Native observer failure not a product pass or failure."
+    {
+      "requirement": "P0-2",
+      "result": "PASS",
+      "verification_type": "observed native Codex",
+      "command_summary": "codex exec ...; codex exec -s workspace-write resume <exact thread_id> ...",
+      "fixture": "StageA checkpoint+resume and StageB first+second",
+      "source_commit": "27484b1 and1c365c2, rechecked9cd252a",
+      "artifact": "qa/r1/native-stage-a.json; qa/r1/native-stage-b.json",
+      "limitation": "Complete ownerresponses; commercial readinessHELDtruthfully.",
+      "environment": "Windows native Codex CLI0.164.0-alpha.11.1, user-approved Sol/medium",
+      "exact_command_artifact": "qa/r1/native-stage-a.json"
+    },
+    {
+      "requirement": "P0-3",
+      "result": "PASS",
+      "verification_type": "observed native runtime + honest fallback",
+      "command_summary": "codex exec --model gpt-6.1-sol -c model_reasoning_effort=medium -s workspace-write ...",
+      "fixture": "explicit absolute rootSKILL invocation",
+      "source_commit": "27484b1 /1c365c2",
+      "artifact": "qa/r1/native-stage-a.json; qa/r1/native-stage-b.json",
+      "limitation": "User approvedtask-onlymodel exception; actualruntime metadataSol/medium. Childroute refused; no childexecutionclaimed. Autoactivation/projectrolesoptionalunverified.",
+      "environment": "Windows native Codex CLI0.164.0-alpha.11.1, user-approved Sol/medium",
+      "exact_command_artifact": "qa/r1/native-stage-a.json"
+    },
+    {
+      "requirement": "P0-4",
+      "result": "PASS",
+      "verification_type": "observed generation + independent prose review + simulated mutations",
+      "command_summary": "native Codex negativecase; final checker validate_run(mode=ready); 30freshhash/reviewmutations",
+      "fixture": "5500promo vs800singlecase, absentacceptedreporting, refundnotlive, fakequote/scarcity",
+      "source_commit": "1c365c2 generation /9cd252a checker",
+      "artifact": "qa/r1/credit-negative/; qa/r1/credit-mutation-proof.json; qa/r1/source-review.json",
+      "limitation": "All5draftsexcludebadpromises; expectedHELD11 prevents publication. No generalparaphraseproof.",
+      "environment": "Windows native Codex CLI0.164.0-alpha.11.1, user-approved Sol/medium",
+      "exact_command_artifact": "qa/r1/native-credit-negative.json"
+    },
+    {
+      "requirement": "P1-1",
+      "result": "PASS",
+      "verification_type": "observed GitHub Actions",
+      "command_summary": "python -m unittest discover -s tests -v; python scripts/check_outputs.py --repo .",
+      "fixture": "Python3.12 Windows+Ubuntu",
+      "source_commit": "9cd252a",
+      "artifact": "qa/r1/ci-proof.json",
+      "limitation": "207tests eachOS; workflowread-onlycontents, no secrets/deploy or swallowedfailures; branchprotectionnotchanged.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-2",
+      "result": "PASS",
+      "verification_type": "revision-pinned evidence",
+      "command_summary": "commands/argv/prompts/sourcepins in linked JSON",
+      "fixture": "this requirementmatrix +rawnativezip",
+      "source_commit": "each row is separately pinned; final data-only commit distinguished",
+      "artifact": "QA_EVIDENCE.json; qa/r1/native-fixtures-manifest.json",
+      "limitation": "Observed/simulated/agentclaims/unverified separated; no self-referentialcommitSHA fabricated.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-3",
+      "result": "PASS",
+      "verification_type": "observed CI + originalnative capability evidence",
+      "command_summary": "python -m unittest discover -s tests -v",
+      "fixture": "17businessskills +create-plugin +newroot =19; five specialists +originalroot agent",
+      "source_commit": "9cd252a CI; original17nativecalls source0eced/49ba, unchanged17businessmethods through9cd",
+      "artifact": "qa/r1/ci-proof.json; qa/r1/source-review.json",
+      "limitation": "Standalonefocusedhooksnativefixturepasses; originalClaudeentrypoints retained. OptionalCodexrolesnotassumedexecuted.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-4",
+      "result": "PASS",
+      "verification_type": "observed native + tested simulated",
+      "command_summary": "same-session StageB pass2; test_review_regressions",
+      "fixture": "unapproved Valuebonus/Pricingfees/Salesguarantee;5assets; price/guaranteemutations",
+      "source_commit": "27484b1 /1c365c2 native;9cd252a simulated",
+      "artifact": "qa/r1/native-stage-b.json; qa/r1/stage-b-archive-proof.json; ../tests/test_review_regressions.py",
+      "limitation": "Inputsunchanged; priorrecords17archived;9manifestartifactsfoundbyhash. Original/revisedchecks distinct. Serialfallback avoids races.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-5",
+      "result": "PASS",
+      "verification_type": "tested simulated plus observed unknown-cost negativecase",
+      "command_summary": "python -m unittest discover -s tests -v",
+      "fixture": "matureB2B EUR4800monthly, CAC/refund/delivery/affiliateunknown",
+      "source_commit": "9cd252a",
+      "artifact": "../tests/fixtures/review_regression_scenarios.json; ../tests/test_review_regressions.py; qa/r1/credit-negative/output/PRICING.md",
+      "limitation": "Full native mature-unknown-B2B generation not claimed; deterministicfixtureblocks certification/zeroing andclaimleaks. Nativecreditpricingalso preservesunknowns.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-6",
+      "result": "PASS",
+      "verification_type": "observed source review, package/runtime paths, comparative measurements",
+      "command_summary": "full source diff review; native plugin eval; Codex manual root; paired reported usage/cost",
+      "fixture": "onechecker/fourcontracts/no service; path/lineendingvariants",
+      "source_commit": "1c365c2 fullreview +9cd252a closure",
+      "artifact": "qa/r1/source-review.json; qa/r1/paired-results.json",
+      "limitation": "Generator reportedUSD0.8025baseline vs1.8814candidate; runtime225.64s vs512.88s. Cache-sensitive smallsample; no savingsclaim. NativeCodex exactbillingunmeasured.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    }
   ],
-  "native_specialist": {
-    "type": "hormozi-skills:sub-offer",
-    "observed_handle": "a380c09e40ac2a2e0",
-    "completed_children": 1,
-    "requested_model": "sonnet",
-    "child_effort_observed": "unknown",
-    "initial_admission_refused": true,
-    "retry": "Read-only audit admitted via documented research exemption; no gate/config edits."
+  "native_environment": {
+    "client": "Codex CLI0.164.0-alpha.11.1",
+    "host": "Windows",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "medium",
+    "effective_runtime_context_model": "gpt-6.1-sol",
+    "effective_runtime_context_effort": "medium",
+    "authorization": "Explicit user-approved exception for native acceptance only; gpt5.5unsupported; globalpolicyunchanged",
+    "automatic_child_admission": "refused; transparent sequentialrolefallback, no inventedchildren"
   },
-  "codex": {
-    "installed_skill_directories": 19,
-    "installed_assets": [
+  "ci_environment": {
+    "python": "3.12",
+    "os": [
+      "ubuntu-latest",
+      "windows-latest"
+    ],
+    "observed_tests_each": 207,
+    "run_url": "https://github.com/simpliolabs/hormozi-skills/actions/runs/41738996761",
+    "tested_commit": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7"
+  },
+  "history": {
+    "prior_raw_paired": "6/6baseline vs5/6candidate; retain priorfailure",
+    "failed_fixture": "d sparse-idea",
+    "cause": "Owner response was a file/status index rather than the useful provisionaloffer/ValueEquation; rawartifactcoverage did not cure the missing chatdeliverable.",
+    "fix": "1ee0c25 requires substantive finalownerresponse, preserveshonestholds; sameprompts/rubricsrerun6/6vs6/6",
+    "prior_native_timeout": "600secondbound hit before finalownerresponse; newA/B/negativecasescompletedreal finalresponses withinper-turnbound",
+    "historical_refund_sentence": "An earlier standalone objectiondraft had ambiguous only-if wording; it remainsunapproved/notpublished, not a readyasset."
+  },
+  "evidence_classes": {
+    "observed": "Nativefinalmessages/threadIDs/runtime metadata/files, GitHubchecks and independentreview",
+    "tested_simulated": "Pythonregressions and deliberate mutations, including30mutations ofactualnativeoutputs",
+    "claimed_by_agent": "Agent narrations retainedverbatim but not sole proof; crosschecked usingfiles/checker/metadata where material",
+    "unverified": [
+      "AutomaticCodexskillactivation",
+      "Nativeoptionalprojectroleexecution",
+      "Realbureauuploads/acceptance or liveannualrefundoperations",
+      "Conversionimprovement and actualaccountbilling"
+    ]
+  },
+  "intentionally_unmet": {
+    "commercial_readiness": "Allsyntheticgeneratedassets remainHELD, as correct behavior for missingrealbusinessproof. No criterionwaswaived to forceREADY.",
+    "optional_capabilities": "Autoactivation/projectrolesnotproved orpromised as prerequisite; ownermayaccept explicitmanualentrypoint/sequentialfallback as documented coreminimum."
+  },
+  "raw_native_archive": {
+    "path": "qa/r1/native-fixtures.zip",
+    "sha256": "e98b00a9a6c6209e49e8acea6827524e9eecd2a26202a76db48a800d7daab1f2"
+  },
+  "independent_review": "qa/r1/source-review.json",
+  "method_tree_assertion": {
+    "git_command": [
+      "git",
+      "diff",
+      "--name-only",
+      "27484b1",
+      "9cd252a",
+      "--",
+      "skills",
+      "agents",
       "references",
       "contracts",
-      "scripts/check_outputs.py"
+      "README.md",
+      "requirements-qa.txt"
     ],
-    "installed_methods_read": [
-      "hormozi-orchestrator",
-      "audit-offer"
-    ],
-    "credit_claim_audit": "HOLD: advertised maximum versus usable approved amount; prepared versus accepted reporting; draft versus live refund",
-    "automatic_activation_observed": false,
-    "exact_runtime_model_observed": "unknown",
-    "exact_runtime_effort_observed": "unknown",
-    "optional_project_toml_execution": "untested",
-    "final_method_loading_instruction_changes_retested_in_codex": false
-  },
-  "controller": {
-    "first_run": "Structural ready PASS; selected-method loading not observed; corrected instructions and rerun required.",
-    "final_run": {
-      "method_source_head": "49ba1dbbf97ea066198ed0be33c40b84554a5a23",
-      "native_status": "timeout",
-      "elapsed_seconds": 600.59,
-      "specialist_calls": 6,
-      "methods_actually_read": [
-        "audit-offer",
-        "hormozi-offer",
-        "value-perception",
-        "pricing-strategy"
-      ],
-      "original_input_unchanged": true,
-      "persisted_artifacts": [
-        "ORIGINAL_OFFER_AUDIT.md",
-        "OFFER.md",
-        "REVISED_OFFER_CHECK.md",
-        "PRICING.md",
-        "CHECKPOINT.md",
-        "QA_REPORT.md",
-        "BRIEF.json",
-        "OFFER_DECISIONS.json",
-        "CLAIMS.json",
-        "RUN_STATE.json"
-      ],
-      "persisted_phase": "READY",
-      "validator_executed_by_native_controller_observed": false,
-      "root_followup_ready_validator_exit": 0,
-      "root_followup_ready_validator_result": "PASS",
-      "final_native_owner_response_observed": false,
-      "limits": "Parent hit worker wall bound after persisting state. Root completed deterministic QA using that same persisted fixture; no restart or new fixture. A completed native conversational handoff within the bound is not proven."
-    }
-  },
-  "local_checks": {
-    "unit_tests": 167,
-    "unit_result": "PASS",
-    "repo_check": "PASS",
-    "claude_manifest": "PASS with listing/context warnings"
-  },
-  "release_status": "DRAFT PR: source review passed; timed native handoff, optional Codex runtime coverage and semantic prose limits remain explicit.",
-  "implementation_reviewed_head": "28f810b8ad4698aecd485249e385bf37b6f3f347",
-  "code_review": {
-    "verdict": "PASS",
-    "scope": "Currency fixes at49ba reviewed with128 whole-READY variants; final context-only correction at28f independently reviewed.",
-    "full_units": 167,
-    "units_head": "49ba1dbbf97ea066198ed0be33c40b84554a5a23",
-    "subsequent_focused_workflow_tests": 35,
-    "focused_tests_head": "28f810b8ad4698aecd485249e385bf37b6f3f347"
+    "observed_output": "",
+    "interpretation": "All instruction changes, including1ee0c25, were included in newnative/benchmarkruns; laterchecker-only fixes were rerunonpersistednativeoutputs. Finaldocumentation/data-only commits do not change these runtimecomponents."
   }
 }

@@ -1,0 +1,15 @@
+{
+  "command": [
+    "C:\\Python314\\python.exe",
+    "D:/Dropbox/VS Code/handoff/hormozi-one-chat-2026-11-03/review-r1-2026-11-03/portable-source/scripts/check_outputs.py",
+    "--workspace",
+    "D:\\Dropbox\\VS Code\\handoff\\hormozi-one-chat-2026-11-03\\review-r1-2026-11-03\\native-codex\\credit-negative",
+    "--run",
+    "D:\\Dropbox\\VS Code\\handoff\\hormozi-one-chat-2026-11-03\\review-r1-2026-11-03\\native-codex\\credit-negative\\output\\runs\\pr1-credit-negative",
+    "--mode",
+    "ready"
+  ],
+  "exit_code": 1,
+  "stdout": "[error] BLOCKER_OPEN RUN_STATE.json: unresolved blocker: Native route validation refused: MODEL ROUTE GATE: build expected gpt-5.5/medium, received gpt-6.1-sol/medium\n[error] BLOCKER_OPEN RUN_STATE.json: unresolved blocker: Separate-context independent review missing\n[error] BLOCKER_OPEN RUN_STATE.json: unresolved blocker: Operational inventory/access/terms unverified\n[error] BLOCKER_OPEN RUN_STATE.json: unresolved blocker: Economics and demand unknown\n[error] HIGH_RISK_NO_INDEPENDENT_REVIEW output/OFFER.md: high-risk readiness requires a separate-context reviewer; hold otherwise\n[error] HIGH_RISK_NO_INDEPENDENT_REVIEW output/OFFER_AUDIT.md: high-risk readiness requires a separate-context reviewer; hold otherwise\n[error] HIGH_RISK_NO_INDEPENDENT_REVIEW output/PRICING.md: high-risk readiness requires a separate-context reviewer; hold otherwise\n[error] HIGH_RISK_NO_INDEPENDENT_REVIEW output/COMMERCIAL_FEASIBILITY.md: high-risk readiness requires a separate-context reviewer; hold otherwise\n[error] HIGH_RISK_NO_INDEPENDENT_REVIEW output/PITCH.md: high-risk readiness requires a separate-context reviewer; hold otherwise\n[error] HIGH_RISK_NO_INDEPENDENT_REVIEW output/LANDING_PAGE.md: high-risk readiness requires a separate-context reviewer; hold otherwise\n[error] HIGH_RISK_NO_INDEPENDENT_REVIEW output/SUMMARY.md: high-risk readiness requires a separate-context reviewer; hold otherwise\nHELD: 11 finding(s)\n",
+  "stderr": ""
+}

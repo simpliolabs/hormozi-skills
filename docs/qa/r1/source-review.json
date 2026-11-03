@@ -1,0 +1,35 @@
+{
+  "classification": "independent read-only review",
+  "reviewed_source_commit": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7",
+  "full_diff_review_commit": "1c365c2a2c2b0f34ccf2ae39b98b7fcc9486b3e5",
+  "baseline": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
+  "verdict": "PASS",
+  "requested_reviewer_model": "gpt-6-astra",
+  "requested_effort": "xhigh",
+  "scope": "Full baseline-to1c365source review followed by exact-fix1c365..9cd closure and independent credit-source/prose review",
+  "fresh_checks": [
+    "13 patch regression tests",
+    "19 interaction regressions",
+    "18 supported currencies",
+    "42 sign forms",
+    "3 unsupported currencies",
+    "both binding-shadow orders",
+    "repository checker returned no findings"
+  ],
+  "original_fidelity": "Independent Git-blob comparison verified17originalmethodbodies after wrapper removal and unchanged LICENSE/create-plugin; baseline hashes derive from910545c.",
+  "credit_sources": "PASS",
+  "credit_prose": "PASS for held drafts only",
+  "credit_customer_files": [
+    "OFFER.md",
+    "PRICING.md",
+    "PITCH.md",
+    "LANDING_PAGE.md",
+    "SUMMARY.md"
+  ],
+  "limits": [
+    "No publication authorization.",
+    "No general guarantee against unregistered paraphrases or unauthenticated metadata.",
+    "Parenthetical accounting notation outside declared grammar.",
+    "CI observed separately by root, not claimed by reviewer."
+  ]
+}

@@ -1,0 +1,387 @@
+{
+  "fixtures": {
+    "case_ids": {
+      "a": "contradictory-sources",
+      "b": "focused-hooks",
+      "c": "mature-b2b",
+      "d": "sparse-idea",
+      "e": "strong-proof",
+      "f": "weak-existing-offer"
+    },
+    "sha256": {
+      "a/prompt.md": "327c97325213d21cd8d4750ca973fb6169ec4d68b8c8df7ff45e9e6d8a5bf19e",
+      "a/graders/criteria.md": "406c0bdc24b2d85e36f18495879ffae7c903b8fbf36c8d2de839a86dcb8ddbb3",
+      "b/prompt.md": "0cf1214f41d069a69eb1e88812603bf2cacf939cfb56265c87afadcaa8ef31ff",
+      "b/graders/criteria.md": "3d79534265eb1d4396a12ace71c24b2c88106a4b8457471460623d93823575dd",
+      "c/prompt.md": "2e1f5236475b76a2a69d9f8075e2f6de408f89065b92e6e9e66f36bbdf850448",
+      "c/graders/criteria.md": "cc45cff6c377fb6e55cff1dd3a927deabd76c84884666c2989426909ebad3e65",
+      "d/prompt.md": "2c583809ea18e27461868c4a026b35fd5111cc291cad2ddd99bcde911c2ce0fb",
+      "d/graders/criteria.md": "c9713d2a1266b77ebc00277c6453906a190cc193dc88d71b402c18f5a5a03fbd",
+      "e/prompt.md": "c057f0943711568e7164cbd59b7d005143fbd9b93fb165fd2e25caa730939cb5",
+      "e/graders/criteria.md": "1d497dbd4439c7f7f8ad5bedd1478a889842286ce2bb66ae17e5dd70eeaacc0b",
+      "f/prompt.md": "8174ecaa6866d9e0a085105b8a351f36d3c7342ba24eb86c834856f3c99a7f40",
+      "f/graders/criteria.md": "c3037456a3d164b340d1db4a3fe66dd8041c9814a012e8b5e15265c3f43958f7"
+    },
+    "baseline_source": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
+    "same_prompts_and_rubrics": true
+  },
+  "baseline_passes": 6,
+  "candidate_passes": 6,
+  "cases": [
+    {
+      "arm": "baseline",
+      "fixture": "contradictory-sources",
+      "fixture_id": "a",
+      "source_commit": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 4,
+      "duration_seconds": 22,
+      "generator_reported_cost_usd": 0.0946403,
+      "judge_reported_cost_usd": 0.022830000000000003,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 12361,
+        "cache_read_input_tokens": 38943,
+        "output_tokens": 558
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Write": 1
+      },
+      "final_response": "**Scope:** I ran the `pricing-strategy` skill in this conversation. I used no subagents, no network and no external systems. I skipped its steps for value analysis, price range, tiers, psychological pricing and experiments, because each needs an approved price.\n\n**Contradiction:**\n- **Price and billing:** Source A is USD 250 billed yearly. Source B is USD 300 billed monthly. The two figures can't be compared directly. It's also unclear whether B recurs.\n- **Refund:** A allows refunds only within 7 days and before use. B allows an unconditional refund with no time limit. Both can't be true.\n- **Priority:** Neither source has owner approval, an effective date or a priority, so I didn't choose between them.\n\n**Artifact:** `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-r1W5qB\\home\\cwd\\output\\PRICING_PROVISIONAL.md`\n\nIt holds a five-part paragraph outline with placeholders for price, billing period and refund terms. The refund line must not say \"risk-free\", \"lifetime\" or \"7-day\" until the owner approves terms.\n\n**Material holds:**\n- Every price, billing and refund claim, and any value comparison that depends on price.\n- Tiers, discounts and pricing experiments.\n- Publication of anything from this outline.\n\n**Owner questions for next turn:**\n1. Which source is authoritative, or what are the correct terms?\n2. What is the effective date?\n3. Is the refund time-limited or conditional?\n4. Is the USD 300 a one-time or recurring charge?\n\nI ran no tests, and nothing was checked beyond writing the file.",
+      "error": null
+    },
+    {
+      "arm": "baseline",
+      "fixture": "focused-hooks",
+      "fixture_id": "b",
+      "source_commit": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 4,
+      "duration_seconds": 29,
+      "generator_reported_cost_usd": 0.130342,
+      "judge_reported_cost_usd": 0.06362,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 12255,
+        "cache_read_input_tokens": 39200,
+        "output_tokens": 522
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Write": 1
+      },
+      "final_response": "I wrote the five hooks, and nothing else, to `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-sC30bJ\\home\\cwd\\output\\HOOKS.md`. I ran no workers and no tests, and nothing was sent or published.\n\nI used the hormozi-hooks workflow and skipped market research, pricing, pitch, landing page and objections, because you asked for the hooks only. The skill's full HOOKS.md template has ten hook types plus top-hook and usage sections. I used none of that, to keep to \"exactly five hooks and nothing else.\"\n\nI kept the hooks to your fixture terms. They promise a draft kickoff agenda, a checklist and seven days of email help, with the USD 250 price and the 24-hour refund rule. They make no revenue, client or outcome claims. I left out \"How I\" proof hooks, scarcity, deadlines and promotion language, since you gave no proof and no active deadline.\n\n**Holds**\n- **Pain assumption:** Hook 4 (\"Starting client kickoffs from a blank page?\") assumes that is a real pain for these owners. No interviews or market evidence were supplied, so it is untested.\n- **Unvalidated:** No hook has been tested, and I made no performance or conversion claims.\n- **Margin:** Direct costs are USD 107 per sale, which leaves USD 143 before CAC and overhead. Both are unknown, so I can't judge profitability.\n- **Capacity:** Two sessions a week is the only limit I used. I added no scarcity claims.",
+      "error": null
+    },
+    {
+      "arm": "baseline",
+      "fixture": "mature-b2b",
+      "fixture_id": "c",
+      "source_commit": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 4,
+      "duration_seconds": 42,
+      "generator_reported_cost_usd": 0.137226,
+      "judge_reported_cost_usd": 0.05446999999999999,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 12982,
+        "cache_read_input_tokens": 38560,
+        "output_tokens": 656
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Write": 1
+      },
+      "final_response": "I wrote one artifact, a pricing and delivery feasibility analysis. It does not verify profitability. I used only the pricing-strategy step of the offer workflow and did the work in this conversation, with no subagents. The other steps (market research, pitch, sales copy) weren't needed for this question. No tests were run, and nothing was sent, published or deployed.\n\n**Artifact:** `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-7gzdJ7\\home\\cwd\\output\\PRICING.md`\n\n**Findings from the figures you gave:**\n- The price is USD 2,500 and the known variable cost is USD 2,200. That leaves USD 300 per engagement, or 12%, before any of the unknown costs.\n- At one engagement a week the ceiling is about USD 15,600 a year before unknowns. That assumes all 52 weeks are sold and delivered, which is unlikely.\n- Break-even is when the unknown per-engagement costs (payment fees, commissions, refund exposure, support, CAC) total USD 300. Above that, each engagement loses money, and overhead hasn't been counted yet.\n- The margin is thin, not shown to be negative. Whether it works depends on the unknown costs.\n- At one engagement a week, volume can't make up for a thin margin. The levers are lower fulfillment cost, a higher price, or more capacity. The file lists options for each.\n- The authorized USD 2,500 price and terms are unchanged. Every option in the file needs owner approval before use.\n\n**Material holds:**\n1. Any price, tier, guarantee or discount change needs owner approval, and none was made. A discount of more than 12% would put known costs above revenue.\n2. The missing cost inputs block any profitability claim.\n3. There is no customer outcome-value data, so a value-anchored price can't be computed.\n4. There is no demand or pipeline data. The capacity of one engagement a week comes from the fixture and is unverified.",
+      "error": null
+    },
+    {
+      "arm": "baseline",
+      "fixture": "sparse-idea",
+      "fixture_id": "d",
+      "source_commit": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 5,
+      "duration_seconds": 56,
+      "generator_reported_cost_usd": 0.1770396,
+      "judge_reported_cost_usd": 0.07205,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 16142,
+        "cache_read_input_tokens": 40696,
+        "output_tokens": 752
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Write": 2
+      },
+      "final_response": "I wrote a compact draft offer and a validation plan, both in this conversation. I did not use workers or a market-research pass. Nothing has been tested or validated.\n\n**Artifacts**\n- `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-NmBCRE\\home\\cwd\\output\\OFFER.md`\n- `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-NmBCRE\\home\\cwd\\output\\VALIDATION_PLAN.md`\n\n**What the draft says**\n- **Segment:** Freelance virtual assistants who manage several clients' calendars. This is a first guess, not evidence.\n- **Offer:** A do-it-yourself toolkit of templates, checklists and scripts. The working name is \"Calendar Command Kit for Remote Assistants\", and the name is a placeholder.\n- **Obstacles:** The ten pain points and the solution map are hypotheses to confirm or cut in interviews.\n- **Price and values:** Left blank, because there is no reference data and any figure would be made up.\n- **Guarantee:** An unconditional refund window is recommended, with the length unset.\n- **Messaging:** Only test hooks, with no result claims. I did not build a sales page.\n\n**Validation plan (not run)**\n1. Owner picks the segment, channel and format.\n2. Interview 8\u201310 assistants without pitching, and record their exact wording.\n3. Keep only the obstacles that at least 3 people name unprompted, and rewrite the offer in their language.\n4. Run a pre-sell test on a one-page description with a price, measured by pre-orders or deposits.\n5. Build a minimal kit only if the pre-sell passes.\n\nThe pass/fail thresholds in the plan are proposals I made up. The plan also sets out what would mean proceed, rework or stop.\n\n**Material holds (owner needed)**\n- Approval before any outreach, posting or interviews.\n- Segment choice: freelance assistant or in-house executive assistant.\n- Channel for finding interviewees.\n- Which calendar apps the kit supports.\n- Price, from real reference data.\n- The owner's expertise or credibility in this space, which affects proof and positioning.\n- Refund window and other guarantee terms.\n- Numeric pass/fail thresholds.",
+      "error": null
+    },
+    {
+      "arm": "baseline",
+      "fixture": "strong-proof",
+      "fixture_id": "e",
+      "source_commit": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 3,
+      "duration_seconds": 28,
+      "generator_reported_cost_usd": 0.09071610000000002,
+      "judge_reported_cost_usd": 0.026910000000000017,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 4,
+        "cache_creation_input_tokens": 10483,
+        "cache_read_input_tokens": 21561,
+        "output_tokens": 678
+      },
+      "tool_counts": {
+        "Write": 2
+      },
+      "final_response": "I wrote the hero and the proof note and nothing else. I ran no subagents and no tests. Nothing was sent, published, or contacted externally, and I read no credentials.\n\n**Files**\n- `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-U200Ls\\home\\cwd\\output\\HERO.md`\n- `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-U200Ls\\home\\cwd\\output\\PROOF_NOTE.md`\n\n**Hero**\n- The headline is \"Draft your client kickoff agenda in one 90-minute workshop.\"\n- It lists the 90-minute workshop, the kickoff checklist and seven days of async email help.\n- It states USD 250 one time, the 24-hour full-refund cancellation, \"no outcome guarantee\" and two sessions per week.\n- It makes no revenue or client claims and adds no urgency.\n\n**Proof note**\n- The Q1 quote is exact: \"I left with a clear kickoff agenda.\"\n- It is labeled \"Synthetic fixture record Q1. Not a real customer testimonial.\"\n- The note says what the record supports and what it doesn't, and it has no name, role or date.\n\n**Material holds**\n1. **Proof:** Q1 is the only evidence. It is synthetic, so the page has no real proof. Replace it with real, consented evidence before any real use.\n2. **Unit economics:** CAC and overhead are unknown. Known costs are USD 107 per sale, which leaves USD 143 before CAC and overhead. I haven't judged profitability.\n3. **Missing details:** I invented no session dates, a booking mechanism, or a response-time promise for the email help. The CTA \"Reserve a seat\" has no destination.\n4. **Refund wording:** I used only the stated rule. Legal or policy wording, and how a refund is requested, are not defined.\n5. **Skipped work:** I did not do market validation, pricing validation, the audit, objections, or the rest of the page, because you asked for only the hero and proof note.",
+      "error": null
+    },
+    {
+      "arm": "baseline",
+      "fixture": "weak-existing-offer",
+      "fixture_id": "f",
+      "source_commit": "910545c278d999cff14fd6d543f3df34ec0bbe4d",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 7,
+      "duration_seconds": 47,
+      "generator_reported_cost_usd": 0.1725299,
+      "judge_reported_cost_usd": 0.07119,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 6,
+        "cache_creation_input_tokens": 14744,
+        "cache_read_input_tokens": 39319,
+        "output_tokens": 660
+      },
+      "tool_counts": {
+        "Glob": 1,
+        "Skill": 1,
+        "Write": 3
+      },
+      "final_response": "I wrote the revised offer and two separate check files, all local drafts. I did all of it in this conversation and used no sub-agents. I did a manual read only, so no tests were run, and I'm not claiming the revision will convert better.\n\nI ran the audit-offer skill on the original (\"Coaching to grow your agency, tools and support, $250\") first, then wrote the revision from your authorized terms, then checked the revision in its own file.\n\n**Files** (all under `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-AaxvPW\\home\\cwd\\output\\`):\n- `OFFER_AUDIT_original.md` is the audit of the original, with scores of 1\u20134 out of 10 in every area. The worst problems are the vague \"grow\" outcome, undefined deliverables, no audience, no refund term and no proof.\n- `OFFER_revised.md` is the Client Kickoff Workshop at USD 250 one time:\n  - one 90-minute workshop, one kickoff checklist and seven days of async email help\n  - the only first result is a draft kickoff agenda\n  - full refund if cancelled at least 24 hours before, and no outcome guarantee\n  - margin of USD 143 per sale before CAC and overhead, marked internal\n- `OFFER_REVISION_CHECK.md` is the separate check. The draft matches every authorized fact, and I added no invented proof, scarcity or bonus values.\n\n**Material holds** (left blank on purpose, not filled in):\n1. There is no proof, testimonial or market evidence, so the offer is unvalidated.\n2. Seat cap per session, session dates, delivery platform, and the scope and response time of the email help weren't supplied. The draft bars any \"limited seats\" claim.\n3. CAC and overhead are unknown, so profitability is unproven.\n4. Refund handling for cancellations after the 24-hour cutoff isn't specified.\n5. The revision has no headline or hook, and it was not tested with buyers.",
+      "error": null
+    },
+    {
+      "arm": "candidate",
+      "fixture": "contradictory-sources",
+      "fixture_id": "a",
+      "source_commit": "27484b1a944a06b1f17f45a7a912d2490137aa72",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 8,
+      "duration_seconds": 38,
+      "generator_reported_cost_usd": 0.1522327,
+      "judge_reported_cost_usd": 0.027660000000000004,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 22150,
+        "cache_read_input_tokens": 90827,
+        "output_tokens": 727
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Read": 4,
+        "Write": 1
+      },
+      "final_response": "I ran this as a focused pricing task, so there is no run folder and no worker was dispatched. The result is a provisional outline with every affected claim held. I did not write a pricing paragraph, because that would require choosing terms.\n\n**Method loaded in this chat:** I read the `pricing-strategy` skill, the orchestration reference, the evidence contract and the commercial-feasibility reference. I did not load the other specialist skills.\n\n**The contradiction**\n- **Price:** Source A is USD 250 yearly and Source B is USD 300 monthly. The billing cadences differ, so they can't be compared or merged.\n- **Refund:** A allows a refund only within 7 days and before use. B allows an unconditional refund with no time limit. Both can't be true at once.\n- **Authority:** Neither source has owner approval, an effective date or a priority. That leaves no basis for picking one, and A's silence on lifetime refunds doesn't make B wrong.\n\n**Outline** (structure only, no terms): opening, price statement, what's included, refund statement, next step. Each section is marked held because scope, price, refund wording and checkout details are missing or in conflict.\n\n**Material holds**\n- USD 250/yearly, USD 300/monthly, the 7-day pre-use refund and the unconditional lifetime refund are all held as unsupported.\n- Any savings or \"best value\" comparison is prohibited until the price is resolved.\n- Unknown, not zero: fulfillment cost, fees, CAC, support load, refund rate and exposure, effective date, and product scope.\n\n**What the owner needs to supply**\n1. The current price, currency and cadence.\n2. The refund wording, conditions and window, and whether the policy is live.\n3. The effective date and approval.\n4. Per-customer fulfillment and support cost.\n\n**Artifact:** `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-MCja7P\\home\\cwd\\output\\PRICING_PROVISIONAL.md`\n\n**Not run:** `check_outputs.py` (it applies to multi-step runs only), delegation and semantic review. Nothing was sent, published or deployed.",
+      "error": null
+    },
+    {
+      "arm": "candidate",
+      "fixture": "focused-hooks",
+      "fixture_id": "b",
+      "source_commit": "27484b1a944a06b1f17f45a7a912d2490137aa72",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 7,
+      "duration_seconds": 49,
+      "generator_reported_cost_usd": 0.191149,
+      "judge_reported_cost_usd": 0.07627,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 20982,
+        "cache_read_input_tokens": 90710,
+        "output_tokens": 817
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Read": 3,
+        "Write": 1
+      },
+      "final_response": "I wrote five hooks to `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-SDCs27\\home\\cwd\\output\\HOOKS.md`. The file holds only the hooks. They are local draft copy, not published, sent or scheduled.\n\n**Route:** I treated this as a focused request (five hooks), so there is no run folder, `RUN_STATE.json` or checkpoint. I ran it in this conversation with no subagents, and nothing external was touched.\n\n**Method loaded:**\n- I read the `hormozi-hooks` skill body.\n- I read `references/evidence-contract.md`.\n- I read `references/orchestration.md`.\n- I did not load `commercial-feasibility.md`, because no pricing math was needed.\n- The skill paths were under `D:\\Dropbox\\VS Code\\handoff\\hormozi-one-chat-2026-11-03\\review-r1-2026-11-03\\candidate-source\\`.\n\n**What the hooks use:**\n- **Outcome:** only the authorized first result, a kickoff agenda drafted during the workshop.\n- **Terms:** USD 250 one time, 90 minutes, one checklist, seven days of async email help, and the cancellation rule.\n- **Not used:** revenue gains, client wins, testimonials, proof, scarcity or deadlines.\n- **Cancellation:** hook 5 keeps its condition, a full refund only if cancelled at least 24 hours before the workshop.\n- **Pain:** hook 3 (\"blank page\") assumes a pain point that nobody validated, so treat that wording as a hypothesis.\n\n**Not run:** `check_outputs.py` and any semantic review. Neither applies to a focused hooks request, and I did not run them.\n\n**Holds:**\n- **Market evidence:** there are no interviews, buyer language or market evidence. Hook resonance and demand are unknown.\n- **Economics:** direct cost is USD 107 per sale (80 + 20 + 7), so margin before CAC and overhead is USD 143. CAC and overhead are unknown, so profitability is unconfirmed.\n- **Refunds:** each refund loses the USD 250 and may still leave some of the USD 7 payment fee unrecovered. I did not check whether the fee is returned on refund.\n- **Before publishing:** the owner should review the copy and test it. I did not ask for approval, as instructed.",
+      "error": null
+    },
+    {
+      "arm": "candidate",
+      "fixture": "mature-b2b",
+      "fixture_id": "c",
+      "source_commit": "27484b1a944a06b1f17f45a7a912d2490137aa72",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 9,
+      "duration_seconds": 57,
+      "generator_reported_cost_usd": 0.18564769999999997,
+      "judge_reported_cost_usd": 0.04948999999999999,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 23166,
+        "cache_read_input_tokens": 90937,
+        "output_tokens": 789
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Read": 4,
+        "Glob": 1,
+        "Write": 1
+      },
+      "final_response": "At the supplied figures, the offer leaves 300 USD per engagement (12%) before costs nobody has given me. I can't say whether it is profitable. I treated this as a focused pricing task, so there is no run folder, no `RUN_STATE.json` and no checker run. I did the work myself in this conversation and used no subagents.\n\n**Artifact:** `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-pgqlR6\\home\\cwd\\output\\PRICING.md`\n\n**Result (draft, synthetic fixture):**\n- **Contribution:** 2500 \u2212 2200 = **300 USD per engagement**, a **12%** margin. This is before payment fees, commissions, refund exposure, CAC, support and overhead. It is not verified profit.\n- **Capacity:** One engagement a week caps contribution at 300 USD a week. That assumes every slot is sold, and I have no demand data. Volume can't make up for the thin margin.\n- **Headroom:** The unknown costs combined can use at most 300 USD per engagement before an engagement loses money. Their actual total is unknown. A single refund could erase several engagements' contribution, but I give no bound because no refund terms or cost treatment were supplied.\n- **Recommendation:** Keep 2500 USD as authorized. I propose no change to price, scope, guarantee or cadence. I make no value-anchored claim.\n\n**Material holds (facts the owner needs to supply):**\n1. Payment fee rate and billing cadence.\n2. Commission or referral terms.\n3. Refund and guarantee policy, and the cost treatment when an engagement is cancelled.\n4. CAC.\n5. Support time and cost per engagement, and overhead.\n6. Weekly demand against the capacity of 1.\n7. Whether the 2200 USD includes the facilitator's own time.\n\n**Method loaded:**\n- I read the `pricing-strategy` skill and the `commercial-feasibility` and `evidence-contract` references.\n- I read `orchestration.md` for the routing.\n- I did not load the market, offer, value, DFY/DWY/DIY or sales skills, and I did not apply the full tier, psychological-pricing or justification-story steps.\n- I ran no test.",
+      "error": null
+    },
+    {
+      "arm": "candidate",
+      "fixture": "sparse-idea",
+      "fixture_id": "d",
+      "source_commit": "27484b1a944a06b1f17f45a7a912d2490137aa72",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 7,
+      "duration_seconds": 116,
+      "generator_reported_cost_usd": 0.5441633,
+      "judge_reported_cost_usd": 0.06149000000000002,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 36,
+        "cache_creation_input_tokens": 75696,
+        "cache_read_input_tokens": 394943,
+        "output_tokens": 2481
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Read": 17,
+        "Glob": 1,
+        "Write": 9,
+        "Agent": 2
+      },
+      "final_response": "I've drafted a compact offer and a validation plan. The run is held, not ready: this session has no shell, so I couldn't hash the files or run `check_outputs.py`. Nothing is validated, and I ran no tests or interviews.\n\n## The draft offer\n- **Product:** a \"Calendar Reset Kit\" for remote administrative assistants (working name, not approved). It's a do-it-yourself template pack of 7 assets. They cover conflict-priority rules, a time-zone protocol, buffer and recurring-event standards, a naming and category scheme, scheduling reply scripts, a safe-reorganization checklist and a handover doc.\n- **Other formats:** I also considered a done-with-you setup and a done-for-you rebuild. I recommend the DIY kit because there's no proof, no known capacity and no demand data. There are no bonuses, since no obstacle called for one.\n- **Buyer:** unconfirmed. It could be the assistant, the executive or an agency.\n\n## Value Equation\n- **Dream outcome:** a calendar that runs on set rules, with fewer conflicts and less reactive scrambling.\n- **Perceived likelihood:** low today. There's no proof, and the claim that it beats free templates is unsupported.\n- **Time delay:** the hypothesis is that a first cleanup step takes one sitting. That's untested.\n- **Effort and sacrifice:** low, because it's DIY with a quick-start order. Build effort and support load are unknown.\n\n## Validation plan\nRun these in order, cheapest first. The pass/fail thresholds in the file are placeholders for the owner to confirm.\n1. **Conversations:** 5\u201310 owner-run conversations with real remote assistants, asking about past behavior and not pitching. Proceed only if enough of them name a concrete calendar problem from the last 30 days and already spend time or money on a workaround.\n2. **Paid pilot:** a pre-sell or small paid pilot, run only if the conversations pass. It needs paid commitments, not \"sounds useful\".\n3. **Content test:** 3\u20135 plain posts on pain angles, measured by unprompted relevant replies. This is weaker evidence than the first two.\n\n## Material holds\n- **No owner decisions:** price, currency, cadence, guarantee, eligibility, scope and buyer are all unknown. I recorded them as null in the decisions file and invented no numbers. The conditional-refund guarantee is a leaning only.\n- **No hashes or checker:** the run state is not schema-complete, and the two worker outputs are unhashed. I read both myself before accepting them.\n- **No independent review:** no separate-context reviewer checked the copy.\n- **Synthetic wording:** the two pain phrases in the market file and the 3 hooks in `OFFER.md` are synthetic. They aren't customer quotes and must not be used as testimonials.\n- **Workers:** both were Sonnet 5.5. The runtime didn't show their effort level.\n- **Methods:** both workers were told to read their method files first. I did not independently check that they did, and I did not read the two reference files `OFFER.md` names (the evidence contract and commercial feasibility). Value, pricing and sales were not requested.\n\nThe 7 owner questions are in `OFFER.md` section 13.\n\n## Files\nAll paths are under `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-UblwJk\\home\\cwd\\output\\`:\n- `OFFER.md`\n- `MARKET_RESEARCH.md`\n- `CHECKPOINT.md`\n- `runs\\calendar-toolkit-2026-11-03\\BRIEF.json`\n- `runs\\calendar-toolkit-2026-11-03\\OFFER_DECISIONS.json`\n- `runs\\calendar-toolkit-2026-11-03\\CLAIMS.json`\n- `runs\\calendar-toolkit-2026-11-03\\RUN_STATE.json`",
+      "error": null
+    },
+    {
+      "arm": "candidate",
+      "fixture": "strong-proof",
+      "fixture_id": "e",
+      "source_commit": "27484b1a944a06b1f17f45a7a912d2490137aa72",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 7,
+      "duration_seconds": 38,
+      "generator_reported_cost_usd": 0.1529779,
+      "judge_reported_cost_usd": 0.02865000000000001,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 10,
+        "cache_creation_input_tokens": 21674,
+        "cache_read_input_tokens": 90219,
+        "output_tokens": 751
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Read": 3,
+        "Write": 1
+      },
+      "final_response": "I wrote the hero and the proof note, and nothing else, to `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-nsyxeu\\home\\cwd\\output\\LANDING_PAGE.md`.\n\nI treated this as a focused request. So there's no run folder or `check_outputs.py` run, and no subagents or Sonnet workers were used. The method I loaded was the `landing-page-copy` skill and its evidence preflight, plus `orchestration.md` and `evidence-contract.md`. I didn't load `commercial-feasibility.md`. The page is a local draft only: nothing was published, sent or deployed.\n\n**Hero**\n- **Headline:** \"Draft your client kickoff agenda in one 90-minute workshop.\"\n- **Subheadline:** It's for owners of 1-5 person design studios. It lists the draft agenda, the kickoff checklist and seven days of email help, at USD 250 one time.\n- **Fine print:** Full refund if cancelled at least 24 hours before the workshop. No outcome guarantee.\n- **CTA text:** \"Book your workshop seat\".\n- **What it leaves out:** It makes no revenue or client-win claims and uses no scarcity or deadline.\n\n**Proof note**\n- **Quote:** Q1 is kept exactly as supplied: \"I left with a clear kickoff agenda.\" It's labeled synthetic fixture record Q1, test data and not a real participant.\n- **Rules:** The note says it can't be paraphrased, attributed to a person or studio, or used to imply sales, earnings or typical results.\n- **Placement:** I kept the quote out of the hero so it doesn't read as a general promise.\n\n**Holds**\n1. **CTA link:** There's no booking or checkout link, so the CTA has no destination.\n2. **Real proof:** None was supplied. Q1 is synthetic and can't be published as a real testimonial.\n3. **Economics:** Delivery cost is USD 107 per sale (80 + 20 + 7), which leaves USD 143 before CAC and overhead. Both are unknown, so profitability isn't established.\n4. **Review:** Nobody has checked the copy against its sources. I ran no tests.",
+      "error": null
+    },
+    {
+      "arm": "candidate",
+      "fixture": "weak-existing-offer",
+      "fixture_id": "f",
+      "source_commit": "27484b1a944a06b1f17f45a7a912d2490137aa72",
+      "raw_pass": true,
+      "raw_score": 1,
+      "turns": 16,
+      "duration_seconds": 214,
+      "generator_reported_cost_usd": 0.6552046999999999,
+      "judge_reported_cost_usd": 0.12983999999999998,
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ],
+      "usage_totals_observed": {
+        "input_tokens": 28,
+        "cache_creation_input_tokens": 75165,
+        "cache_read_input_tokens": 239411,
+        "output_tokens": 97
+      },
+      "tool_counts": {
+        "Skill": 1,
+        "Read": 19,
+        "Glob": 3,
+        "Agent": 3,
+        "Write": 3
+      },
+      "final_response": "I ran Stage B (original audit, revision, separate check of the revision) and wrote the three files. The revised offer has four small copy defects that I did not fix. I have no shell tool, so I could not compute hashes or run `check_outputs.py`. I wrote no `BRIEF.json`, `RUN_STATE.json`, `OFFER_DECISIONS.json`, `CLAIMS.json` or `CHECKPOINT.md`, because they need sha256 values I would have had to invent. I did not read the three output files myself; what follows comes from the workers' reports.\n\n**Artifacts** (all in `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-23GFGS\\home\\cwd\\output\\`):\n- `ORIGINAL_OFFER_AUDIT.md`: the diagnostic of the original, which it quotes verbatim: \"Coaching to grow your agency, tools and support, $250.\"\n- `OFFER.md`: the revised Client Kickoff Workshop offer.\n- `REVISED_OFFER_CHECK.md`: a separate check of the revision, written by a different worker.\n\n**What the audit found:**\n- The original has no currency, cadence, scope, audience, timing or guarantee.\n- \"Grow your agency\" implies a revenue outcome that nothing supports.\n- Dream Outcome scored 2/10 and Time Delay 1/10.\n- Perceived Likelihood and Effort are `unknown`, because no evidence was supplied.\n\n**What the revision does:**\n- It uses only the authorized terms: 90-minute workshop, kickoff checklist, seven days of email help, USD 250 one time.\n- The first result is a drafted kickoff agenda.\n- The refund is only the 24-hour cancellation policy, with no outcome guarantee.\n- It invents no proof, bonuses, value figures or urgency.\n- Audience wording, hooks and the call to action are labelled proposals.\n- Known cost per sale is USD 107 (80 + 20 + 7). That leaves USD 143, or 57.2%, before customer acquisition cost (CAC) and overhead, and it is not profit.\n\n**Check verdict: pass with holds.** Every authorized term matches and the arithmetic is correct. Defects the check found in `OFFER.md`:\n1. \"Will this get me clients? No.\" reads as a prediction. It should say no clients or revenue are promised.\n2. The missing-cost list omits commissions or referrals, deposits or payment plans, and capacity costs beyond facilitator time.\n3. \"Reusable\" and \"Email questions\" differ slightly from the authorized wording.\n4. One bullet shows an internal hold (\"window start and response time to be confirmed\") in customer-facing copy.\n\nI left these unfixed so the check still matches the file. Fixing them means editing `OFFER.md` and re-running the check.\n\n**Material holds:**\n- **Not run:** the structural checker and hash verification. These artifacts are not `READY`.\n- **Owner questions:** seats per session; when the seven-day window starts and how fast emails are answered; whether \"tools\" means anything beyond the checklist; whether the payment fee is refunded.\n- **Unknown inputs:** CAC, overhead and refund rate.\n- **Unknown scores:** no Value Equation re-score is supported, so all stay `unknown`. That includes buyer effort.\n\n**Method loaded:**\n- Three Sonnet 5.5 workers ran, effort unknown.\n- The audit workers loaded `audit-offer/SKILL.md`, `evidence-contract.md` and `commercial-feasibility.md`.\n- The offer worker loaded `hormozi-offer/SKILL.md` but never read the two reference files. I gave it abbreviated paths with `...` in them, which was my error.",
+      "error": null
+    }
+  ],
+  "limitations": [
+    "One generation per fixture; three rubricjudge votes are not three modelruns.",
+    "Input/cache token metadata summed by distinct message id, not a billingstatement.",
+    "Generator/judge costs are native evaluator reported estimates, not independently verified accountbilling.",
+    "Candidate took more time/tokens in this sample; no tokensavings, superiority or conversionclaims.",
+    "Currentportablecheckerfix changes no loadedmethodfiles; benchmarkfiletoolmodelruns do not exercise shellchecker. CI and nativecheckerruns cover that boundary."
+  ],
+  "prior_failed_candidate": {
+    "fixture_id": "d",
+    "fixture": "sparse-idea",
+    "source_commit": "0eced073e0cb9abfe92bc5be0b765ebce9a97da0",
+    "reported_in_pr_head": "735c0ced7941b1d678f235c5a3f05c0750d3d734",
+    "raw_pass": false,
+    "prompt": "Use the hormozi-skills offer workflow in THIS main conversation. Select only the work needed. No new user-facing chats. If using internal workers explicitly request Sonnet. No owner is available for more answers: surface precise holds rather than fabricate facts or approval. No network, sends, publication, deployment, credential reads or external business systems.\r\n\r\nA raw idea only: a calendar organization toolkit for remote administrative assistants. No customers, prices, interviews, demand data or proof. Produce a compact draft offer and an honest validation plan; no sales-page build or invented market validation.\r\n\r\nReturn the scoped result, actual artifact paths and material holds; do not claim an unrun test.",
+    "rubric": "Preserves unknowns and source boundaries, applies the Hormozi value equation to a useful provisional offer, identifies real validation work and avoids fake quotes, numerical demand certainty and unapproved guarantees.",
+    "owner_response": "I drafted the offer and the validation plan, but the run is held. I had no shell, so I couldn't compute file hashes or run `check_outputs.py`.\n\nI ran this as stage A, cut down to a draft offer plus a validation plan. I did the work myself in this conversation and used no subagents. The market-research, value-audit, pricing and sales steps were not run. The draft is built on guesses, not evidence.\n\n**Files** (all under `C:\\Users\\Admin\\AppData\\Local\\Temp\\claude-eval-a1kwOb\\home\\cwd\\output\\`):\n- `OFFER.md` is the compact draft offer: a positioning guess, candidate toolkit contents, and the open decisions.\n- `VALIDATION_PLAN.md` is the plan. It covers interviews of 8\u201310 working assistants, then willingness-to-pay probes, then a small hand-made pilot, then a decision table. None of it has been run.\n- `runs/ea-calendar-001/BRIEF.json` records the idea and its unknowns. The source list is empty.\n- `runs/ea-calendar-001/OFFER_DECISIONS.json` marks price, guarantee, eligibility and scope as unknown. The audience is only proposed.\n- `runs/ea-calendar-001/CLAIMS.json` has two entries. \"Assistants struggle with calendar conflicts\" is a hypothesis. \"The toolkit reduces scheduling time\" is unsupported and must stay out of any copy.\n\n**Holds**\n1. **Hashes and QA:** `RUN_STATE.json`, the checkpoint and the `check_outputs.py --mode ready` check were not produced, so the run is not ready.\n2. **Owner decisions:** price, currency, cadence, guarantee, eligibility, scope, who buys (the assistant or their employer), and the toolkit format are all undecided. I proposed no number.\n3. **Validation:** there are no customers, interviews, demand data or proof. Interviews need the owner's time, an outreach channel they're allowed to use, and pass thresholds they set. Any outreach is sent by the owner, not by me.\n4. **No sales page:** none was built, as you asked.",
+    "cause": "Final reply omitted substantive provisionaloffer/ValueEquation and mostlyindexedfiles/holds.",
+    "fix_commit": "1ee0c25",
+    "new_baseline_and_candidate": "6/6 each on unchangedfixtures"
+  }
+}

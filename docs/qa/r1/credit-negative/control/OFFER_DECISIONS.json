@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "offer_id": "ceo-creative-v1",
+  "version": 1,
+  "parent_hash": null,
+  "fields": {
+    "price": {
+      "value": {
+        "amount_minor": 9900,
+        "currency": "USD",
+        "cadence": "yearly"
+      },
+      "status": "approved",
+      "kind": "money",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "scope": {
+      "value": "Business-credit education and document-readiness materials",
+      "status": "approved",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "delivery_cost": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "CAC": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "affiliate_commission": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "payment_fees": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "support_cost/capacity": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "refund_cost_and_treatment": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "renewal/cancellation_terms": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "access_method_and_timing": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "specific_material_inventory": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "market_demand": {
+      "value": null,
+      "status": "unknown",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "excluded_C2": {
+      "value": null,
+      "status": "held",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/promotional_ad.md:1",
+        "input/actual_limit_record.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "excluded_C3": {
+      "value": null,
+      "status": "held",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/actual_limit_record.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "excluded_C4": {
+      "value": null,
+      "status": "held",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/reporting_status.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "excluded_C5": {
+      "value": null,
+      "status": "held",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/refund_status.md:1",
+        "input/owner_terms.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "excluded_C6": {
+      "value": null,
+      "status": "held",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/fake_social_proof.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    },
+    "excluded_C7": {
+      "value": null,
+      "status": "held",
+      "kind": "text",
+      "owner": "root",
+      "updated": "2026-11-03",
+      "evidence": [
+        "input/fake_social_proof.md:1"
+      ],
+      "authorization_ref": "input/owner_terms.md:1; current user instruction"
+    }
+  }
+}
