@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from helpers import build_run, codes, read_json, write_json, sha
+from helpers import add_summary, build_run, codes, read_json, write_json, sha
 import check_outputs as co
 
 SRC = "input/offer.md"
@@ -44,8 +44,10 @@ class RouteCase(unittest.TestCase):
         self.addCleanup(shutil.rmtree, self.tmp, ignore_errors=True)
         self.run_dir, self.ws = build_run(self.tmp)
 
-    def graph(self, stage, route, status=None):
-        """Rewrite the task graph; freeze inputs from the real bytes of declared dependencies."""
+    def graph(self, stage, route, status=None, summary=None):
+        """Rewrite the task graph; freeze inputs from the real bytes of declared dependencies.
+
+        Full priced runs (A/B/D) carry a valid canonical summary unless summary=False."""
         status = status or {}
         src = {"path": SRC, "sha256": sha((self.ws / SRC).read_bytes())}
         brief = read_json(self.run_dir / "BRIEF.json")
@@ -69,7 +71,11 @@ class RouteCase(unittest.TestCase):
             tasks.append(t)
         st["tasks"] = tasks
         write_json(self.run_dir / "RUN_STATE.json", st)
-        return st
+        if summary is None:
+            summary = stage in ("A", "B", "D")
+        if summary:
+            add_summary(self.run_dir, self.ws)
+        return read_json(self.run_dir / "RUN_STATE.json")
 
     def edit(self, fn):
         st = read_json(self.run_dir / "RUN_STATE.json")

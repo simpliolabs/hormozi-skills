@@ -109,3 +109,39 @@ def refresh_artifact_hash(run_dir: Path, workspace: Path, *, review=True):
     if review:
         st["reviews"][0]["artifact_sha256"] = new
     write_json(run_dir / "RUN_STATE.json", st)
+
+
+VALID_SUMMARY = (
+    "# Owner Summary\n\n"
+    "## Offer\n\nA done-with-you pitch program for coaches, priced as approved.\n\n"
+    "## Key Decisions\n\n- Price approved by the owner.\n- CAC is unknown and held until measured.\n\n"
+    "## Best Hook\n\n> Stop guessing what to say to your first client.\n\n"
+    "## Next Actions\n\n1. Confirm the approved price with the owner.\n2. Measure CAC on the first ten leads.\n"
+    "3. Send the pitch to the first five prospects.\n"
+)
+
+
+def add_summary(run_dir: Path, workspace: Path, *, body=VALID_SUMMARY, file_path="output/SUMMARY.md",
+                manifest_path="output/SUMMARY.md", write_set=None, write_file=True, manifest=True,
+                review=True, ready=True, task_id="t_summary"):
+    """Declare (and by default write) a root-owned summary with fresh hash, task write set and passing review.
+
+    Each switch removes one thing a complete summary needs, so a test can break exactly one of them."""
+    st = read_json(run_dir / "RUN_STATE.json")
+    out = workspace / file_path
+    if write_file:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(body.encode("utf-8") if isinstance(body, str) else body)
+    st["tasks"] = [t for t in st["tasks"] if t["id"] != task_id]
+    st["tasks"].append({"id": task_id, "role": "root", "status": "done", "depends_on": [], "inputs": [],
+                        "write_set": [manifest_path] if write_set is None else write_set})
+    if manifest:
+        h = sha(out.read_bytes()) if out.exists() else sha(b"")
+        st["artifacts"] = [a for a in st["artifacts"] if a["path"] != manifest_path]
+        st["artifacts"].append({"path": manifest_path, "sha256": h, "decision_version": st["decision_version"],
+                                "task": task_id, "ready": ready})
+        st["reviews"] = [r for r in st["reviews"] if r["artifact"] != manifest_path]
+        if review:
+            st["reviews"].append({"artifact": manifest_path, "artifact_sha256": h, "decision_version": st["decision_version"],
+                                  "reviewer": "root", "context": "same", "result": "pass"})
+    write_json(run_dir / "RUN_STATE.json", st)

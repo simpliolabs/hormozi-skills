@@ -28,7 +28,7 @@ class TestManifests(unittest.TestCase):
             load(".claude-plugin/marketplace.json")["metadata"]["version"],
             load(".claude-plugin/marketplace.json")["plugins"][0]["version"],
         }
-        self.assertEqual(versions, {"1.1.0"})
+        self.assertEqual(versions, {"1.1.1"})
 
     def test_codex_manifest_declares_existing_skills_dir_and_keeps_identity(self):
         m = load(".codex-plugin/plugin.json")
