@@ -28,4 +28,4 @@ Ask only for facts the route needs: who the customer is, what is sold, what exis
 
 ## Summary
 
-For a full run, write `output/SUMMARY.md` from the accepted artifacts: the offer in one paragraph, decisions made and who approved them, the top three actions, a file index, and the next session entry point. State only what the artifacts and the check support.
+For a full run (stage A, B or D, two or more specialist tasks, several requested deliverables, or an explicit request), list `SUMMARY.md` in the requested artifacts and your write set at the start, then write `output/SUMMARY.md` from the accepted artifacts, declared in the manifest like any artifact. Use the level-two sections `## Offer` (one paragraph), `## Key Decisions` (decisions, who approved them, honest unknowns and holds), `## Best Hook` (the chosen hook text itself, not only a path) and `## Next Actions` (exactly three prioritized actions numbered 1, 2, 3); a file index and the next session entry point may follow as extra sections. `OWNER_SUMMARY.md` or a nested file never substitutes. State only what the artifacts and the check support.

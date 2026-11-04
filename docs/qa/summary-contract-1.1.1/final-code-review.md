@@ -1,0 +1,24 @@
+# Final code closure
+
+PASS for exact commit `9ccc0fdebf25f67d7142b7d47d9a495781c43d61`, reviewing only the delta from `c1b3431a775698eefff5e46a44ddcfc2e3bff9e0`. No required finding remains in this bounded closure; proceed to the already-required fresh native acceptance while retaining every business and review hold.
+
+Task class adversary; gpt-6-astra/xhigh. Actual HEAD matched the requested commit. Worktree status was clean before and after verification. No source edits, delegation, model runs, GitHub writes or full-suite execution occurred.
+
+The delta is limited to the action baseline calculation and one public regression: two files, 11 insertions and 9 deletions. The parser collects visible recognized ordered markers, computes their minimum indentation across the section, and checks only that baseline for substantive items numbered exactly 1, 2, 3. In both reported failures, the shallower fourth marker now becomes the baseline, leaving the sequence `[4]`, which correctly produces `SUMMARY_ACTIONS_INVALID`; it does not literally count four baseline items despite the regression's descriptive name. Source: `handoff/hormozi-one-chat-2026-11-03/repository/scripts/check_outputs.py:559`; `handoff/hormozi-one-chat-2026-11-03/repository/scripts/check_outputs.py:562`; `handoff/hormozi-one-chat-2026-11-03/repository/scripts/check_outputs.py:564`. This is evaluated against the accepted bounded 0-3-space grammar, not a general Markdown parser: `handoff/hormozi-one-chat-2026-11-03/repository/references/orchestration.md:79`.
+
+The new public regression covers both the one-space and three-space original counterexamples through fresh graph, summary, manifest and review setup: `handoff/hormozi-one-chat-2026-11-03/repository/tests/test_summary_contract.py:341`; `handoff/hormozi-one-chat-2026-11-03/repository/tests/test_summary_contract.py:363`. Existing cases verify that wrapped/nested explanation remains accepted and a separate paragraph cannot fill an empty marker: `handoff/hormozi-one-chat-2026-11-03/repository/tests/test_summary_contract.py:354`; `handoff/hormozi-one-chat-2026-11-03/repository/tests/test_summary_contract.py:358`.
+
+Fresh verification from `repository/tests`: `python -m unittest test_summary_contract -v` completed with exit 0: 39 tests in 48.909 seconds, 38 passed, one skipped because Windows lacks the required case-sensitive filesystem. The full focused module includes the earlier public corrections, canonical ownership/location, applicability, freshness and CLI controls. The differential regression proves adding a valid summary removes only its summary finding and preserves the independent missing-review hold: `handoff/hormozi-one-chat-2026-11-03/repository/tests/test_summary_contract.py:247`. Hash/decision/review freshness remains tested separately: `handoff/hormozi-one-chat-2026-11-03/repository/tests/test_summary_contract.py:256`.
+
+Six additional fresh public `validate_run` probes completed with exit 0. Three plain actions and three indented actions with wrapped/nested explanation each returned no findings. One-space and three-space shallower fourth markers, four uniform markers, and an empty third marker followed by a separate paragraph each returned exactly `SUMMARY_ACTIONS_INVALID`. These probes use fresh stage-B fixtures and summary declarations rather than direct helper calls.
+
+Evidence pins, all in this report's directory:
+
+- `FINAL_CODE_CLOSURE_TARGETED.txt`: SHA256 `fb93e6b34bd578f11ce776a9e0aabe540c0f304f073b20a1f1b9cfdc68d61e67`. PowerShell renders unittest's stderr as a native-command diagnostic at the start; the process exit is 0 and unittest's final result is OK, not a test failure.
+- `FINAL_CODE_CLOSURE_PROBES.json`: SHA256 `f9b4cb53102a7626703c81a832c14100f242e8a4151ad6fce5f24667548bb06b`.
+- Inspected recorded red evidence `ACTION_BASELINE_RED.txt`: SHA256 `d2d697b6bc4136130963b81735d4089901223681f13ae62b9acacc154c363bfa`, one test with two failing subtests before the correction. This red run was reused, not independently rerun by reverting source.
+- Prior closure reused and its hash independently matched: `CODE_FIX_CLOSURE.md`, SHA256 `2a00e827ca580f96aa2f1d2d3c000522cb9c79194af7e84e31dab6939303f9d3`.
+
+Limits: no fresh installed-candidate/native-wrapper acceptance, no Linux case-sensitive execution, and no claim of commercial readiness, model billing or semantic marketing quality. The unchanged broader review and business methods stand. The existing frozen replay still records four `BLOCKER_OPEN`, three `HIGH_RISK_NO_INDEPENDENT_REVIEW` and `SUMMARY_MISSING`; it is historical replay evidence, not fresh acceptance. This PASS closes only the code-review gate and authorizes no bypass of those holds.
+
+Next action: retain this exact code pin and execute the existing fresh native acceptance with all original gates intact.

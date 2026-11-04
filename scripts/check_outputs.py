@@ -161,6 +161,7 @@ def validate_run(run_dir: Path, workspace_root: Path, mode: str = "ready") -> li
         findings += _check_receipts(state, workspace)
         findings += _check_routing(state)
         findings += _check_artifacts(state, decisions, claims, brief, workspace, mode)
+        findings += _check_summary(state, brief, workspace, mode)
     return findings
 
 
@@ -434,6 +435,152 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
             wanted = wanted[2:] if wanted.startswith("./") else wanted
             if mode == "ready" and wanted not in manifest_paths and f"output/{wanted}" not in manifest_paths:
                 out.append(Finding("REQUESTED_ARTIFACT_MISSING", "error", req, "requested artifact is not in the output manifest"))
+    return out
+
+
+# ------------------------------------------------------ canonical owner summary
+# A full run ends with output/SUMMARY.md, declared in the manifest like any other artifact (hash, decision version and
+# review are the ordinary artifact checks). Only structure is checked here: whether the chosen hook is the right one and
+# the three actions are good stays with the semantic review. An honest "unknown" or "held" is valid text.
+SUMMARY_PATH = "output/SUMMARY.md"
+SUMMARY_SECTIONS = ("offer", "key decisions", "best hook", "next actions")
+_SPECIALIST_ROLES = {"sub-market", "sub-offer", "sub-value", "sub-pricing", "sub-sales"}
+_SUMMARY_REQUESTS = {"output/summary.md", "output/owner_summary.md"}
+# Known bookkeeping only: the JSON controls, the fixed checkpoint/QA/review file names and the receipt paths the run declares.
+# Any other name, review- or receipt-flavoured or not, is a business output and counts.
+_BOOKKEEPING_NAMES = {n.casefold() for n in CONTROL} | {"checkpoint.md", "qa_report.md", "review.md"}
+_HOOK_LABEL_WORDS = {"see", "refer", "reference", "per", "in", "from", "at", "to", "for", "source", "link", "file", "chosen",
+                     "selected", "best", "final", "winning", "hook", "hooks", "the", "our", "is", "are", "above", "below", "also"}
+_HEADING = re.compile(r"^ {0,3}(#{1,6})(?:[ \t]+(.*?))?[ \t]*$")
+_FENCE = re.compile(r"^ {0,3}(`{3,}|~{3,})")
+_REFERENCE = re.compile(r"!?\[[^\]]*\]\([^)]*\)|https?://\S+|(?:[\w.~-]+[/\\])*[\w.-]+\.(?:md|markdown|txt|json|docx?|pdf|html?)\b", re.I)
+_ORDERED_ITEM = re.compile(r"^( {0,3})(\d{1,9})[.)](?:[ \t]+(.*))?$")
+
+
+def _request_key(req: str) -> str:
+    """Equivalent spellings of one workspace output (bare, output/, ./, backslashes) share one key."""
+    p = _norm_path(req).strip()
+    while p.startswith("./"):
+        p = p[2:]
+    p = p if "/" in p else f"output/{p}"
+    return os.path.normcase(p).replace("\\", "/")  # identity follows the platform, as artifact paths do
+
+
+def _is_bookkeeping(key: str, declared: set) -> bool:
+    return key.startswith("output/runs/") or key in declared or key.rsplit("/", 1)[-1].casefold() in _BOOKKEEPING_NAMES
+
+
+def _summary_required(state, brief) -> bool:
+    keys = {_request_key(r) for r in brief["requested_artifacts"]} if brief else set()
+    if {k.casefold() for k in keys} & _SUMMARY_REQUESTS or (brief and brief["stage"] in PRICED_STAGES):
+        return True
+    if sum(1 for t in state["tasks"] if t["role"] in _SPECIALIST_ROLES and t["status"] not in _NOT_RUN) >= 2:
+        return True
+    declared = {_request_key(state[k]["path"]) for k in ("checkpoint", "qa_receipt") if state.get(k)}
+    business = {k for k in keys if not _is_bookkeeping(k, declared)}
+    return len(business) > 1
+
+
+def _visible_lines(text: str) -> list[str]:
+    """Lines outside HTML comments and fenced code blocks, with inline comments removed."""
+    out, fence, in_comment = [], None, False
+    for line in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+        if in_comment:
+            if "-->" not in line:
+                continue
+            line, in_comment = line.split("-->", 1)[1], False
+        if fence:
+            if re.match(rf"^ {{0,3}}{re.escape(fence[0])}{{{len(fence)},}}[ \t]*$", line):
+                fence = None
+            continue
+        m = _FENCE.match(line)
+        if m:
+            fence = m.group(1)
+            continue
+        line = re.sub(r"<!--.*?-->", "", line)
+        if "<!--" in line:
+            line, in_comment = line.split("<!--", 1)[0], True
+        out.append(line)
+    return out
+
+
+def _sections(text: str) -> dict[str, list[list[str]]]:
+    """Level-two sections by lower-cased heading; a section ends at the next level-one or level-two heading."""
+    found: dict[str, list[list[str]]] = {}
+    current = None
+    for line in _visible_lines(text):
+        m = _HEADING.match(line)
+        if m and len(m.group(1)) <= 2:
+            name = re.sub(r"(?:^|[ \t]+)#+[ \t]*$", "", m.group(2) or "").strip().casefold()
+            current = None
+            if len(m.group(1)) == 2 and name in SUMMARY_SECTIONS:
+                current = []
+                found.setdefault(name, []).append(current)
+            continue
+        if current is not None:
+            current.append(line)
+    return found
+
+
+def _summary_content_findings(text: str) -> list[Finding]:
+    out, found = [], _sections(text)
+
+    def bad(code, why):
+        out.append(Finding(code, "error", SUMMARY_PATH, why))
+
+    for name in SUMMARY_SECTIONS:
+        n = len(found.get(name, []))
+        if n == 0:
+            bad("SUMMARY_SECTION_MISSING", f"missing level-two '## {name.title()}' section outside comments and code fences")
+        elif n > 1:
+            bad("SUMMARY_SECTION_DUPLICATE", f"'## {name.title()}' appears {n} times; exactly one is required")
+        elif not any(l.strip() for l in found[name][0]):
+            bad("SUMMARY_SECTION_EMPTY", f"'## {name.title()}' has no visible content")
+    hook = found.get("best hook", [])
+    if len(hook) == 1 and any(l.strip() for l in hook[0]):
+        paras, cur = [], []
+        for l in hook[0] + [""]:
+            l = re.sub(r"^\s*(?:>\s?)*", "", l)
+            if l.strip():
+                cur.append(l)
+            elif cur:
+                paras.append(" ".join(cur))
+                cur = []
+
+        def states_a_hook(para):
+            stripped = _REFERENCE.sub(" ", para)
+            if stripped != para:  # a paragraph that only labels a file or link is not hook text
+                return any(w not in _HOOK_LABEL_WORDS for w in re.findall(r"\w+", stripped.casefold()))
+            return bool(re.search(r"\w", para))
+        if not any(states_a_hook(p) for p in paras):
+            bad("SUMMARY_HOOK_UNSTATED", "Best Hook must state the chosen hook text, not only point at a file or link")
+    actions = found.get("next actions", [])
+    if len(actions) == 1 and any(l.strip() for l in actions[0]):
+        # top-level items sit at the section's shallowest 0..3-space marker indent; deeper markers and every other line
+        # are wrapped or nested explanation and never fill an item, so the action text must sit on its own marker line
+        markers = [m for m in map(_ORDERED_ITEM.match, actions[0]) if m]
+        base = min((len(m.group(1)) for m in markers), default=0)
+        items = [[m.group(2), m.group(3) or ""] for m in markers if len(m.group(1)) == base]
+        if [i[0] for i in items] != ["1", "2", "3"] or not all(re.search(r"\w", i[1]) for i in items):
+            bad("SUMMARY_ACTIONS_INVALID", "Next Actions needs exactly three substantive top-level ordered items numbered 1, 2, 3")
+    return out
+
+
+def _check_summary(state, brief, workspace, mode) -> list[Finding]:
+    """The canonical output/SUMMARY.md must be a real file, declared in the manifest, and well-formed."""
+    want, _ = _path_key(workspace, SUMMARY_PATH)
+    full, _ = _resolve_inside(workspace, SUMMARY_PATH)
+    entries = [a for a in state["artifacts"] if _path_key(workspace, a["path"])[0] == want]
+    exists = full is not None and full.is_file()
+    out: list[Finding] = []
+    if mode == "ready" and _summary_required(state, brief):
+        if not exists:
+            out.append(Finding("SUMMARY_MISSING", "error", SUMMARY_PATH, "a full run needs the canonical output/SUMMARY.md; aliases and nested files do not count"))
+        elif not entries:
+            out.append(Finding("SUMMARY_NOT_IN_MANIFEST", "error", SUMMARY_PATH, "output/SUMMARY.md exists but no manifest artifact declares it"))
+    # content is judged whenever the manifest declares the file; ready mode does not let artifact.ready=false skip it
+    if exists and any(mode == "ready" or a.get("ready", False) for a in entries):
+        out += _summary_content_findings(full.read_text(encoding="utf-8", errors="replace"))
     return out
 
 

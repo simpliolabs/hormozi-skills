@@ -1,0 +1,310 @@
+{
+  "schema_version": 1,
+  "scope": "Narrow source-level summary contract; fictional acceptance only",
+  "baseline": "3292a949dd86f9c13989116284819da79de89550",
+  "reviewed_execution_commit": "9ccc0fdebf25f67d7142b7d47d9a495781c43d61",
+  "version": "1.1.1",
+  "installation": {
+    "plugin_id": "hormozi-skills@hormozi-skills",
+    "tracked_files": 119,
+    "all_installed_bytes_match": true,
+    "source_archive_sha256": "cc7be8086449f0bb290bed0438621982da925e4e6184e138506e8c9d9b797ce2",
+    "baseline_1_1_0_cache_still_present": false
+  },
+  "baseline_cache_note": "Native plugin update removed the old1.1.0 cache; baseline Git source, immutable ZIP and original operational artifacts remain preserved. No receipt/source history was rewritten.",
+  "ci": {
+    "url": "https://github.com/simpliolabs/hormozi-skills/actions/runs/41871637656",
+    "head": "9ccc0fdebf25f67d7142b7d47d9a495781c43d61",
+    "conclusion": "success",
+    "selected_log_lines": [
+      "qa (ubuntu-latest)\tUnit and integration tests\t2026-11-04T16:51:21.7579828Z Ran 246 tests in 5.456s",
+      "qa (ubuntu-latest)\tUnit and integration tests\t2026-11-04T16:51:21.7580105Z OK (skipped=1)",
+      "qa (ubuntu-latest)\tRepository checks\t2026-11-04T16:51:21.9507147Z PASS",
+      "qa (windows-latest)\tUnit and integration tests\t2026-11-04T16:51:38.7830563Z Ran 246 tests in 13.154s",
+      "qa (windows-latest)\tUnit and integration tests\t2026-11-04T16:51:38.7830744Z OK (skipped=1)",
+      "qa (windows-latest)\tRepository checks\t2026-11-04T16:51:39.2796682Z PASS"
+    ]
+  },
+  "fresh_session": {
+    "argv": [
+      "codex",
+      "exec",
+      "-C",
+      "C:\\Users\\Admin\\.codex\\hormozi-v1-validation\\summary-fix-2026-11-04\\workspace",
+      "--skip-git-repo-check",
+      "-s",
+      "workspace-write",
+      "-m",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"medium\"",
+      "--json",
+      "-o",
+      "D:\\Dropbox\\VS Code\\handoff\\hormozi-one-chat-2026-11-03\\summary-contract-fix-2026-11-04\\FRESH_FINAL.md",
+      "-"
+    ],
+    "session_id": "01a1a77c-a257-7ea1-938b-786c7d69dfa2",
+    "elapsed_seconds": 331.97,
+    "exit_code": 0,
+    "timed_out": false,
+    "no_followup_or_manual_summary_repair": true,
+    "prompt": "Use the installed hormozi-orchestrator skill explicitly: read C:/Users/Admin/.codex/plugins/cache/hormozi-skills/hormozi-skills/1.1.1/skills/hormozi-orchestrator/SKILL.md and follow it.\n\nMy existing fictional CEO Creative Offer Clarity Sprint is vague. Audit and improve the offer, then prepare pricing/economics, pitch, exactly five hooks, landing-page draft and useful owner summary. Read the four input/ files; owner_terms.md is the fictional owner's authority. Fix positioning without adopting the unapproved brainstorming price, scope, guarantees or unsupported claims. All business data are fictional. Keep undecided refund/cancellation and unknown costs held; these unknowns need not suppress useful drafts. Do not treat fixture authorization as real business approval or evidence.\n\nComplete the workflow in this same conversation. Write only to this consumer workspace; installed plugin files are read-only. No web research, external business tools, publishing, sending, credentials, global configuration edits, account changes or unrelated project reads. Use the installed workflow and report the actual outcome, execution mode and any holds honestly.",
+    "reported_usage": [
+      {
+        "input_tokens": 775755,
+        "cached_input_tokens": 721536,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 10634,
+        "reasoning_output_tokens": 375
+      }
+    ],
+    "runtime_metadata": {
+      "session_id": "01a1a77c-a257-7ea1-938b-786c7d69dfa2",
+      "contexts": [
+        {
+          "model": "gpt-6.1-sol",
+          "effort": "medium",
+          "cwd": "C:\\Users\\Admin\\.codex\\hormozi-v1-validation\\summary-fix-2026-11-04\\workspace",
+          "approval_policy": "never",
+          "sandbox_policy": {
+            "type": "workspace-write",
+            "network_access": false,
+            "exclude_tmpdir_env_var": false,
+            "exclude_slash_tmp": false
+          }
+        }
+      ],
+      "actual_spawn_refusals": [
+        {
+          "tool": "spawn_agent",
+          "output": "Tool call blocked by PreToolUse hook: MODEL ROUTE GATE: exactly one TASK CLASS is required in the spawn message. Tool: collaborationspawn_agent"
+        }
+      ],
+      "method_paths_in_successful_read_commands": [
+        "audit-offer",
+        "brainstorming",
+        "hormozi-hooks",
+        "hormozi-offer",
+        "hormozi-orchestrator",
+        "hormozi-pitch",
+        "landing-page-copy",
+        "pricing-strategy",
+        "using-superpowers"
+      ],
+      "source": "Only runtime turn_context fields and matched spawn refusal outputs extracted; no reasoning/transcript export",
+      "events_sha256": "8754788000cf8b6dc81e97b390d0e6df4ee40ab4769e4ecb67911e07eeaf80e4"
+    },
+    "input_hashes": {
+      "owner_terms.md": "cb133989947c59131ff1e44a61098e5c869d31d1e3b4483cf8ee1e1130d12da8",
+      "existing_offer.md": "a6d5f6be0a3d9a2660c22441437f08c6a1a4647813e179569139953ba06c5d02",
+      "costs_and_feedback.md": "9ee1c350c8769af92850a3c4d1787f7d96e0bc60fe063a1c9c6cce1ab997b028",
+      "unapproved_brainstorm.md": "6af48e29229e77bf0f3f786f12d73cfbc890e025817964272e8ef6644c35b42e"
+    },
+    "files_at_first_completion": {
+      "input/costs_and_feedback.md": "9ee1c350c8769af92850a3c4d1787f7d96e0bc60fe063a1c9c6cce1ab997b028",
+      "input/existing_offer.md": "a6d5f6be0a3d9a2660c22441437f08c6a1a4647813e179569139953ba06c5d02",
+      "input/owner_terms.md": "cb133989947c59131ff1e44a61098e5c869d31d1e3b4483cf8ee1e1130d12da8",
+      "input/unapproved_brainstorm.md": "6af48e29229e77bf0f3f786f12d73cfbc890e025817964272e8ef6644c35b42e",
+      "output/build_drafts.py": "96857cac48e4ac51ce0d0d9c19b252a631cab4352eba5768ee41e77c546e7dd1",
+      "output/CHECKPOINT.md": "a497227aa9d757fe0598a8837e4e97dc4cb91b73eb4454081879344e3031cdf0",
+      "output/HOOKS.md": "b9836255aef1060cdc71be0a5f8ca3bc089a6583d9fa65596e55482e95e76895",
+      "output/LANDING_PAGE.md": "76261b658b06fdba61e0907d64ec1593d7a2f7c73cb6040ee427116a24a0ca5e",
+      "output/OFFER.md": "99fae25506740b71f7072e4631a1000998fa3dd247bc4d4e3a72769ef213439c",
+      "output/OFFER_AUDIT.md": "f733e88d31adb78c850f0b39ec2abf9979f13e0bef12cf19cbbf6975f6377262",
+      "output/ORIGINAL_OFFER_AUDIT.md": "8127a233c69b2718f9de81dd6ab03c9ed963b21a389edb55db0ab482734d1460",
+      "output/PITCH.md": "42605be60cbf3186ef53d1609698f327471a0cb1f72f316f0005eba2c4ae6991",
+      "output/PRICING.md": "dd34cf05ff2c2f81294427f4a26110f678406d83f3629823ac7276b235c8ad32",
+      "output/QA_REPORT.md": "27df8cd3901dbda94b8edc0222f586ac0f9177a0722714161ed46f72fd96a7f8",
+      "output/reconcile.py": "bd5f2bde4e3eb64a58be38dbf61b4a26533a5a6c9a2ac605f098b0b2aaf4bd8c",
+      "output/REVISED_OFFER_CHECK.md": "f733e88d31adb78c850f0b39ec2abf9979f13e0bef12cf19cbbf6975f6377262",
+      "output/run_tools.py": "7572485eb1683bd4167e50c9f2a7ae26c4fc07bbe8d1b4be20e1b1fdf6844200",
+      "output/SUMMARY.md": "2853e5364f9a87fd8d99945e27a92ae9c4c538e0651f3269a8390e07d7420fcc",
+      "output/__pycache__/run_tools.cpython-314.pyc": "e73bcf7fe200134df6183b0539eb97a6ee9f5ac84f2e3562f5a7563217179402",
+      "output/runs/2026-11-04-clarity/BRIEF.json": "c8d0a4fcb9e0286df541f9c3b0af142dbab1c1cc753cc0c18d4c82e1abadac0d",
+      "output/runs/2026-11-04-clarity/CLAIMS.json": "5a46b2d729619863153ddfbd08893f02d035d6f73c9c7a57fd6a0850519c71b3",
+      "output/runs/2026-11-04-clarity/OFFER_DECISIONS.json": "04c7c9bb5d8515e11b8e13ac2f692d39dcd935d713430448c53bab816437e828",
+      "output/runs/2026-11-04-clarity/RUN_STATE.json": "27f39bb9f3a3a115fb5970b4e34d60c1d05bed70a0599a8f9b4568e099b7470f"
+    },
+    "first_ready_check": {
+      "args": [
+        "C:/Python314/python.exe",
+        "C:\\Users\\Admin\\.codex\\plugins\\cache\\hormozi-skills\\hormozi-skills\\1.1.1\\scripts\\check_outputs.py",
+        "--workspace",
+        "C:\\Users\\Admin\\.codex\\hormozi-v1-validation\\summary-fix-2026-11-04\\workspace",
+        "--run",
+        "C:\\Users\\Admin\\.codex\\hormozi-v1-validation\\summary-fix-2026-11-04\\workspace\\output\\runs\\2026-11-04-clarity",
+        "--mode",
+        "ready",
+        "--json"
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "code": "BLOCKER_OPEN",
+          "severity": "error",
+          "artifact": "RUN_STATE.json",
+          "reason": "unresolved blocker: Refund/cancellation undecided"
+        },
+        {
+          "code": "BLOCKER_OPEN",
+          "severity": "error",
+          "artifact": "RUN_STATE.json",
+          "reason": "unresolved blocker: Acquisition, overhead, taxes and refund costs unknown"
+        },
+        {
+          "code": "BLOCKER_OPEN",
+          "severity": "error",
+          "artifact": "RUN_STATE.json",
+          "reason": "unresolved blocker: Fictional fixture; real business validation absent"
+        }
+      ],
+      "stderr": "",
+      "summary_findings": [],
+      "source_and_inputs_unchanged": true,
+      "canonical_summary_in_first_completion": true,
+      "state_phase": "HELD"
+    },
+    "first_final_owner_response": "Completed the fictional draft workflow using the installed hormozi-orchestrator. **Final checker outcome: HELD**, with all requested drafts produced.\n\nThe improved positioning is: **Turn your existing fractional-operations offer into a one-page brief and draft messaging you can review and test.** It serves US solo fractional-operations consultants with an existing offer and at least three past paying clients.\n\nThe fictional owner’s USD 750 one-time price and exact scope remain intact. No brainstorming price, added calls, guarantees, fabricated proof or scarcity were adopted.\n\nValue Equation reasoning:\n\n- **Outcome:** tangible brief and messaging replace vague growth language.\n- **Likelihood:** explain the process; real results remain unproven.\n- **Delay:** drafts within five business days after complete intake.\n- **Effort:** one 90-minute session, intake and one bounded feedback round.\n\nKnown costs are **USD 292.50/project**, leaving **USD 457.50 contribution (61%) before omitted costs**, not net profit. Holds cover refund/cancellation policy, unknown costs and absent real business validation.\n\nFiles: [Owner summary](output/SUMMARY.md), [offer](output/OFFER.md), [audit](output/OFFER_AUDIT.md), [economics](output/PRICING.md), [pitch](output/PITCH.md), [exactly five hooks](output/HOOKS.md), [landing-page draft](output/LANDING_PAGE.md), [QA report](output/QA_REPORT.md).\n\nExecution used **root fallback** after the runtime refused native delegation. No specialist worker ran; nothing was published or sent.\n\nActions for you (PO), through the Architect:\n\nA. Resolve policies and clarify the feedback-window start before real use.  \nB. Complete omitted costs and verify delivery hours.  \nC. Plan a low-cost comprehension check before paid promotion; fixture authorization is not real business approval."
+  },
+  "operator_policy_reconciliation": {
+    "authority": "Explicit PO instruction to retain seven commercial/review holds",
+    "native_first_completion_findings": 3,
+    "operator_final_findings": 7,
+    "summary_unassisted_first_completion": true,
+    "summary_and_all_customer_drafts_unchanged": true,
+    "changed_only_control_receipts": [
+      "output/CHECKPOINT.md",
+      "output/QA_REPORT.md",
+      "output/runs/2026-11-04-clarity/RUN_STATE.json"
+    ],
+    "operator_metadata_reconciliation_after_native_completion": true,
+    "no_claim_of_unassisted_risk_flagging": true,
+    "checker": {
+      "args": [
+        "C:/Python314/python.exe",
+        "C:\\Users\\Admin\\.codex\\plugins\\cache\\hormozi-skills\\hormozi-skills\\1.1.1\\scripts\\check_outputs.py",
+        "--workspace",
+        "C:\\Users\\Admin\\.codex\\hormozi-v1-validation\\summary-fix-2026-11-04\\workspace",
+        "--run",
+        "C:\\Users\\Admin\\.codex\\hormozi-v1-validation\\summary-fix-2026-11-04\\workspace\\output\\runs\\2026-11-04-clarity",
+        "--mode",
+        "ready",
+        "--json"
+      ],
+      "exit_code": 1,
+      "findings": [
+        {
+          "code": "BLOCKER_OPEN",
+          "severity": "error",
+          "artifact": "RUN_STATE.json",
+          "reason": "unresolved blocker: Refund/cancellation undecided"
+        },
+        {
+          "code": "BLOCKER_OPEN",
+          "severity": "error",
+          "artifact": "RUN_STATE.json",
+          "reason": "unresolved blocker: Acquisition, overhead, taxes and refund costs unknown"
+        },
+        {
+          "code": "BLOCKER_OPEN",
+          "severity": "error",
+          "artifact": "RUN_STATE.json",
+          "reason": "unresolved blocker: Fictional fixture; real business validation absent"
+        },
+        {
+          "code": "BLOCKER_OPEN",
+          "severity": "error",
+          "artifact": "RUN_STATE.json",
+          "reason": "unresolved blocker: PO hold: separate-context review remains unresolved; native delegation was refused and only same-context review was recorded"
+        },
+        {
+          "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+          "severity": "error",
+          "artifact": "output/PITCH.md",
+          "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+        },
+        {
+          "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+          "severity": "error",
+          "artifact": "output/HOOKS.md",
+          "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+        },
+        {
+          "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+          "severity": "error",
+          "artifact": "output/LANDING_PAGE.md",
+          "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+        }
+      ]
+    },
+    "files": {
+      "input/costs_and_feedback.md": "9ee1c350c8769af92850a3c4d1787f7d96e0bc60fe063a1c9c6cce1ab997b028",
+      "input/existing_offer.md": "a6d5f6be0a3d9a2660c22441437f08c6a1a4647813e179569139953ba06c5d02",
+      "input/owner_terms.md": "cb133989947c59131ff1e44a61098e5c869d31d1e3b4483cf8ee1e1130d12da8",
+      "input/unapproved_brainstorm.md": "6af48e29229e77bf0f3f786f12d73cfbc890e025817964272e8ef6644c35b42e",
+      "output/build_drafts.py": "96857cac48e4ac51ce0d0d9c19b252a631cab4352eba5768ee41e77c546e7dd1",
+      "output/CHECKPOINT.md": "c70a19c50172e564524d3818e9f648f700fc34f8b7b5b7cd62170b9086e68f81",
+      "output/HOOKS.md": "b9836255aef1060cdc71be0a5f8ca3bc089a6583d9fa65596e55482e95e76895",
+      "output/LANDING_PAGE.md": "76261b658b06fdba61e0907d64ec1593d7a2f7c73cb6040ee427116a24a0ca5e",
+      "output/OFFER.md": "99fae25506740b71f7072e4631a1000998fa3dd247bc4d4e3a72769ef213439c",
+      "output/OFFER_AUDIT.md": "f733e88d31adb78c850f0b39ec2abf9979f13e0bef12cf19cbbf6975f6377262",
+      "output/ORIGINAL_OFFER_AUDIT.md": "8127a233c69b2718f9de81dd6ab03c9ed963b21a389edb55db0ab482734d1460",
+      "output/PITCH.md": "42605be60cbf3186ef53d1609698f327471a0cb1f72f316f0005eba2c4ae6991",
+      "output/PRICING.md": "dd34cf05ff2c2f81294427f4a26110f678406d83f3629823ac7276b235c8ad32",
+      "output/QA_REPORT.md": "f764775196336404dfb46a354acfa2536e4ad00d032a957b0ff994ab31ac22fd",
+      "output/reconcile.py": "bd5f2bde4e3eb64a58be38dbf61b4a26533a5a6c9a2ac605f098b0b2aaf4bd8c",
+      "output/REVISED_OFFER_CHECK.md": "f733e88d31adb78c850f0b39ec2abf9979f13e0bef12cf19cbbf6975f6377262",
+      "output/run_tools.py": "7572485eb1683bd4167e50c9f2a7ae26c4fc07bbe8d1b4be20e1b1fdf6844200",
+      "output/SUMMARY.md": "2853e5364f9a87fd8d99945e27a92ae9c4c538e0651f3269a8390e07d7420fcc",
+      "output/__pycache__/run_tools.cpython-314.pyc": "e73bcf7fe200134df6183b0539eb97a6ee9f5ac84f2e3562f5a7563217179402",
+      "output/runs/2026-11-04-clarity/BRIEF.json": "c8d0a4fcb9e0286df541f9c3b0af142dbab1c1cc753cc0c18d4c82e1abadac0d",
+      "output/runs/2026-11-04-clarity/CLAIMS.json": "5a46b2d729619863153ddfbd08893f02d035d6f73c9c7a57fd6a0850519c71b3",
+      "output/runs/2026-11-04-clarity/OFFER_DECISIONS.json": "04c7c9bb5d8515e11b8e13ac2f692d39dcd935d713430448c53bab816437e828",
+      "output/runs/2026-11-04-clarity/RUN_STATE.json": "e4c7b5d9e2d420a7dc2fcea487b119add8893e5fb2f3b0b6cd93b43e4c6751fa"
+    },
+    "archive_sha256": "c695ff671c9b3060022ad8a76ef982f0aecfc70e54e262ed360e971d179bfeb5"
+  },
+  "semantic_observation": {
+    "chosen_hook_matches_hooks_number": 1,
+    "prioritized_actions": 3,
+    "price": "USD750one-time",
+    "known_costs_usd": 292.5,
+    "contribution_usd": 457.5,
+    "contribution_margin_before_omitted_costs": 0.61,
+    "unknown_costs_and_refund_policy_held": true,
+    "observer": "Outer principal/owner-conversation operator; not a newly registered native independent-review approval"
+  },
+  "review_chain": {
+    "design": "CHANGES_REQUIRED;corrections adopted beforecode",
+    "code": "CHANGES_REQUIRED;fourP2fixed",
+    "first_closure": "CHANGES_REQUIRED;shallowerfourthactionfixed",
+    "final_exact_delta": "PASS at9ccc0fdebf25f67d7142b7d47d9a495781c43d61"
+  },
+  "limitations": [
+    "One fictional scenario, not broad reliability or commercial effectiveness",
+    "Structural contract does not authenticate review metadata or judge marketing quality",
+    "Native delegation refused; differentiated native models/efforts unproven",
+    "Native first check had3businessfindings; four reviewholds were explicitly restored by the operator after first capture",
+    "Summary and all customer draft bytes unchanged by policy restoration",
+    "No merge/deploy/publish/business-system action authorized or performed"
+  ],
+  "artifact_sha256": {
+    "first-completion.zip": "bb70f104ab7fef7fc524d04d12f4a08ec403a67ac2be82afade12f90d7cac108",
+    "operator-held.zip": "c695ff671c9b3060022ad8a76ef982f0aecfc70e54e262ed360e971d179bfeb5",
+    "design-review.md": "604149ac6f67d7a9fe96b54a3d1454ee8c371b6e8ebb7ecdad324fb0cd8d5729",
+    "code-review.md": "e414abccaec2b2f433b872f19351e504378285517760e9d43522730aeb0ef43e",
+    "code-fix-review.md": "2a00e827ca580f96aa2f1d2d3c000522cb9c79194af7e84e31dab6939303f9d3",
+    "final-code-review.md": "f16d11d2863b09e5f7289568a422e76df39d98065c1869222ffa1cb2262dd226",
+    "first-final-response.md": "226c125cabb7de8d16f238e5f3536ca858fcef339ad30132e33fb33a71a840b6"
+  },
+  "original_source_artifact_sha256_before_git_text_normalization": {
+    "first-completion.zip": "bb70f104ab7fef7fc524d04d12f4a08ec403a67ac2be82afade12f90d7cac108",
+    "operator-held.zip": "c695ff671c9b3060022ad8a76ef982f0aecfc70e54e262ed360e971d179bfeb5",
+    "design-review.md": "604149ac6f67d7a9fe96b54a3d1454ee8c371b6e8ebb7ecdad324fb0cd8d5729",
+    "code-review.md": "96c73e8d261cd3c01a0c2ebd6866c9ebb3cbb139c2aea20f58887a5fa1d6677f",
+    "code-fix-review.md": "2a00e827ca580f96aa2f1d2d3c000522cb9c79194af7e84e31dab6939303f9d3",
+    "final-code-review.md": "f16d11d2863b09e5f7289568a422e76df39d98065c1869222ffa1cb2262dd226",
+    "first-final-response.md": "226c125cabb7de8d16f238e5f3536ca858fcef339ad30132e33fb33a71a840b6"
+  },
+  "published_text_policy": "Markdown copies normalize CRLF to LF only; original private reports remain unchanged. ZIP files and their internal input/output/control hashes remain byte exact."
+}

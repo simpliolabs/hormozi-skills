@@ -26,6 +26,14 @@ def asset_path(name):
 
 
 def body(name):
+    if name == "SUMMARY":
+        # a full run's summary follows the canonical section contract and still carries the bound owner terms
+        return (f"# Summary\n\nPrice: {T['price']['display']}.\nGuarantee: {T['guarantee']['display']}.\n{T['bonus']['display']}.\n"
+                f"{FIX['safe_claim']['wording']}.\n\n"
+                "## Offer\n\nThe approved offer, as the owner authorized it.\n\n"
+                "## Key Decisions\n\nTerms are the owner-approved ones; proposals stay held.\n\n"
+                "## Best Hook\n\n> Stop guessing what to say to your first client.\n\n"
+                "## Next Actions\n\n1. Confirm the terms with the owner.\n2. Review the pitch.\n3. Send it to five prospects.\n")
     return (f"# {name}\n\nPrice: {T['price']['display']}.\nGuarantee: {T['guarantee']['display']}.\n{T['bonus']['display']}.\n"
             f"{FIX['safe_claim']['wording']}.\n")
 
