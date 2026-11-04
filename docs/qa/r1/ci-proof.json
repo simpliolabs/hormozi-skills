@@ -1,0 +1,190 @@
+{
+  "classification": "observed GitHub Actions execution",
+  "run": {
+    "conclusion": "success",
+    "headSha": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7",
+    "jobs": [
+      {
+        "completedAt": "2026-11-03T23:25:30Z",
+        "conclusion": "success",
+        "databaseId": 126275442547,
+        "name": "qa (ubuntu-latest)",
+        "startedAt": "2026-11-03T23:25:15Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-03T23:25:17Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-03T23:25:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:18Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "startedAt": "2026-11-03T23:25:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:18Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@v5",
+            "number": 3,
+            "startedAt": "2026-11-03T23:25:18Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:23Z",
+            "conclusion": "success",
+            "name": "Install QA dependencies",
+            "number": 4,
+            "startedAt": "2026-11-03T23:25:18Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:27Z",
+            "conclusion": "success",
+            "name": "Unit and integration tests",
+            "number": 5,
+            "startedAt": "2026-11-03T23:25:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:27Z",
+            "conclusion": "success",
+            "name": "Repository checks",
+            "number": 6,
+            "startedAt": "2026-11-03T23:25:27Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:27Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@v5",
+            "number": 11,
+            "startedAt": "2026-11-03T23:25:27Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:27Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 12,
+            "startedAt": "2026-11-03T23:25:27Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:27Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 13,
+            "startedAt": "2026-11-03T23:25:27Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/simpliolabs/hormozi-skills/actions/runs/41738996761/job/126275442547"
+      },
+      {
+        "completedAt": "2026-11-03T23:25:47Z",
+        "conclusion": "success",
+        "databaseId": 126275442722,
+        "name": "qa (windows-latest)",
+        "startedAt": "2026-11-03T23:25:15Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-11-03T23:25:17Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-11-03T23:25:16Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:24Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "startedAt": "2026-11-03T23:25:17Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:24Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@v5",
+            "number": 3,
+            "startedAt": "2026-11-03T23:25:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:31Z",
+            "conclusion": "success",
+            "name": "Install QA dependencies",
+            "number": 4,
+            "startedAt": "2026-11-03T23:25:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:42Z",
+            "conclusion": "success",
+            "name": "Unit and integration tests",
+            "number": 5,
+            "startedAt": "2026-11-03T23:25:31Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:43Z",
+            "conclusion": "success",
+            "name": "Repository checks",
+            "number": 6,
+            "startedAt": "2026-11-03T23:25:42Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:43Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@v5",
+            "number": 11,
+            "startedAt": "2026-11-03T23:25:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:45Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 12,
+            "startedAt": "2026-11-03T23:25:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-11-03T23:25:45Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 13,
+            "startedAt": "2026-11-03T23:25:45Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/simpliolabs/hormozi-skills/actions/runs/41738996761/job/126275442722"
+      }
+    ],
+    "url": "https://github.com/simpliolabs/hormozi-skills/actions/runs/41738996761"
+  },
+  "observed_test_count_lines": [
+    "qa (ubuntu-latest)\tUnit and integration tests\t2026-11-03T23:25:26.9923017Z Ran 207 tests in 3.431s",
+    "qa (ubuntu-latest)\tUnit and integration tests\t2026-11-03T23:25:26.9927465Z OK",
+    "qa (ubuntu-latest)\tRepository checks\t2026-11-03T23:25:27.2136822Z PASS",
+    "qa (windows-latest)\tUnit and integration tests\t2026-11-03T23:25:42.4855475Z Ran 207 tests in 10.709s",
+    "qa (windows-latest)\tUnit and integration tests\t2026-11-03T23:25:42.4855794Z OK",
+    "qa (windows-latest)\tRepository checks\t2026-11-03T23:25:43.2241713Z PASS"
+  ],
+  "commands": [
+    "python -m pip install -r requirements-qa.txt",
+    "python -m unittest discover -s tests -v",
+    "python scripts/check_outputs.py --repo ."
+  ],
+  "source_commit": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7"
+}

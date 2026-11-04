@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/simpliolabs/hormozi-skills/contracts/brief.schema.json",
+  "title": "BRIEF",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "offer_id", "task", "stage", "maturity", "goal", "requested_artifacts", "customer", "offer_state", "facts", "unknowns", "constraints", "sources", "workspace_root"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "run_id": {"$ref": "#/$defs/id"},
+    "offer_id": {"$ref": "#/$defs/id"},
+    "task": {"type": "string", "minLength": 1},
+    "stage": {"enum": ["A", "B", "C", "D", "E"]},
+    "maturity": {"enum": ["idea", "rough_offer", "live_offer", "scaling_service", "unknown"]},
+    "goal": {"type": "string", "minLength": 1},
+    "requested_artifacts": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "customer": {"type": "string"},
+    "offer_state": {"enum": ["none", "draft", "existing", "authorized", "unknown"]},
+    "facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "text", "source_type"],
+        "properties": {
+          "id": {"$ref": "#/$defs/id"},
+          "text": {"type": "string", "minLength": 1},
+          "source_type": {"enum": ["supplied", "sourced", "inferred", "synthetic"]},
+          "reference": {"type": "string"}
+        }
+      }
+    },
+    "unknowns": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256"],
+        "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"$ref": "#/$defs/sha256"}}
+      }
+    },
+    "workspace_root": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

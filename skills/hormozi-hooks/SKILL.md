@@ -5,6 +5,21 @@ description: Generate scroll-stopping hooks in Hormozi style for posts, ads, and
 
 # Skill: Hook Generator (Hormozi-Style)
 
+## Evidence & Authority Preflight
+
+Applies to every task, including a single standalone request. No run files are needed.
+
+- **Exact wording.** Quote customers and sources only from supplied or sourced material. Invented examples are labeled `synthetic` and never presented as real quotes, testimonials or results.
+- **Unknown stays unknown.** A score, cost, volume or price nobody supplied is marked unknown, not zero and not a silent estimate.
+- **Seller economics.** Check what the offer costs to deliver and what a refund or guarantee exposes. List missing cost inputs.
+- **Simplest viable offer.** Add a component only for a named obstacle.
+- **Proposal vs authorized.** Terms the owner has recorded are authorized; everything else is a proposal. Owner approval is not proof of a claim.
+- **Qualified claims keep their conditions** every time they are repeated.
+- **Requested quantity.** Return the number asked for (five hooks means five).
+- **No deployment assertions.** Produce copy and handoff only. Never say anything is live, published, sent or scheduled.
+
+Full rules: `<plugin_root>/references/evidence-contract.md`. Pricing math: `<plugin_root>/references/commercial-feasibility.md`. `<plugin_root>` is the plugin directory two levels above this skill's base path (the skill lives at `<plugin_root>/skills/<name>/`). Load packaged files by that absolute path, never relative to the working directory.
+
 ## Purpose
 Create scroll-stopping hooks that attract the right people and make them want to keep reading.
 
@@ -384,3 +399,7 @@ The skill works when:
 	•	users want to keep reading
 	•	content performance improves
 
+## Skill-Specific Evidence Rules
+
+- Return exactly the number of hooks requested.
+- A hook makes no result claim the owner has not supported. Examples in the reference file are illustrative, not claims.

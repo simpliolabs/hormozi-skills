@@ -1,0 +1,30 @@
+name: qa
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: qa (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install QA dependencies
+        run: python -m pip install -r requirements-qa.txt
+      - name: Unit and integration tests
+        run: python -m unittest discover -s tests -v
+      - name: Repository checks
+        run: python scripts/check_outputs.py --repo .

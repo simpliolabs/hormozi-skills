@@ -1,0 +1,31 @@
+{
+  "simulated": true,
+  "note": "Synthetic fixture for deterministic simulated tests only. Nothing here was produced by a native Codex or Claude run, and no business or person is real.",
+  "terms": {
+    "price": {"amount_minor": 120000, "currency": "USD", "cadence": "one_time", "display": "$1,200 one-time"},
+    "guarantee": {"value": "30-day conditional refund", "display": "Refund within 30 days if you complete the onboarding checklist and show no result", "conditions": ["complete the onboarding checklist"]},
+    "bonus": {"value": "application review call", "display": "Bonus: one 30-minute credit application review call"}
+  },
+  "proposals": {
+    "bonus": {"proposed_by": "sub-value", "display": "Bonus: lifetime private community access"},
+    "price": {"proposed_by": "sub-pricing", "amount_minor": 150000, "display": "$1,500 one-time"},
+    "guarantee": {"proposed_by": "sub-sales", "display": "Double-your-money guarantee"}
+  },
+  "safe_claim": {"id": "c_safe", "wording": "Clients get a step-by-step application plan", "source": "input/offer.md"},
+  "blocked_claims": [
+    {"id": "c_promo", "status": "unsupported", "source_type": "inferred", "wording": "Unlock $5,500 in promotional credit", "why": "actual purchasing limit is materially lower ($1,800)"},
+    {"id": "c_bureau", "status": "unsupported", "source_type": "inferred", "wording": "We report your payments to the credit bureaus every month", "why": "no accepted-file proof of monthly reporting"},
+    {"id": "c_refund", "status": "prohibited", "source_type": "inferred", "wording": "Full refund of your annual fee within 60 days", "why": "annual-fee refund is not live"},
+    {"id": "c_quote", "status": "prohibited", "source_type": "synthetic", "wording": "\"This changed my credit life\" - Dana R.", "why": "synthetic customer quote"},
+    {"id": "c_scarcity", "status": "unsupported", "source_type": "inferred", "wording": "Only 7 spots left this month", "why": "made-up scarcity"}
+  ],
+  "mature_b2b": {
+    "unknown_fields": ["cac", "refund_exposure", "delivery_cost", "affiliate_commission"],
+    "price": {"amount_minor": 480000, "currency": "EUR", "cadence": "monthly", "display": "\u20ac4,800 per month"},
+    "blocked_claims": [
+      {"id": "b_margin", "status": "unsupported", "source_type": "inferred", "wording": "Projected 62% gross margin is certified", "why": "delivery cost unknown"},
+      {"id": "b_refund", "status": "prohibited", "source_type": "inferred", "wording": "Every customer is covered by a 60-day money-back refund", "why": "refund exposure unknown, not live"},
+      {"id": "b_affiliate", "status": "unsupported", "source_type": "inferred", "wording": "Affiliates earn a 20% commission on every sale", "why": "affiliate commission unknown"}
+    ]
+  }
+}

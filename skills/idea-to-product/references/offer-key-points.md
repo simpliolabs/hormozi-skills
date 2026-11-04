@@ -1,3 +1,7 @@
+> **Evidence note.** Examples and figures below are illustrative. They are not claims about this owner's offer, and any use in copy follows `references/evidence-contract.md`.
+
+<!-- end evidence note -->
+
 Here are 50 sharp highlights distilled from everything you built — this is your full system in compact form.
 
 ⸻

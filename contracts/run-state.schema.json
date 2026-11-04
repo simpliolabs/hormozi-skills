@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/simpliolabs/hormozi-skills/contracts/run-state.schema.json",
+  "title": "RUN_STATE",
+  "description": "Root-owned run state plus output manifest. Cooperative-agent contract with detection; not filesystem isolation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "phase", "tasks", "decision_version", "decision_hash", "artifacts", "reviews", "blockers", "qa_result"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "run_id": {"type": "string", "minLength": 1},
+    "phase": {"enum": ["INTAKE", "ROUTED", "DRAFTING", "RECONCILING", "NEEDS_APPROVAL", "SALES_ASSETS", "QA", "READY", "HELD", "FAILED"]},
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "role", "status", "depends_on", "inputs", "write_set"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "role": {"enum": ["sub-market", "sub-offer", "sub-value", "sub-pricing", "sub-sales", "adversary", "root"]},
+          "mode": {"type": "string"},
+          "status": {"enum": ["pending", "running", "done", "failed", "held", "not_requested", "not_applicable"]},
+          "depends_on": {"type": "array", "items": {"type": "string"}},
+          "inputs": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["path", "sha256"], "properties": {"path": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}}},
+          "write_set": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "routing": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["task", "requested_effort", "observed_model", "observed_effort"],
+        "properties": {
+          "task": {"type": "string"},
+          "requested_effort": {"enum": ["low", "medium", "high", "xhigh", "unknown"]},
+          "observed_model": {"type": "string"},
+          "observed_effort": {"type": "string"}
+        }
+      }
+    },
+    "decision_version": {"type": "integer", "minimum": 1},
+    "decision_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "decision_version", "task"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "decision_version": {"type": "integer", "minimum": 1},
+          "task": {"type": "string"},
+          "ready": {"type": "boolean"},
+          "high_risk": {"type": "boolean"},
+          "claim_ids": {"type": "array", "items": {"type": "string"}},
+          "uses_fields": {"type": "array", "items": {"type": "string"}},
+          "bindings": {
+            "type": "array",
+            "items": {"type": "object", "additionalProperties": false, "required": ["field", "rendered_text"], "properties": {"field": {"type": "string"}, "rendered_text": {"type": "string", "minLength": 1}}}
+          }
+        }
+      }
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["artifact", "artifact_sha256", "decision_version", "reviewer", "context", "result"],
+        "properties": {
+          "artifact": {"type": "string"},
+          "artifact_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "decision_version": {"type": "integer", "minimum": 1},
+          "reviewer": {"type": "string"},
+          "context": {"enum": ["same", "separate"]},
+          "result": {"enum": ["pass", "fail"]}
+        }
+      }
+    },
+    "checkpoint": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "decision_version"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "decision_version": {"type": "integer", "minimum": 1}}},
+    "qa_receipt": {"type": "object", "additionalProperties": false, "required": ["path", "sha256", "decision_version"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "decision_version": {"type": "integer", "minimum": 1}}},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "qa_result": {"enum": ["not_run", "pass", "held", "invalid"]}
+  }
+}

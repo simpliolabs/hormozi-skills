@@ -1,0 +1,197 @@
+{
+  "schema_version": 2,
+  "status": "DRAFT; no ready-state/merge/publication authorization",
+  "review_input_sha256": "c30dd3c4e16a4265820333aa5fc22feb4301a213a4cfa51a9a6324a6a5b15029",
+  "reviewed_implementation_commit": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7",
+  "previous_pr_head": "735c0ced7941b1d678f235c5a3f05c0750d3d734",
+  "instruction_fix_commit": "1ee0c25",
+  "native_and_benchmark_component_reuse": "All loaded skills/agents/references/contracts/README/dependencies identical27484..9cd; checker-only changes independentlytested and rerunagainstpersistednativeoutputs.",
+  "requirements": [
+    {
+      "requirement": "P0-1",
+      "result": "PASS",
+      "verification_type": "observed native paired comparison",
+      "command_summary": "claude plugin eval <source> --eval-dir evals/paired --model sonnet --judge-model fable --runs 1 --concurrency 1 --ablation none --no-publish --no-scaffold --trust-plugin --allow-tools Write Edit --disallow-tools Bash PowerShell",
+      "fixture": "six identical hash-pinned fixtures",
+      "source_commit": "910545c baseline /27484b1 candidate; unchanged loaded methods through9cd252a",
+      "artifact": "qa/r1/paired-results.json",
+      "limitation": "Baseline6/6 candidate6/6; one sample, no superiorityclaim.",
+      "environment": "Claude Code2.1.311, requestedsonnet/medium andfablejudge",
+      "exact_command_artifact": "../evals/README.md"
+    },
+    {
+      "requirement": "P0-2",
+      "result": "PASS",
+      "verification_type": "observed native Codex",
+      "command_summary": "codex exec ...; codex exec -s workspace-write resume <exact thread_id> ...",
+      "fixture": "StageA checkpoint+resume and StageB first+second",
+      "source_commit": "27484b1 and1c365c2, rechecked9cd252a",
+      "artifact": "qa/r1/native-stage-a.json; qa/r1/native-stage-b.json",
+      "limitation": "Complete ownerresponses; commercial readinessHELDtruthfully.",
+      "environment": "Windows native Codex CLI0.164.0-alpha.11.1, user-approved Sol/medium",
+      "exact_command_artifact": "qa/r1/native-stage-a.json"
+    },
+    {
+      "requirement": "P0-3",
+      "result": "PASS",
+      "verification_type": "observed native runtime + honest fallback",
+      "command_summary": "codex exec --model gpt-6.1-sol -c model_reasoning_effort=medium -s workspace-write ...",
+      "fixture": "explicit absolute rootSKILL invocation",
+      "source_commit": "27484b1 /1c365c2",
+      "artifact": "qa/r1/native-stage-a.json; qa/r1/native-stage-b.json",
+      "limitation": "User approvedtask-onlymodel exception; actualruntime metadataSol/medium. Childroute refused; no childexecutionclaimed. Autoactivation/projectrolesoptionalunverified.",
+      "environment": "Windows native Codex CLI0.164.0-alpha.11.1, user-approved Sol/medium",
+      "exact_command_artifact": "qa/r1/native-stage-a.json"
+    },
+    {
+      "requirement": "P0-4",
+      "result": "PASS",
+      "verification_type": "observed generation + independent prose review + simulated mutations",
+      "command_summary": "native Codex negativecase; final checker validate_run(mode=ready); 30freshhash/reviewmutations",
+      "fixture": "5500promo vs800singlecase, absentacceptedreporting, refundnotlive, fakequote/scarcity",
+      "source_commit": "1c365c2 generation /9cd252a checker",
+      "artifact": "qa/r1/credit-negative/; qa/r1/credit-mutation-proof.json; qa/r1/source-review.json",
+      "limitation": "All5draftsexcludebadpromises; expectedHELD11 prevents publication. No generalparaphraseproof.",
+      "environment": "Windows native Codex CLI0.164.0-alpha.11.1, user-approved Sol/medium",
+      "exact_command_artifact": "qa/r1/native-credit-negative.json"
+    },
+    {
+      "requirement": "P1-1",
+      "result": "PASS",
+      "verification_type": "observed GitHub Actions",
+      "command_summary": "python -m unittest discover -s tests -v; python scripts/check_outputs.py --repo .",
+      "fixture": "Python3.12 Windows+Ubuntu",
+      "source_commit": "9cd252a",
+      "artifact": "qa/r1/ci-proof.json",
+      "limitation": "207tests eachOS; workflowread-onlycontents, no secrets/deploy or swallowedfailures; branchprotectionnotchanged.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-2",
+      "result": "PASS",
+      "verification_type": "revision-pinned evidence",
+      "command_summary": "commands/argv/prompts/sourcepins in linked JSON",
+      "fixture": "this requirementmatrix +rawnativezip",
+      "source_commit": "each row is separately pinned; final data-only commit distinguished",
+      "artifact": "QA_EVIDENCE.json; qa/r1/native-fixtures-manifest.json",
+      "limitation": "Observed/simulated/agentclaims/unverified separated; no self-referentialcommitSHA fabricated.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-3",
+      "result": "PASS",
+      "verification_type": "observed CI + originalnative capability evidence",
+      "command_summary": "python -m unittest discover -s tests -v",
+      "fixture": "17businessskills +create-plugin +newroot =19; five specialists +originalroot agent",
+      "source_commit": "9cd252a CI; original17nativecalls source0eced/49ba, unchanged17businessmethods through9cd",
+      "artifact": "qa/r1/ci-proof.json; qa/r1/source-review.json",
+      "limitation": "Standalonefocusedhooksnativefixturepasses; originalClaudeentrypoints retained. OptionalCodexrolesnotassumedexecuted.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-4",
+      "result": "PASS",
+      "verification_type": "observed native + tested simulated",
+      "command_summary": "same-session StageB pass2; test_review_regressions",
+      "fixture": "unapproved Valuebonus/Pricingfees/Salesguarantee;5assets; price/guaranteemutations",
+      "source_commit": "27484b1 /1c365c2 native;9cd252a simulated",
+      "artifact": "qa/r1/native-stage-b.json; qa/r1/stage-b-archive-proof.json; ../tests/test_review_regressions.py",
+      "limitation": "Inputsunchanged; priorrecords17archived;9manifestartifactsfoundbyhash. Original/revisedchecks distinct. Serialfallback avoids races.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-5",
+      "result": "PASS",
+      "verification_type": "tested simulated plus observed unknown-cost negativecase",
+      "command_summary": "python -m unittest discover -s tests -v",
+      "fixture": "matureB2B EUR4800monthly, CAC/refund/delivery/affiliateunknown",
+      "source_commit": "9cd252a",
+      "artifact": "../tests/fixtures/review_regression_scenarios.json; ../tests/test_review_regressions.py; qa/r1/credit-negative/output/PRICING.md",
+      "limitation": "Full native mature-unknown-B2B generation not claimed; deterministicfixtureblocks certification/zeroing andclaimleaks. Nativecreditpricingalso preservesunknowns.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    },
+    {
+      "requirement": "P1-6",
+      "result": "PASS",
+      "verification_type": "observed source review, package/runtime paths, comparative measurements",
+      "command_summary": "full source diff review; native plugin eval; Codex manual root; paired reported usage/cost",
+      "fixture": "onechecker/fourcontracts/no service; path/lineendingvariants",
+      "source_commit": "1c365c2 fullreview +9cd252a closure",
+      "artifact": "qa/r1/source-review.json; qa/r1/paired-results.json",
+      "limitation": "Generator reportedUSD0.8025baseline vs1.8814candidate; runtime225.64s vs512.88s. Cache-sensitive smallsample; no savingsclaim. NativeCodex exactbillingunmeasured.",
+      "environment": "GitHub Actions Python3.12 Ubuntu+Windows; deterministic/source checks as specified",
+      "exact_command_artifact": "qa/r1/ci-proof.json"
+    }
+  ],
+  "native_environment": {
+    "client": "Codex CLI0.164.0-alpha.11.1",
+    "host": "Windows",
+    "requested_model": "gpt-6.1-sol",
+    "requested_effort": "medium",
+    "effective_runtime_context_model": "gpt-6.1-sol",
+    "effective_runtime_context_effort": "medium",
+    "authorization": "Explicit user-approved exception for native acceptance only; gpt5.5unsupported; globalpolicyunchanged",
+    "automatic_child_admission": "refused; transparent sequentialrolefallback, no inventedchildren"
+  },
+  "ci_environment": {
+    "python": "3.12",
+    "os": [
+      "ubuntu-latest",
+      "windows-latest"
+    ],
+    "observed_tests_each": 207,
+    "run_url": "https://github.com/simpliolabs/hormozi-skills/actions/runs/41738996761",
+    "tested_commit": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7"
+  },
+  "history": {
+    "prior_raw_paired": "6/6baseline vs5/6candidate; retain priorfailure",
+    "failed_fixture": "d sparse-idea",
+    "cause": "Owner response was a file/status index rather than the useful provisionaloffer/ValueEquation; rawartifactcoverage did not cure the missing chatdeliverable.",
+    "fix": "1ee0c25 requires substantive finalownerresponse, preserveshonestholds; sameprompts/rubricsrerun6/6vs6/6",
+    "prior_native_timeout": "600secondbound hit before finalownerresponse; newA/B/negativecasescompletedreal finalresponses withinper-turnbound",
+    "historical_refund_sentence": "An earlier standalone objectiondraft had ambiguous only-if wording; it remainsunapproved/notpublished, not a readyasset."
+  },
+  "evidence_classes": {
+    "observed": "Nativefinalmessages/threadIDs/runtime metadata/files, GitHubchecks and independentreview",
+    "tested_simulated": "Pythonregressions and deliberate mutations, including30mutations ofactualnativeoutputs",
+    "claimed_by_agent": "Agent narrations retainedverbatim but not sole proof; crosschecked usingfiles/checker/metadata where material",
+    "unverified": [
+      "AutomaticCodexskillactivation",
+      "Nativeoptionalprojectroleexecution",
+      "Realbureauuploads/acceptance or liveannualrefundoperations",
+      "Conversionimprovement and actualaccountbilling"
+    ]
+  },
+  "intentionally_unmet": {
+    "commercial_readiness": "Allsyntheticgeneratedassets remainHELD, as correct behavior for missingrealbusinessproof. No criterionwaswaived to forceREADY.",
+    "optional_capabilities": "Autoactivation/projectrolesnotproved orpromised as prerequisite; ownermayaccept explicitmanualentrypoint/sequentialfallback as documented coreminimum."
+  },
+  "raw_native_archive": {
+    "path": "qa/r1/native-fixtures.zip",
+    "sha256": "e98b00a9a6c6209e49e8acea6827524e9eecd2a26202a76db48a800d7daab1f2"
+  },
+  "independent_review": "qa/r1/source-review.json",
+  "method_tree_assertion": {
+    "git_command": [
+      "git",
+      "diff",
+      "--name-only",
+      "27484b1",
+      "9cd252a",
+      "--",
+      "skills",
+      "agents",
+      "references",
+      "contracts",
+      "README.md",
+      "requirements-qa.txt"
+    ],
+    "observed_output": "",
+    "interpretation": "All instruction changes, including1ee0c25, were included in newnative/benchmarkruns; laterchecker-only fixes were rerunonpersistednativeoutputs. Finaldocumentation/data-only commits do not change these runtimecomponents."
+  }
+}

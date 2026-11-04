@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {
+      "id": "C1",
+      "wording": "USD99 annual membership fee for business-credit education and document-readiness materials",
+      "source_type": "synthetic",
+      "status": "qualified",
+      "sources": [
+        "input/owner_terms.md:1"
+      ],
+      "scope": "Synthetic fixture owner authorization only",
+      "qualifications": [
+        "DRAFT / HELD - synthetic acceptance fixture. Evidence and independent review incomplete. Not for publication."
+      ],
+      "checked_at": "2026-11-03",
+      "owner": "root"
+    },
+    {
+      "id": "C2",
+      "wording": "up to $5,500",
+      "source_type": "synthetic",
+      "status": "prohibited",
+      "sources": [
+        "input/promotional_ad.md:1",
+        "input/actual_limit_record.md:1"
+      ],
+      "scope": "Excluded from customer-facing drafts",
+      "qualifications": [
+        "Promotional ceiling is not approved or usable capacity; exclude from all five drafts."
+      ],
+      "checked_at": "2026-11-03",
+      "owner": "root"
+    },
+    {
+      "id": "C3",
+      "wording": "actual usable purchasing limit USD800",
+      "source_type": "synthetic",
+      "status": "prohibited",
+      "sources": [
+        "input/actual_limit_record.md:1"
+      ],
+      "scope": "Excluded from customer-facing drafts",
+      "qualifications": [
+        "ONE synthetic applicant; cannot generalize to other applicants or promise a universal limit."
+      ],
+      "checked_at": "2026-11-03",
+      "owner": "root"
+    },
+    {
+      "id": "C4",
+      "wording": "A monthly bureau reporting CSV is prepared locally.",
+      "source_type": "synthetic",
+      "status": "prohibited",
+      "sources": [
+        "input/reporting_status.md:1"
+      ],
+      "scope": "Excluded from customer-facing drafts",
+      "qualifications": [
+        "No uploaded file, accepted-file receipt or posted bureau record. Preparation is not reporting."
+      ],
+      "checked_at": "2026-11-03",
+      "owner": "root"
+    },
+    {
+      "id": "C5",
+      "wording": "Annual-fee refund proposal exists on paper",
+      "source_type": "synthetic",
+      "status": "prohibited",
+      "sources": [
+        "input/refund_status.md:1",
+        "input/owner_terms.md:1"
+      ],
+      "scope": "Excluded from customer-facing drafts",
+      "qualifications": [
+        "Has NOT launched; eligibility/process/funding absent. Ordinary refund treatment remains unknown."
+      ],
+      "checked_at": "2026-11-03",
+      "owner": "root"
+    },
+    {
+      "id": "C6",
+      "wording": "CEO Creative got me $5,500 guaranteed the same day.",
+      "source_type": "synthetic",
+      "status": "prohibited",
+      "sources": [
+        "input/fake_social_proof.md:1"
+      ],
+      "scope": "Excluded from customer-facing drafts",
+      "qualifications": [
+        "Explicitly synthetic, not a customer quote; no result, amount or timing paraphrase."
+      ],
+      "checked_at": "2026-11-03",
+      "owner": "root"
+    },
+    {
+      "id": "C7",
+      "wording": "Only three spots left until midnight.",
+      "source_type": "synthetic",
+      "status": "prohibited",
+      "sources": [
+        "input/fake_social_proof.md:1"
+      ],
+      "scope": "Excluded from customer-facing drafts",
+      "qualifications": [
+        "Invented scarcity, not real or authorized; exclude deadlines and capacity substitutes."
+      ],
+      "checked_at": "2026-11-03",
+      "owner": "root"
+    }
+  ]
+}

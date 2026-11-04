@@ -11,3 +11,7 @@ output/*
 # OPF local companions (shared content is committed; personal notes stay local)
 *.local.*
 .octopus.local/
+
+# Python bytecode
+__pycache__/
+*.pyc

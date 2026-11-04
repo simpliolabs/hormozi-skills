@@ -1,0 +1,173 @@
+[
+  {
+    "case": "stage-a",
+    "run_id": "hormozi-pr1-stage-a-2026-11-03",
+    "checker_source": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7",
+    "classification": "observed persisted native outputs rechecked after checker-only correction",
+    "mode": "ready",
+    "findings": [
+      {
+        "code": "BLOCKER_OPEN",
+        "severity": "error",
+        "artifact": "RUN_STATE.json",
+        "reason": "unresolved blocker: Commercial readiness held: demand, usefulness, delivery economics and owner-approved commercial terms absent."
+      },
+      {
+        "code": "CLAIM_HYPOTHESIS_IN_READY",
+        "severity": "error",
+        "artifact": "output/OFFER.md",
+        "reason": "claim benefit-hypothesis is only a hypothesis"
+      }
+    ]
+  },
+  {
+    "case": "stage-b",
+    "run_id": "stage-b-20261103-pass2",
+    "checker_source": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7",
+    "classification": "observed persisted native outputs rechecked after checker-only correction",
+    "mode": "ready",
+    "findings": [
+      {
+        "code": "BLOCKER_OPEN",
+        "severity": "error",
+        "artifact": "RUN_STATE.json",
+        "reason": "unresolved blocker: Independent separate-context review not completed; native diagnostic dispatch refused"
+      },
+      {
+        "code": "BLOCKER_OPEN",
+        "severity": "error",
+        "artifact": "RUN_STATE.json",
+        "reason": "unresolved blocker: Unknown conversion/customer evidence and CAC, overhead, cancellation-cost treatment; local drafts only"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/ORIGINAL_OFFER_AUDIT.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/OFFER.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/REVISED_OFFER_CHECK.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/PRICING.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/PITCH.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/LANDING_PAGE.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/SUMMARY.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/OFFER_AUDIT.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/CONVERSATION.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      }
+    ]
+  },
+  {
+    "case": "credit-negative",
+    "run_id": "pr1-credit-negative",
+    "checker_source": "9cd252a8ed98b637bcc0f81af2699011fc4da0e7",
+    "classification": "observed persisted native outputs rechecked after checker-only correction",
+    "mode": "ready",
+    "findings": [
+      {
+        "code": "BLOCKER_OPEN",
+        "severity": "error",
+        "artifact": "RUN_STATE.json",
+        "reason": "unresolved blocker: Native route validation refused: MODEL ROUTE GATE: build expected gpt-5.5/medium, received gpt-6.1-sol/medium"
+      },
+      {
+        "code": "BLOCKER_OPEN",
+        "severity": "error",
+        "artifact": "RUN_STATE.json",
+        "reason": "unresolved blocker: Separate-context independent review missing"
+      },
+      {
+        "code": "BLOCKER_OPEN",
+        "severity": "error",
+        "artifact": "RUN_STATE.json",
+        "reason": "unresolved blocker: Operational inventory/access/terms unverified"
+      },
+      {
+        "code": "BLOCKER_OPEN",
+        "severity": "error",
+        "artifact": "RUN_STATE.json",
+        "reason": "unresolved blocker: Economics and demand unknown"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/OFFER.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/OFFER_AUDIT.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/PRICING.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/COMMERCIAL_FEASIBILITY.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/PITCH.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/LANDING_PAGE.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      },
+      {
+        "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+        "severity": "error",
+        "artifact": "output/SUMMARY.md",
+        "reason": "high-risk readiness requires a separate-context reviewer; hold otherwise"
+      }
+    ]
+  }
+]

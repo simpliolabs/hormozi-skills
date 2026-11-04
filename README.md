@@ -21,7 +21,7 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
 - Price wrong — too low to be taken seriously, too high without justification
 - Skip the sales layer entirely — no hooks, no pitch, no landing page copy
 
-**hormozi-skills** solves this end-to-end. One orchestrator, five specialized subagents, 17 skills, 11 output files.
+**hormozi-skills** solves this end-to-end. One orchestrator, five specialized subagents, 17 business skills plus a `hormozi-orchestrator` entry skill, 11 output files.
 
 ---
 
@@ -36,15 +36,19 @@ Add the marketplace, then install the plugin:
 /plugin install hormozi-skills@hormozi-skills
 ```
 
-Then invoke the `hormozi-orchestrator` agent or a specific skill.
+Then invoke the `hormozi-orchestrator` agent or skill, or a specific business skill.
 
 ### Codex
 
-Install directly from GitHub:
+Register the marketplace (a local clone of this repository, or its GitHub source), then install. The marketplace root is the repository root:
 
 ```bash
-codex plugin install https://github.com/alexsmedile/hormozi-skills
+codex plugin marketplace add <path-to-clone-or-repo>
+codex plugin list --available
+codex plugin add hormozi-skills@hormozi-skills
 ```
+
+Use the `hormozi-orchestrator` skill as the one-chat entry. If your Codex build does not discover it automatically, invoke it manually by naming the absolute path to its `SKILL.md` in your prompt. Non-interactive runs use `codex exec "<prompt>"`, and an interrupted run continues in the same session with `codex exec resume --last "<prompt>"` (both subcommands are listed by `codex exec --help`). Automatic activation and model/effort switching are not promised. The optional `.codex/` role adapters apply only when you work inside a trusted checkout of this repository; they are not copied into your project and do not register roles for a plugin installed elsewhere.
 
 ### Manual Install
 
@@ -55,9 +59,12 @@ If you want the raw skill files instead of the plugin flow:
 git clone https://github.com/alexsmedile/hormozi-skills
 cd hormozi-skills
 
-# Copy skills and agents into your Claude config
-cp -r skills/ agents/ ~/.claude/
+# Copy skills, agents AND the shared assets the skills load by plugin_root
+cp -r skills/ agents/ references/ contracts/ scripts/ ~/.claude/
+pip install -r requirements-qa.txt   # only for the optional output check
 ```
+
+Skills and agents resolve `<plugin_root>/references/...` and `<plugin_root>/scripts/check_outputs.py` from their own base path, so `references/`, `contracts/` and `scripts/` must sit beside `skills/` and `agents/`. Output always goes to your project's `output/`, never into `~/.claude/`.
 
 > [!TIP]
 > Describe your business in plain language — rough idea, brain dump, or existing offer. The orchestrator interviews you, detects your stage, and builds everything from there.
@@ -144,8 +151,12 @@ The orchestrator detects your funnel stage (idea / broken offer / needs sales la
 
 ```
 hormozi-skills/
-├── skills/     # 17 standalone agent skills
+├── skills/     # 17 business skills + hormozi-orchestrator entry (+ create-plugin)
 ├── agents/     # Orchestrator + 5 subagents
+├── references/ # Shared workflow, evidence and feasibility contracts
+├── contracts/  # JSON schemas for run records
+├── scripts/    # check_outputs.py local acceptance checks
+├── .codex/     # Optional Codex role adapters (trusted checkout only)
 ├── output/     # Generated offer documents (starts empty)
 └── input/      # Drop existing offers, notes, or sales pages here
 ```

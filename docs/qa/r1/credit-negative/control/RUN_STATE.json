@@ -1,0 +1,558 @@
+{
+  "schema_version": 1,
+  "run_id": "pr1-credit-negative",
+  "phase": "HELD",
+  "tasks": [
+    {
+      "id": "market",
+      "role": "sub-market",
+      "status": "not_requested",
+      "depends_on": [],
+      "inputs": [
+        {
+          "path": "input/actual_limit_record.md",
+          "sha256": "959cc59d9ea5459db8c4a0526ecf7a7d8a10beb9ee692275288e56014c928401"
+        },
+        {
+          "path": "input/fake_social_proof.md",
+          "sha256": "25bb4a96bd513157009481e56c03ace5946cb6b5e21db7a5b33490aae37b8e93"
+        },
+        {
+          "path": "input/owner_terms.md",
+          "sha256": "8d8eb4d4f065d40ee1b2e6083114023d8de4fb6f11adce32c328a54ba69e5915"
+        },
+        {
+          "path": "input/promotional_ad.md",
+          "sha256": "9fc95bb0cfa89fe24548b2cc7726a7448ad4baeceb8962bee410c1a0f4c36905"
+        },
+        {
+          "path": "input/refund_status.md",
+          "sha256": "55872ac018e1736f9291fba3520edc96e313a26f411575b0154e3cfd9d6f0a73"
+        },
+        {
+          "path": "input/reporting_status.md",
+          "sha256": "13a15200b50d5c8d525bcbc85286221bf74ad1d19867aaa22642ed56fe4991e9"
+        }
+      ],
+      "write_set": []
+    },
+    {
+      "id": "bonus",
+      "role": "sub-value",
+      "status": "not_requested",
+      "depends_on": [],
+      "inputs": [
+        {
+          "path": "input/actual_limit_record.md",
+          "sha256": "959cc59d9ea5459db8c4a0526ecf7a7d8a10beb9ee692275288e56014c928401"
+        },
+        {
+          "path": "input/fake_social_proof.md",
+          "sha256": "25bb4a96bd513157009481e56c03ace5946cb6b5e21db7a5b33490aae37b8e93"
+        },
+        {
+          "path": "input/owner_terms.md",
+          "sha256": "8d8eb4d4f065d40ee1b2e6083114023d8de4fb6f11adce32c328a54ba69e5915"
+        },
+        {
+          "path": "input/promotional_ad.md",
+          "sha256": "9fc95bb0cfa89fe24548b2cc7726a7448ad4baeceb8962bee410c1a0f4c36905"
+        },
+        {
+          "path": "input/refund_status.md",
+          "sha256": "55872ac018e1736f9291fba3520edc96e313a26f411575b0154e3cfd9d6f0a73"
+        },
+        {
+          "path": "input/reporting_status.md",
+          "sha256": "13a15200b50d5c8d525bcbc85286221bf74ad1d19867aaa22642ed56fe4991e9"
+        }
+      ],
+      "write_set": []
+    },
+    {
+      "id": "offer",
+      "role": "sub-offer",
+      "status": "done",
+      "depends_on": [],
+      "inputs": [
+        {
+          "path": "input/actual_limit_record.md",
+          "sha256": "959cc59d9ea5459db8c4a0526ecf7a7d8a10beb9ee692275288e56014c928401"
+        },
+        {
+          "path": "input/fake_social_proof.md",
+          "sha256": "25bb4a96bd513157009481e56c03ace5946cb6b5e21db7a5b33490aae37b8e93"
+        },
+        {
+          "path": "input/owner_terms.md",
+          "sha256": "8d8eb4d4f065d40ee1b2e6083114023d8de4fb6f11adce32c328a54ba69e5915"
+        },
+        {
+          "path": "input/promotional_ad.md",
+          "sha256": "9fc95bb0cfa89fe24548b2cc7726a7448ad4baeceb8962bee410c1a0f4c36905"
+        },
+        {
+          "path": "input/refund_status.md",
+          "sha256": "55872ac018e1736f9291fba3520edc96e313a26f411575b0154e3cfd9d6f0a73"
+        },
+        {
+          "path": "input/reporting_status.md",
+          "sha256": "13a15200b50d5c8d525bcbc85286221bf74ad1d19867aaa22642ed56fe4991e9"
+        }
+      ],
+      "write_set": [
+        "output/OFFER.md"
+      ],
+      "mode": "proposal"
+    },
+    {
+      "id": "audit",
+      "role": "sub-value",
+      "status": "done",
+      "depends_on": [
+        "offer"
+      ],
+      "inputs": [
+        {
+          "path": "input/actual_limit_record.md",
+          "sha256": "959cc59d9ea5459db8c4a0526ecf7a7d8a10beb9ee692275288e56014c928401"
+        },
+        {
+          "path": "input/fake_social_proof.md",
+          "sha256": "25bb4a96bd513157009481e56c03ace5946cb6b5e21db7a5b33490aae37b8e93"
+        },
+        {
+          "path": "input/owner_terms.md",
+          "sha256": "8d8eb4d4f065d40ee1b2e6083114023d8de4fb6f11adce32c328a54ba69e5915"
+        },
+        {
+          "path": "input/promotional_ad.md",
+          "sha256": "9fc95bb0cfa89fe24548b2cc7726a7448ad4baeceb8962bee410c1a0f4c36905"
+        },
+        {
+          "path": "input/refund_status.md",
+          "sha256": "55872ac018e1736f9291fba3520edc96e313a26f411575b0154e3cfd9d6f0a73"
+        },
+        {
+          "path": "input/reporting_status.md",
+          "sha256": "13a15200b50d5c8d525bcbc85286221bf74ad1d19867aaa22642ed56fe4991e9"
+        },
+        {
+          "path": "output/OFFER.md",
+          "sha256": "1ca0c1623b4b927a6b83a9bd853d9e37ae308060d1145b952e1ea2f18784cece"
+        }
+      ],
+      "write_set": [
+        "output/OFFER_AUDIT.md"
+      ],
+      "mode": "audit"
+    },
+    {
+      "id": "pricing",
+      "role": "sub-pricing",
+      "status": "done",
+      "depends_on": [
+        "offer",
+        "audit",
+        "bonus"
+      ],
+      "inputs": [
+        {
+          "path": "input/actual_limit_record.md",
+          "sha256": "959cc59d9ea5459db8c4a0526ecf7a7d8a10beb9ee692275288e56014c928401"
+        },
+        {
+          "path": "input/fake_social_proof.md",
+          "sha256": "25bb4a96bd513157009481e56c03ace5946cb6b5e21db7a5b33490aae37b8e93"
+        },
+        {
+          "path": "input/owner_terms.md",
+          "sha256": "8d8eb4d4f065d40ee1b2e6083114023d8de4fb6f11adce32c328a54ba69e5915"
+        },
+        {
+          "path": "input/promotional_ad.md",
+          "sha256": "9fc95bb0cfa89fe24548b2cc7726a7448ad4baeceb8962bee410c1a0f4c36905"
+        },
+        {
+          "path": "input/refund_status.md",
+          "sha256": "55872ac018e1736f9291fba3520edc96e313a26f411575b0154e3cfd9d6f0a73"
+        },
+        {
+          "path": "input/reporting_status.md",
+          "sha256": "13a15200b50d5c8d525bcbc85286221bf74ad1d19867aaa22642ed56fe4991e9"
+        },
+        {
+          "path": "output/OFFER.md",
+          "sha256": "1ca0c1623b4b927a6b83a9bd853d9e37ae308060d1145b952e1ea2f18784cece"
+        },
+        {
+          "path": "output/OFFER_AUDIT.md",
+          "sha256": "e4585d466329903246c67866657a07049a93e8847860699ec01c52280c03efd5"
+        }
+      ],
+      "write_set": [
+        "output/PRICING.md",
+        "output/COMMERCIAL_FEASIBILITY.md"
+      ],
+      "mode": "final_feasibility"
+    },
+    {
+      "id": "sales",
+      "role": "sub-sales",
+      "status": "done",
+      "depends_on": [
+        "offer",
+        "pricing",
+        "audit"
+      ],
+      "inputs": [
+        {
+          "path": "input/actual_limit_record.md",
+          "sha256": "959cc59d9ea5459db8c4a0526ecf7a7d8a10beb9ee692275288e56014c928401"
+        },
+        {
+          "path": "input/fake_social_proof.md",
+          "sha256": "25bb4a96bd513157009481e56c03ace5946cb6b5e21db7a5b33490aae37b8e93"
+        },
+        {
+          "path": "input/owner_terms.md",
+          "sha256": "8d8eb4d4f065d40ee1b2e6083114023d8de4fb6f11adce32c328a54ba69e5915"
+        },
+        {
+          "path": "input/promotional_ad.md",
+          "sha256": "9fc95bb0cfa89fe24548b2cc7726a7448ad4baeceb8962bee410c1a0f4c36905"
+        },
+        {
+          "path": "input/refund_status.md",
+          "sha256": "55872ac018e1736f9291fba3520edc96e313a26f411575b0154e3cfd9d6f0a73"
+        },
+        {
+          "path": "input/reporting_status.md",
+          "sha256": "13a15200b50d5c8d525bcbc85286221bf74ad1d19867aaa22642ed56fe4991e9"
+        },
+        {
+          "path": "output/OFFER.md",
+          "sha256": "1ca0c1623b4b927a6b83a9bd853d9e37ae308060d1145b952e1ea2f18784cece"
+        },
+        {
+          "path": "output/PRICING.md",
+          "sha256": "de65e0889f8733b2b77ca998dba229014ea2a55583e285e4f33f7bbea9781665"
+        },
+        {
+          "path": "output/COMMERCIAL_FEASIBILITY.md",
+          "sha256": "ebc30084a46f905461b5f1f83196af340ae3ba14da74592bc34a1067f22de3f7"
+        },
+        {
+          "path": "output/OFFER_AUDIT.md",
+          "sha256": "e4585d466329903246c67866657a07049a93e8847860699ec01c52280c03efd5"
+        }
+      ],
+      "write_set": [
+        "output/PITCH.md",
+        "output/LANDING_PAGE.md"
+      ],
+      "mode": "copy"
+    },
+    {
+      "id": "summary",
+      "role": "root",
+      "status": "done",
+      "depends_on": [
+        "sales"
+      ],
+      "inputs": [
+        {
+          "path": "input/actual_limit_record.md",
+          "sha256": "959cc59d9ea5459db8c4a0526ecf7a7d8a10beb9ee692275288e56014c928401"
+        },
+        {
+          "path": "input/fake_social_proof.md",
+          "sha256": "25bb4a96bd513157009481e56c03ace5946cb6b5e21db7a5b33490aae37b8e93"
+        },
+        {
+          "path": "input/owner_terms.md",
+          "sha256": "8d8eb4d4f065d40ee1b2e6083114023d8de4fb6f11adce32c328a54ba69e5915"
+        },
+        {
+          "path": "input/promotional_ad.md",
+          "sha256": "9fc95bb0cfa89fe24548b2cc7726a7448ad4baeceb8962bee410c1a0f4c36905"
+        },
+        {
+          "path": "input/refund_status.md",
+          "sha256": "55872ac018e1736f9291fba3520edc96e313a26f411575b0154e3cfd9d6f0a73"
+        },
+        {
+          "path": "input/reporting_status.md",
+          "sha256": "13a15200b50d5c8d525bcbc85286221bf74ad1d19867aaa22642ed56fe4991e9"
+        },
+        {
+          "path": "output/PITCH.md",
+          "sha256": "019857e753a6222020339b712fd2726b3e35e75bde7a1250c3a47306a15ee252"
+        },
+        {
+          "path": "output/LANDING_PAGE.md",
+          "sha256": "5fda23f4e81a546a91bb81b719bc722d39dc8d07926ca56a727f8946d439e9d9"
+        }
+      ],
+      "write_set": [
+        "output/SUMMARY.md"
+      ]
+    }
+  ],
+  "routing": [
+    {
+      "task": "offer",
+      "requested_effort": "medium",
+      "observed_model": "unknown",
+      "observed_effort": "unknown"
+    },
+    {
+      "task": "audit",
+      "requested_effort": "medium",
+      "observed_model": "unknown",
+      "observed_effort": "unknown"
+    },
+    {
+      "task": "pricing",
+      "requested_effort": "medium",
+      "observed_model": "unknown",
+      "observed_effort": "unknown"
+    },
+    {
+      "task": "sales",
+      "requested_effort": "medium",
+      "observed_model": "unknown",
+      "observed_effort": "unknown"
+    },
+    {
+      "task": "summary",
+      "requested_effort": "medium",
+      "observed_model": "unknown",
+      "observed_effort": "unknown"
+    }
+  ],
+  "decision_version": 1,
+  "decision_hash": "bd82b2ace60e6b34c91ba5a1a89d19c1b58c1f223609d3ca47abef2d44058ea7",
+  "artifacts": [
+    {
+      "path": "output/OFFER.md",
+      "sha256": "1ca0c1623b4b927a6b83a9bd853d9e37ae308060d1145b952e1ea2f18784cece",
+      "decision_version": 1,
+      "task": "offer",
+      "ready": false,
+      "high_risk": true,
+      "claim_ids": [
+        "C1"
+      ],
+      "uses_fields": [
+        "price",
+        "scope"
+      ],
+      "bindings": [
+        {
+          "field": "price",
+          "rendered_text": "USD99 annual membership fee for business-credit education and document-readiness materials."
+        },
+        {
+          "field": "scope",
+          "rendered_text": "Business-credit education and document-readiness materials"
+        }
+      ]
+    },
+    {
+      "path": "output/OFFER_AUDIT.md",
+      "sha256": "e4585d466329903246c67866657a07049a93e8847860699ec01c52280c03efd5",
+      "decision_version": 1,
+      "task": "audit",
+      "ready": false,
+      "high_risk": true,
+      "claim_ids": [],
+      "uses_fields": []
+    },
+    {
+      "path": "output/PRICING.md",
+      "sha256": "de65e0889f8733b2b77ca998dba229014ea2a55583e285e4f33f7bbea9781665",
+      "decision_version": 1,
+      "task": "pricing",
+      "ready": false,
+      "high_risk": true,
+      "claim_ids": [
+        "C1"
+      ],
+      "uses_fields": [
+        "price",
+        "scope"
+      ],
+      "bindings": [
+        {
+          "field": "price",
+          "rendered_text": "USD99 annual membership fee for business-credit education and document-readiness materials."
+        },
+        {
+          "field": "scope",
+          "rendered_text": "Business-credit education and document-readiness materials"
+        }
+      ]
+    },
+    {
+      "path": "output/COMMERCIAL_FEASIBILITY.md",
+      "sha256": "ebc30084a46f905461b5f1f83196af340ae3ba14da74592bc34a1067f22de3f7",
+      "decision_version": 1,
+      "task": "pricing",
+      "ready": false,
+      "high_risk": true,
+      "claim_ids": [],
+      "uses_fields": []
+    },
+    {
+      "path": "output/PITCH.md",
+      "sha256": "019857e753a6222020339b712fd2726b3e35e75bde7a1250c3a47306a15ee252",
+      "decision_version": 1,
+      "task": "sales",
+      "ready": false,
+      "high_risk": true,
+      "claim_ids": [
+        "C1"
+      ],
+      "uses_fields": [
+        "price",
+        "scope"
+      ],
+      "bindings": [
+        {
+          "field": "price",
+          "rendered_text": "USD99 annual membership fee for business-credit education and document-readiness materials."
+        },
+        {
+          "field": "scope",
+          "rendered_text": "Business-credit education and document-readiness materials"
+        }
+      ]
+    },
+    {
+      "path": "output/LANDING_PAGE.md",
+      "sha256": "5fda23f4e81a546a91bb81b719bc722d39dc8d07926ca56a727f8946d439e9d9",
+      "decision_version": 1,
+      "task": "sales",
+      "ready": false,
+      "high_risk": true,
+      "claim_ids": [
+        "C1"
+      ],
+      "uses_fields": [
+        "price",
+        "scope"
+      ],
+      "bindings": [
+        {
+          "field": "price",
+          "rendered_text": "USD99 annual membership fee for business-credit education and document-readiness materials."
+        },
+        {
+          "field": "scope",
+          "rendered_text": "Business-credit education and document-readiness materials"
+        }
+      ]
+    },
+    {
+      "path": "output/SUMMARY.md",
+      "sha256": "ead67d348fe816bc7af455caea0357774ce77d451ed704a72cf041276aded082",
+      "decision_version": 1,
+      "task": "summary",
+      "ready": false,
+      "high_risk": true,
+      "claim_ids": [
+        "C1"
+      ],
+      "uses_fields": [
+        "price",
+        "scope"
+      ],
+      "bindings": [
+        {
+          "field": "price",
+          "rendered_text": "USD99 annual membership fee for business-credit education and document-readiness materials."
+        },
+        {
+          "field": "scope",
+          "rendered_text": "Business-credit education and document-readiness materials"
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "artifact": "output/OFFER.md",
+      "artifact_sha256": "1ca0c1623b4b927a6b83a9bd853d9e37ae308060d1145b952e1ea2f18784cece",
+      "decision_version": 1,
+      "reviewer": "root-author",
+      "context": "same",
+      "result": "pass"
+    },
+    {
+      "artifact": "output/OFFER_AUDIT.md",
+      "artifact_sha256": "e4585d466329903246c67866657a07049a93e8847860699ec01c52280c03efd5",
+      "decision_version": 1,
+      "reviewer": "root-author",
+      "context": "same",
+      "result": "pass"
+    },
+    {
+      "artifact": "output/PRICING.md",
+      "artifact_sha256": "de65e0889f8733b2b77ca998dba229014ea2a55583e285e4f33f7bbea9781665",
+      "decision_version": 1,
+      "reviewer": "root-author",
+      "context": "same",
+      "result": "pass"
+    },
+    {
+      "artifact": "output/COMMERCIAL_FEASIBILITY.md",
+      "artifact_sha256": "ebc30084a46f905461b5f1f83196af340ae3ba14da74592bc34a1067f22de3f7",
+      "decision_version": 1,
+      "reviewer": "root-author",
+      "context": "same",
+      "result": "pass"
+    },
+    {
+      "artifact": "output/PITCH.md",
+      "artifact_sha256": "019857e753a6222020339b712fd2726b3e35e75bde7a1250c3a47306a15ee252",
+      "decision_version": 1,
+      "reviewer": "root-author",
+      "context": "same",
+      "result": "pass"
+    },
+    {
+      "artifact": "output/LANDING_PAGE.md",
+      "artifact_sha256": "5fda23f4e81a546a91bb81b719bc722d39dc8d07926ca56a727f8946d439e9d9",
+      "decision_version": 1,
+      "reviewer": "root-author",
+      "context": "same",
+      "result": "pass"
+    },
+    {
+      "artifact": "output/SUMMARY.md",
+      "artifact_sha256": "ead67d348fe816bc7af455caea0357774ce77d451ed704a72cf041276aded082",
+      "decision_version": 1,
+      "reviewer": "root-author",
+      "context": "same",
+      "result": "pass"
+    }
+  ],
+  "blockers": [
+    "Native route validation refused: MODEL ROUTE GATE: build expected gpt-5.5/medium, received gpt-6.1-sol/medium",
+    "Separate-context independent review missing",
+    "Operational inventory/access/terms unverified",
+    "Economics and demand unknown"
+  ],
+  "qa_result": "held",
+  "checkpoint": {
+    "path": "output/CHECKPOINT.md",
+    "sha256": "9585a852fe136e4b9c990eeb76d2802be67877041d77c8e07a46ddaea6a1bc12",
+    "decision_version": 1
+  },
+  "qa_receipt": {
+    "path": "output/QA_REPORT.md",
+    "sha256": "e63fc934694f3492b4fcc3c9a65a66fcffead827cd20bff82eacbca5cbff32f6",
+    "decision_version": 1
+  }
+}

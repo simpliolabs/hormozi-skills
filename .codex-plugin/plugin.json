@@ -1,3 +1,12 @@
 {
-  "name": "hormozi-skills"
+  "name": "hormozi-skills",
+  "version": "1.1.0",
+  "description": "Grand Slam Offer framework: 17 business skills plus the create-plugin helper and a one-chat orchestrator entry, based on Alex Hormozi's methodology.",
+  "author": {
+    "name": "Alessandro Smedile"
+  },
+  "homepage": "https://github.com/alexsmedile/hormozi-skills",
+  "repository": "https://github.com/alexsmedile/hormozi-skills",
+  "license": "MIT",
+  "skills": "./skills/"
 }

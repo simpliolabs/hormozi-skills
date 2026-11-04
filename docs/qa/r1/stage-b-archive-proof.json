@@ -1,0 +1,54 @@
+{
+  "original_inputs_unchanged": true,
+  "archived_prior_artifacts": [
+    {
+      "original_path": "output/ORIGINAL_OFFER_AUDIT.md",
+      "expected_sha256": "c0da4fee1d1aece0ffb81a41a2bb0ecfb82543f34bdd1bd9040518a58e2b13f1",
+      "archived_at": "output/runs/stage-b-20261103/archive/artifacts/ORIGINAL_OFFER_AUDIT.md"
+    },
+    {
+      "original_path": "output/OFFER.md",
+      "expected_sha256": "d86b0183180890c75dcbc1f9d265f8222ad5dd2ad0f63aac8698b108a8692fdc",
+      "archived_at": "output/runs/stage-b-20261103/archive/artifacts/OFFER.md"
+    },
+    {
+      "original_path": "output/REVISED_OFFER_CHECK.md",
+      "expected_sha256": "6c9013b42e3ba651d0bdfbc125da42d8cc42727b646bc4df22ac144f760301eb",
+      "archived_at": "output/runs/stage-b-20261103/archive/artifacts/REVISED_OFFER_CHECK.md"
+    },
+    {
+      "original_path": "output/PRICING.md",
+      "expected_sha256": "28e117ac5fb4e6afcd1f8a528d68a85ac5f078dc814a9ba572b1d3dffb95c4ab",
+      "archived_at": "output/runs/stage-b-20261103/archive/artifacts/PRICING.md"
+    },
+    {
+      "original_path": "output/PITCH.md",
+      "expected_sha256": "d4294510d02a48417640317dcb7968854a0a02af85b1f3e7920df37fad7ff17b",
+      "archived_at": "output/runs/stage-b-20261103/archive/artifacts/PITCH.md"
+    },
+    {
+      "original_path": "output/LANDING_PAGE.md",
+      "expected_sha256": "23275d232b685246550720e4f45de0c123a2299e809a623c9027b2dc859f9754",
+      "archived_at": "output/runs/stage-b-20261103/archive/artifacts/LANDING_PAGE.md"
+    },
+    {
+      "original_path": "output/SUMMARY.md",
+      "expected_sha256": "caef8349ad66d43f1ec9ce4ce5c6bad15d4884da9541aec9a49603c734053ab6",
+      "archived_at": "output/runs/stage-b-20261103/archive/artifacts/SUMMARY.md"
+    },
+    {
+      "original_path": "output/OFFER_AUDIT.md",
+      "expected_sha256": "6c9013b42e3ba651d0bdfbc125da42d8cc42727b646bc4df22ac144f760301eb",
+      "archived_at": "output/runs/stage-b-20261103/archive/artifacts/REVISED_OFFER_CHECK.md"
+    },
+    {
+      "original_path": "output/CONVERSATION.md",
+      "expected_sha256": "95a6d8c99cb09927af46e82469e31b46f0edf35992fbd9bc5ea514443c3336de",
+      "archived_at": "output/runs/stage-b-20261103/archive/artifacts/CONVERSATION.md"
+    }
+  ],
+  "all_prior_manifest_artifacts_found_by_hash": true,
+  "same_session": "01a1a3a1-6c2e-7542-a924-ce5e47453e1c",
+  "new_run": "stage-b-20261103-pass2",
+  "prior_run": "stage-b-20261103"
+}
