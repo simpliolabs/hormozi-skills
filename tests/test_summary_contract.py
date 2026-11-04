@@ -360,6 +360,12 @@ class TestCorrectionP2(SummaryCase):
                    "   2. Measure CAC.\n      1. Pull spend.\n   3. Send the pitch.")
         self.assertEqual(self.summary_with(actions=actions), set())
 
+    def test_shallower_fourth_marker_makes_the_whole_list_four_top_level_items(self):
+        for pad in (" ", "   "):
+            with self.subTest(indent=len(pad)):
+                actions = f"{pad}1. Confirm the price.\n{pad}2. Measure CAC.\n{pad}3. Send the pitch.\n4. Review the results."
+                self.assertIn("SUMMARY_ACTIONS_INVALID", self.summary_with(actions=actions))
+
     @unittest.skipUnless(fs_is_case_sensitive(), "needs a case-sensitive filesystem")
     def test_case_distinct_requests_are_two_deliverables_on_case_sensitive_systems(self):
         self.graph("E", [("t_sales", "sub-sales", "copy", [], ["output/PITCH.md", "output/pitch.md"])], summary=False)

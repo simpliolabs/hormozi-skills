@@ -556,15 +556,11 @@ def _summary_content_findings(text: str) -> list[Finding]:
             bad("SUMMARY_HOOK_UNSTATED", "Best Hook must state the chosen hook text, not only point at a file or link")
     actions = found.get("next actions", [])
     if len(actions) == 1 and any(l.strip() for l in actions[0]):
-        # top-level items share the first marker's 0..3-space indent; deeper markers and every other line are wrapped or
-        # nested explanation and never fill an item, so the action text must sit on its own marker line
-        items: list[list[str]] = []
-        base = None
-        for line in actions[0]:
-            m = _ORDERED_ITEM.match(line)
-            if m and base in (None, len(m.group(1))):
-                base = len(m.group(1))
-                items.append([m.group(2), m.group(3) or ""])
+        # top-level items sit at the section's shallowest 0..3-space marker indent; deeper markers and every other line
+        # are wrapped or nested explanation and never fill an item, so the action text must sit on its own marker line
+        markers = [m for m in map(_ORDERED_ITEM.match, actions[0]) if m]
+        base = min((len(m.group(1)) for m in markers), default=0)
+        items = [[m.group(2), m.group(3) or ""] for m in markers if len(m.group(1)) == base]
         if [i[0] for i in items] != ["1", "2", "3"] or not all(re.search(r"\w", i[1]) for i in items):
             bad("SUMMARY_ACTIONS_INVALID", "Next Actions needs exactly three substantive top-level ordered items numbered 1, 2, 3")
     return out
