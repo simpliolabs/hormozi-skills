@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeskFern Studio | Fictional CRO QA Fixture</title>
+<style>
+  :root{font-family:Arial,Helvetica,sans-serif;color:#193047;background:#f4f7f6}
+  body{margin:0}
+  .fixture{background:#462e07;color:#fff9e7;padding:12px 20px;font:700 14px Arial,sans-serif}
+  .shell{width:1040px;margin:auto;background:white;min-height:1250px}
+  header{padding:22px 30px;background:#e7f0e9;display:flex;gap:40px;align-items:center;justify-content:space-between}
+  header nav{display:flex;gap:34px}
+  a{color:#194e38}
+  h1{font-size:46px;max-width:700px;line-height:1.1}
+  main{padding:55px 42px}
+  .intro{font-size:18px;max-width:600px}
+  .claim{font-weight:bold;color:#175d43}
+  .features{display:flex;gap:18px;margin:34px 0 70px}
+  .feature{width:300px;padding:28px 20px;background:#ebf3ec;border-radius:10px}
+  form{border:1px solid #bed6c5;padding:28px;max-width:570px;margin-top:170px}
+  label{display:block;margin:12px 0}
+  input{display:block;width:96%;height:42px;margin-top:7px}
+  button{border:0;background:#146c46;color:white;font-weight:bold;font-size:16px;padding:16px 23px;cursor:pointer}
+  footer{margin-top:120px;padding:35px 42px;background:#e7f0e9}
+  .small{font-size:13px;color:#536258}
+</style>
+</head>
+<body>
+<div class="fixture">FICTIONAL TEST PAGE. ALL CONTENT AND EVENT DATA ARE SYNTHETIC. NOT FOR PUBLICATION.</div>
+<div class="shell">
+<header>
+  <strong>DeskFern Studio</strong>
+  <nav aria-label="Main">
+    <a href="#why">Why us</a><a href="#services">Services</a><a href="#about">About us</a>
+    <a href="#signin">Member sign in</a>
+  </nav>
+</header>
+<main>
+  <h1>Every office deserves a better green experience.</h1>
+  <p class="intro">Office plant care made simple for office managers. Weekly visits and plant-health check-ins for indoor collections.</p>
+  <p class="claim">Trusted by 5,000+ companies.</p>
+  <p class="small">Unverified promotional claim planted here intentionally for the CRO reviewer to flag.</p>
+  <section class="features" id="services">
+    <div class="feature"><h2>Weekly care</h2><p>Watering and basic health checks.</p></div>
+    <div class="feature"><h2>Easy setup</h2><p>Tell us about your office plants.</p></div>
+    <div class="feature"><h2>Flexible</h2><p>Terms and price have not been approved.</p></div>
+  </section>
+  <section id="why">
+    <h2>Get help with your office plants</h2>
+    <p>Request a call to discuss the number of plants, access and service needs.</p>
+  </section>
+  <form id="inquiry" aria-label="Fictional inquiry form">
+    <h2>Request an inquiry</h2>
+    <label>Work email<input type="email" name="email" required autocomplete="email"></label>
+    <label>Office name<input type="text" name="office" required></label>
+    <label>How many plants?<input type="text" name="plants" required></label>
+    <button type="submit">Send inquiry</button>
+    <p id="message" aria-live="polite"></p>
+  </form>
+  <p class="small">This is a client-side simulation. No data is transmitted or stored.</p>
+</main>
+<footer id="about">DeskFern Studio is fictional. No live service, pricing, claims or customer results are represented.</footer>
+</div>
+<script>
+  document.getElementById('inquiry').addEventListener('submit',function(event){
+    event.preventDefault();
+    const form=this;
+    // Intentionally no progress indicator, locking, or duplicate-submission prevention.
+    window.setTimeout(function(){
+      document.getElementById('message').textContent='Demo inquiry complete (not sent).';
+      form.reset();
+    },9500);
+  });
+</script>
+</body>
+</html>
