@@ -42,7 +42,7 @@ class AdaptiveRouteTests(unittest.TestCase):
         self.assertIn("QUICK", guidance)
         self.assertIn("GUIDED", guidance)
         self.assertIn("DEEP", guidance)
-        self.assertIn("not a guaranteed", guidance.lower())
+        self.assertIn("instruction-level", guidance.lower())
 
     def test_single_task_does_not_become_a_full_run(self):
         for stage in ("A", "B", "C", "D", "E"):
