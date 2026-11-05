@@ -1,5 +1,7 @@
 # Hormozi Skills
 
+![Hormozi Skills: build the offer, keep decisions under owner control](assets/readme/hormozi-hero.svg)
+
 **Structured AI offer workflows with review gates and owner-controlled decisions.**
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
@@ -27,6 +29,9 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
 
 ## What has actually been validated
 
+![Evidence chart: original checker surfaced three of seven obligations; corrected replay preserved all seven](assets/readme/validation-evidence-chart.svg)
+
+
 | Check | Evidence-backed result |
 |---|---|
 | PR #3 merged | [`b05b1c0`](https://github.com/simpliolabs/hormozi-skills/commit/b05b1c041b27b2fbf5bc4225ff14c48abaf40e2f) |
@@ -38,29 +43,11 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
 
 See the [acceptance report and evidence](docs/SEVEN_HOLD_VALIDATION.md). This is a bounded fictional-scenario result, **not** evidence of universal business accuracy, a real independent reviewer, or commercial readiness.
 
-### Workflow at a glance
+### How the system works
 
-```mermaid
-flowchart TD
-  I["Owner brief or existing offer"] --> O["One-chat orchestrator"]
-  O --> S["Selected skills and specialist tasks"]
-  S --> F["Draft outputs and SUMMARY.md"]
-  F --> C{"Read-only output checks"}
-  C -->|"Missing business decisions or review"| H["HELD: explicit obligations and owner actions"]
-  C -->|"Structural requirements satisfied"| R["READY: structure only, not publish approval"]
-  H --> O
-```
+![Illustrated workflow: brief, orchestrator, draft assets, and checks with HELD or structural READY outcomes](assets/readme/workflow-illustrated.svg)
 
-### Review obligations in controlled sales work
-
-```mermaid
-flowchart LR
-  A["Controlled sales artifact"] --> B["Review floor applies independent of high_risk flag"]
-  B --> C{"Matching separate-context review receipt?"}
-  C -->|"No, failed, stale, or same context"| D["Per-artifact review hold"]
-  D --> E["One aggregate run-level review blocker"]
-  C -->|"Yes"| F["Continue other business and claims checks"]
-```
+**Independent-review floor:** Controlled sales artifacts keep review holds even when an author marks `high_risk` false or leaves it out. Missing/failed/stale/same-context receipts do not satisfy separate-context review. See the [review policy](references/orchestration.md) and [validation evidence](docs/SEVEN_HOLD_VALIDATION.md).
 
 A `READY` check is structural only. Pricing, guarantees, eligibility, claims, publication and external business actions remain under the owner's control.
 
