@@ -8,7 +8,8 @@ extensions:
 
 ## Documentation and first use
 
-- [ ] Review the fork README, marketplace URL metadata, installation instructions, and GitHub About description; do not treat this docs PR as a release.
+- [ ] Review the fork README, marketplace URL metadata, installation instructions, GitHub About description, upcoming personal website link, Instagram and X links; do not treat this docs PR as a release.
+- [ ] Propose a simple `/offer` or equivalent start alias **as a separate functional PR**, with Claude Code and Codex host-specific discovery tests, installation verification, and no change to commercial/review holds.
 - [ ] Verify a fresh installation of the Simpliolabs fork at a recorded commit SHA using the supported host(s); confirm which skills/roles actually load.
 - [ ] Run a supervised, non-public business pilot with approved input facts. Preserve the first completed artifacts and validate SUMMARY, claims, business holds, reviewer receipts and owner approvals.
 
