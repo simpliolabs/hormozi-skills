@@ -1,6 +1,6 @@
-# hormozi-skills
+# Hormozi Skills
 
-**Turn any business idea into a complete, sellable offer — using Alex Hormozi's frameworks.**
+**Structured AI offer workflows with review gates and owner-controlled decisions.**
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-blueviolet)
@@ -9,7 +9,7 @@
 
 ---
 
-> A skill library for coding agents. Plug it in, describe your business, and get a complete offer system — market research, offer structure, pricing, pitch, hooks, landing page — written to files in one session.
+> An open-source, Hormozi-inspired skill library for Claude Code and Codex. Use standalone methods or a one-chat orchestrator to draft offers and sales materials. Controlled runs record business decisions, review obligations, and structural validation findings. Drafts do not constitute verified commercial claims or publication approval.
 
 ---
 
@@ -21,18 +21,61 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
 - Price wrong — too low to be taken seriously, too high without justification
 - Skip the sales layer entirely — no hooks, no pitch, no landing page copy
 
-**hormozi-skills** solves this end-to-end. One orchestrator, five specialized subagents, 17 business skills plus a `hormozi-orchestrator` entry skill, 11 output files.
+**hormozi-skills** provides a structured workflow: 17 business skills, a `hormozi-orchestrator` entry skill, five specialist role definitions, and output validation. The orchestrator requests specialist delegation when available; actual execution and any fallback must be reported, not assumed.
+
+---
+
+## What has actually been validated
+
+| Check | Evidence-backed result |
+|---|---|
+| PR #3 merged | [`b05b1c0`](https://github.com/simpliolabs/hormozi-skills/commit/b05b1c041b27b2fbf5bc4225ff14c48abaf40e2f) |
+| Post-merge CI | [Windows and Ubuntu passed](https://github.com/simpliolabs/hormozi-skills/actions/runs/42110615431) |
+| Bounded native acceptance | Seven **obligation identities** preserved in first completion, represented across six checker findings; no operator repair |
+| Summary contract | Canonical offer summary, chosen hook, and three prioritized owner actions validated |
+| Separate-context review | Missing/failed/stale/same-context receipts remain held; recorded receipts are **cooperative metadata**, not authenticated reviewer proof |
+| Native specialist execution | **Not proven**; observed run used sequential fallback after a refused dispatch |
+
+See the [acceptance report and evidence](docs/SEVEN_HOLD_VALIDATION.md). This is a bounded fictional-scenario result, **not** evidence of universal business accuracy, a real independent reviewer, or commercial readiness.
+
+### Workflow at a glance
+
+```mermaid
+flowchart TD
+  I["Owner brief or existing offer"] --> O["One-chat orchestrator"]
+  O --> S["Selected skills and specialist tasks"]
+  S --> F["Draft outputs and SUMMARY.md"]
+  F --> C{"Read-only output checks"}
+  C -->|"Missing business decisions or review"| H["HELD: explicit obligations and owner actions"]
+  C -->|"Structural requirements satisfied"| R["READY: structure only, not publish approval"]
+  H --> O
+```
+
+### Review obligations in controlled sales work
+
+```mermaid
+flowchart LR
+  A["Controlled sales artifact"] --> B["Review floor applies independent of high_risk flag"]
+  B --> C{"Matching separate-context review receipt?"}
+  C -->|"No, failed, stale, or same context"| D["Per-artifact review hold"]
+  D --> E["One aggregate run-level review blocker"]
+  C -->|"Yes"| F["Continue other business and claims checks"]
+```
+
+A `READY` check is structural only. Pricing, guarantees, eligibility, claims, publication and external business actions remain under the owner's control.
 
 ---
 
 ## Quick Start
+
+> **Install this fork:** The source below is `simpliolabs/hormozi-skills`. The original project by [Alex Smedile](https://github.com/alexsmedile/hormozi-skills) retains its attribution and MIT license.
 
 ### Claude Code
 
 Add the marketplace, then install the plugin:
 
 ```bash
-/plugin marketplace add alexsmedile/hormozi-skills
+/plugin marketplace add simpliolabs/hormozi-skills
 /plugin install hormozi-skills@hormozi-skills
 ```
 
@@ -56,7 +99,7 @@ If you want the raw skill files instead of the plugin flow:
 
 ```bash
 # Clone the skill library
-git clone https://github.com/alexsmedile/hormozi-skills
+git clone https://github.com/simpliolabs/hormozi-skills.git
 cd hormozi-skills
 
 # Copy skills, agents AND the shared assets the skills load by plugin_root
@@ -73,7 +116,7 @@ Skills and agents resolve `<plugin_root>/references/...` and `<plugin_root>/scri
 
 ## 📦 What You Get
 
-11 output files written to `output/` in one session:
+The 11 business-content files below are generated as applicable. Controlled multi-step runs also produce `output/SUMMARY.md`, state, checkpoint, and QA records; not every focused request generates every artifact:
 
 | File | What's Inside |
 |------|--------------|
@@ -133,7 +176,7 @@ hormozi-orchestrator
 
 **Dependency order:** market → offer → (value ∥ pricing) → sales
 
-The orchestrator detects your funnel stage (idea / broken offer / needs sales layer / service scaling) and runs only the subagents you need.
+The orchestrator selects tasks based on the owner's stage. It requests native specialist delegation where available, and must record refusal, fallback or unknown execution instead of claiming agents ran.
 
 ---
 
@@ -142,8 +185,8 @@ The orchestrator detects your funnel stage (idea / broken offer / needs sales la
 1. **Intake** — give the orchestrator anything: a raw idea, existing offer, brain dump, or sales page
 2. **Interview** — focused questions one at a time, each with a suggested answer
 3. **Stage detection** — classifies your situation (Stage A–E), shows which subagents will run
-4. **Delegation** — spawns subagents in dependency order, passing structured briefs
-5. **Summary** — produces `output/SUMMARY.md`: one-paragraph offer, key decisions, top 3 actions, best hook to use today
+4. **Delegation** — requests specialists in dependency order where supported, recording any observed fallback or refusal
+5. **Summary and checks** — produces `output/SUMMARY.md` with an offer paragraph, key decisions/holds, a chosen hook, and exactly three prioritized owner actions, then runs structural validation and reports HELD findings honestly
 
 ---
 
@@ -160,6 +203,14 @@ hormozi-skills/
 ├── output/     # Generated offer documents (starts empty)
 └── input/      # Drop existing offers, notes, or sales pages here
 ```
+
+---
+
+## Safe first use
+
+Start with a **supervised, non-public** offer draft using verified inputs. Invoke `hormozi-orchestrator` in an installed checkout or use a focused skill. Review `output/SUMMARY.md`, `output/CHECKPOINT.md`, `output/QA_REPORT.md`, and the output checker's findings. Resolve or disclose unresolved business and independent-review obligations before any external use. The checker does not automatically verify market reality.
+
+See [Operator guide](docs/OPERATING_GUIDE.md) for a first-run checklist, limitations and release boundaries.
 
 ---
 
@@ -182,7 +233,7 @@ hormozi-skills/
 Built on Alex Hormozi's offer methodology from *$100M Offers* and *$100M Leads*:
 
 - Grand Slam Offer construction
-- Dream outcome × likelihood × time delay × effort equation
+- Value Equation: (Dream Outcome × Perceived Likelihood) / (Time Delay × Effort and Sacrifice)
 - Obstacle → solution reversal
 - Value stack and bonus engineering
 - Guarantee design (unconditional / conditional / effort-based)
@@ -193,4 +244,4 @@ Built on Alex Hormozi's offer methodology from *$100M Offers* and *$100M Leads*:
 
 ## Credits
 
-Inspired by Alex Hormozi's work. Built for coding agents by [@alexsmedile](https://github.com/alexsmedile).
+Originally created by [@alexsmedile](https://github.com/alexsmedile) and maintained in this fork at [simpliolabs/hormozi-skills](https://github.com/simpliolabs/hormozi-skills). Inspired by Alex Hormozi's publicly described frameworks; not affiliated with or endorsed by Alex Hormozi. Licensed under [MIT](LICENSE).
