@@ -163,6 +163,7 @@ def validate_run(run_dir: Path, workspace_root: Path, mode: str = "ready") -> li
         findings += _check_artifacts(state, decisions, claims, brief, workspace, mode)
         if mode == "ready":
             findings += _aggregate_review_blocker(state, findings)
+            findings += _check_business_validation_registration(brief, state)
         findings += _check_summary(state, brief, workspace, mode)
     return findings
 
@@ -761,6 +762,21 @@ def _aggregate_review_blocker(state, findings) -> list[Finding]:
     if not any(f.code == "HIGH_RISK_NO_INDEPENDENT_REVIEW" for f in findings) or REVIEW_BLOCKER in state["blockers"]:
         return []
     return [Finding("BLOCKER_OPEN", "error", "RUN_STATE.json", f"unresolved blocker: {REVIEW_BLOCKER}")]
+
+
+# Declared business limitation: root writes this exact string into BRIEF.constraints after reading the sources. The
+# checker never decides whether it applies; it only requires a declaration to be registered as an identical blocker.
+BUSINESS_VALIDATION_MARKER = "Fictional fixture; real business validation absent"
+
+
+def _check_business_validation_registration(brief, state) -> list[Finding]:
+    """Exact declaration without the identical state blocker: derive the hold (once) plus a distinct registration error.
+    A registered blocker is already reported by the ready-state check, so it is reused. Nothing is inferred or changed."""
+    if not brief or BUSINESS_VALIDATION_MARKER not in brief["constraints"] or BUSINESS_VALIDATION_MARKER in state["blockers"]:
+        return []
+    return [Finding("BLOCKER_OPEN", "error", "RUN_STATE.json", f"unresolved blocker: {BUSINESS_VALIDATION_MARKER}"),
+            Finding("BUSINESS_VALIDATION_BLOCKER_UNREGISTERED", "error", "RUN_STATE.json",
+                    f"BRIEF.constraints declares {BUSINESS_VALIDATION_MARKER!r} but RUN_STATE.blockers lacks the identical blocker")]
 
 
 # ------------------------------------------------------------------ repo checks
