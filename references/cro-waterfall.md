@@ -6,6 +6,8 @@ This file is normative for the **root orchestrator** in multi-step offer work. I
 
 **Default = CRO readiness ON** in full stage A, B, D or custom/mixed E multi-step offer workflows, whether or not the user says CRO. For stage C, enable it when the requested sales assets include a landing page, website, signup, checkout, digital funnel, or another identifiable post-click destination. When the requested work is a single focused skill task, keep the default focused and do not trigger a full CRO pipeline.
 
+For a consistent eligibility/depth classification, the root may run the **read-only** helper `python <plugin_root>/scripts/cro_gate.py --stage A --surface planned` (replace the actual stage/surface). Use `--digital-destination` for stage C when an online conversion destination is in scope; use `--no-offer-workflow` for a stage E custom request that is not offer work. A focused single-skill request uses `--focused`. The helper never changes RUN_STATE or business facts and its `depth` is **not** an allowed task `mode`. If Python is unavailable, apply this table directly and record the missing helper, rather than silently skipping CRO.
+
 The gate is **not optional** for eligible full runs: include `CRO_REVIEW.md` in the initial `BRIEF.requested_artifacts` and root task `write_set`; evaluate the conversion path. This remains true even without a live page. Choose depth based on actual evidence:
 
 | Business situation | Root CRO evaluation | Evidentiary limits |
