@@ -57,7 +57,7 @@ For **every full multi-step offer run** (stage A, B, D, or a comparable stage E 
 - A CRO fix may propose an upstream revision, but root must obtain any required commercial approval before revising accepted offers, terms, or claims. Re-run affected downstream dependencies and revalidate artifact hashes/reviews. Do not use a CRO result to clear review or business holds.
 - Explicit CRO-only requests select `cro-page-optimizer` directly. An individual request for five hooks does not trigger a whole offer waterfall.
 
-Use `scripts/cro_gate.py` as a read-only eligibility/depth helper when Python is available, with the actual brief stage and evidenced conversion surface; its `depth` is not a `RUN_STATE.tasks[].mode`. If unavailable, apply the documented routing table and name the fallback. See `references/cro-waterfall.md` for the precise eligibility matrix, stage examples and invariant tests. This gate is a **method and root QA step**, not a newly supported `RUN_STATE.tasks[].mode` or a tested autonomous specialist invocation.
+Use `scripts/cro_gate.py` as a read-only eligibility/depth helper when Python is available, with the actual brief stage and evidenced conversion surface; its `depth` is not a `RUN_STATE.tasks[].mode`. If unavailable, apply the documented routing table and name the fallback. See `<plugin_root>/references/cro-waterfall.md` for the precise eligibility matrix, stage examples and invariant tests. This gate is a **method and root QA step**, not a newly supported `RUN_STATE.tasks[].mode` or a tested autonomous specialist invocation.
 
 Rules that follow:
 
