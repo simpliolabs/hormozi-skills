@@ -10,6 +10,14 @@ This guide applies to the Simpliolabs fork of Hormozi Skills at a specifically r
 4. Confirm how your host actually loads the skill and whether specialist delegation is available. Do not treat a role definition as proof that a distinct agent executed.
 5. For a focused request, invoke only the relevant standalone skill. Full orchestration and run controls are not required for every focused task.
 
+## 2. Choose a lightweight entry
+
+For a beginner, start with [Start Here](START_HERE.md): "I have a business idea and don't know where to start. Ask me one question at a time."
+
+For an experienced user, request the exact deliverable, for example "Write five hooks for this approved offer." That route loads **one skill**, not the full offer pipeline. See [Adaptive routing](../references/adaptive-routing.md) for QUICK / GUIDED / opt-in DEEP behavior, progressive instruction loading, frozen briefs and checkpoint reuse. The policy is a resource discipline, **not** a measured or hard token cap.
+
+If the request is a full multi-stage offer workflow, the downstream CRO gate remains part of the accepted path. A narrow focused request does not trigger the full waterfall.
+
 ## 2. Activate the guided experience
 
 After installation in a compatible host, begin with this plain-language request:
