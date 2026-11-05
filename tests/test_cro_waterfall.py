@@ -108,7 +108,7 @@ class RepositoryContractTests(unittest.TestCase):
         self.assertIn("CRO_REVIEW.md", doc)
         self.assertIn("sub-cro", doc)
         self.assertIn("not a newly supported", doc)
-        self.assertIn("existing seven", waterfall.lower())
+        self.assertIn("first-completion seven-hold", waterfall.lower())
         self.assertIn("root", waterfall.lower())
 
     def test_readme_has_skill_and_visible_waterfall_art(self):
