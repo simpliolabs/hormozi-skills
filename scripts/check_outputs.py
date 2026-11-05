@@ -399,11 +399,13 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
         path = art["path"]
         manifest_paths.add(_norm_path(path))
         full, err = _resolve_inside(workspace, path)
+        # review obligations are manifest metadata, so a missing or unsafe file cannot hide them in ready mode
+        early = _check_review(art, state, path, _independent_review_required(art, tasks, workspace)) if mode == "ready" else []
         if err:
-            out.append(err)
+            out += [err] + early
             continue
         if not full.exists():
-            out.append(Finding("ARTIFACT_MISSING", "error", path, "manifest lists a file that does not exist"))
+            out += [Finding("ARTIFACT_MISSING", "error", path, "manifest lists a file that does not exist")] + early
             continue
         data = full.read_bytes()
         text = data.decode("utf-8", errors="replace")
@@ -428,7 +430,7 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
         out += _check_bindings(art, fields, text, path)
         out += _check_claims(art, ledger, text, path)
         if mode == "ready":
-            out += _check_review(art, state, path, _independent_review_required(art, tasks, workspace))
+            out += early
 
     if brief:
         for req in brief["requested_artifacts"]:

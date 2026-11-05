@@ -198,6 +198,37 @@ class TestRoleAndPathIdentity(FloorCase):
         self.assertEqual(self.validate(), [])
 
 
+class TestMissingFileKeepsObligations(FloorCase):
+    def test_missing_file_still_reports_review_holds_in_every_arm(self):
+        arms = {"role-only renamed sales": dict(rel="output/renamed_copy.md", role="sub-sales"),
+                "canonical root-owned": dict(rel="output/HOOKS.md", role="root"),
+                "explicit high-risk non-sales": dict(rel="output/NOTES.md", role="root", high_risk=True)}
+        for name, kw in arms.items():
+            for variant in ("same-context", "no-review"):
+                with self.subTest(arm=name, variant=variant):
+                    self.setUp()
+                    rel = kw["rel"]
+                    self.add_file_artifact(rel, role=kw["role"], high_risk=kw.get("high_risk"), context="same")
+                    (self.ws / rel).unlink()
+
+                    def f(st):
+                        st["phase"] = "HELD"
+                        st["artifacts"][-1]["ready"] = False
+                        if variant == "no-review":
+                            st["reviews"] = [r for r in st["reviews"] if r["artifact"] != rel]
+                    self.edit(f)
+                    got = self.validate()
+                    self.assertTrue([f for f in got if f.code == "ARTIFACT_MISSING" and f.artifact == rel])
+                    self.assertEqual([f.artifact for f in of(got, HR)], [rel])
+                    self.assertEqual(bool(of(got, "REVIEW_STALE_OR_MISSING")), variant == "no-review")
+                    self.assertEqual(len(of(got, "BLOCKER_OPEN", BLOCKER)), 1)
+
+    def test_missing_file_draft_mode_unchanged(self):
+        self.add_file_artifact("output/renamed_copy.md", role="sub-sales", context="same")
+        (self.ws / "output/renamed_copy.md").unlink()
+        self.assertFalse(of(self.validate("draft"), HR))
+
+
 class TestAggregateBlocker(FloorCase):
     def three_sales_same_context(self):
         self.make_same_context()
