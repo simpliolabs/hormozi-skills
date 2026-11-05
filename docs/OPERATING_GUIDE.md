@@ -34,6 +34,18 @@ Suggested pilot prompt:
 
 Avoid actual customer secrets or confidential personal data in a public demonstration.
 
+### CRO is automatic in the full offer waterfall
+
+A full new-offer or offer-repair run now includes a **downstream CRO readiness gate** even if the request never says CRO. After offer, value, pricing and requested sales work, the root loads `cro-page-optimizer` and records `output/CRO_REVIEW.md`.
+
+- For an existing page, provide actual URL/HTML or screenshots and analytics to permit a concrete mobile/form/intent audit. Missing information is `NOT ASSESSED`.
+- For a new offer with no page, the skill examines conversion readiness, not imaginary webpage metrics.
+- For an offline offer, the skill checks real buyer handoff and marks irrelevant search/form checks `NOT APPLICABLE`.
+- A root-owned CRO gate does **not** create a new agent, task mode or claim that a separate reviewer executed. Existing review/business holds survive.
+- A standalone focused request, such as five hooks, remains focused.
+
+Optional deterministic planning example: `python scripts/cro_gate.py --stage A --surface planned`. This helper prints the required gate/depth as JSON. It never writes records or changes authorization.
+
 ## 4. Inspect outputs and checks
 
 For controlled multi-step work, look for:
