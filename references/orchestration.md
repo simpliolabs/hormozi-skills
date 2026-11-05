@@ -4,6 +4,8 @@ One workflow, loaded by both entry points: the `hormozi-orchestrator` skill (mai
 
 Original standalone skills in `<plugin_root>/skills/` stay the authority for methodology. Load a skill only when its task is selected. This file defines who decides, who writes, and in what order. It does not restate the frameworks.
 
+**Adaptive entry and resource discipline:** Before choosing A-E, apply `<plugin_root>/references/adaptive-routing.md`: beginner uncertainty starts with one useful question; precise requests use one standalone skill. Only full eligible offer workflows trigger the downstream CRO gate. Select the smallest sufficient dependency graph, load only actually selected methods, and reuse checkpoints with hash/version checks. A prompt-level economy rule is not a guaranteed runtime token cap; never relax commercial and independent-review holds to save tokens.
+
 ## Authority
 
 | Who | May | May not |
