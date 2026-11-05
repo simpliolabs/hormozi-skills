@@ -107,7 +107,7 @@ class FiveAssetCase(unittest.TestCase):
             arts.append({"path": asset_path(n), "sha256": h, "decision_version": 3, "task": owner_task[n], "ready": True, "claim_ids": ["c_safe"],
                          "uses_fields": list(OWNER_FIELDS),
                          "bindings": [{"field": f, "rendered_text": decisions["fields"][f]["display"]} for f in OWNER_FIELDS]})
-            reviews.append({"artifact": asset_path(n), "artifact_sha256": h, "decision_version": 3, "reviewer": "root", "context": "same", "result": "pass"})
+            reviews.append({"artifact": asset_path(n), "artifact_sha256": h, "decision_version": 3, "reviewer": "adversary", "context": "separate", "result": "pass"})
         st = read_json(run / "RUN_STATE.json")
         st.update(tasks=tasks, artifacts=arts, reviews=reviews, decision_version=3, decision_hash=co.canonical_hash(run / "OFFER_DECISIONS.json"))
         write_json(run / "RUN_STATE.json", st)

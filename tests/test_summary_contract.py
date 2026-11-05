@@ -251,7 +251,8 @@ class TestDifferentialAndFreshness(SummaryCase):
         after = codes(co.validate_run(self.run_dir, self.ws))
         self.assertIn("SUMMARY_MISSING", before)
         self.assertEqual(before - after, {"SUMMARY_MISSING"})
-        self.assertEqual(after, {"REVIEW_STALE_OR_MISSING"})
+        # the missing review is a sales output, so the independent-review floor reports it alongside the generic finding
+        self.assertEqual(after, {"REVIEW_STALE_OR_MISSING", "HIGH_RISK_NO_INDEPENDENT_REVIEW", "BLOCKER_OPEN"})
 
     def test_stale_bindings_are_rejected_independently_of_content(self):
         self.summ()
@@ -320,7 +321,7 @@ class TestCorrectionP2(SummaryCase):
             st["artifacts"].append({"path": f"output/{second}", "sha256": h, "decision_version": st["decision_version"],
                                     "task": "t_sales", "ready": True})
             st["reviews"].append({"artifact": f"output/{second}", "artifact_sha256": h, "decision_version": st["decision_version"],
-                                  "reviewer": "root", "context": "same", "result": "pass"})
+                                  "reviewer": "adversary", "context": "separate", "result": "pass"})
         self.edit(f)
         self.request("PITCH.md", second)
 

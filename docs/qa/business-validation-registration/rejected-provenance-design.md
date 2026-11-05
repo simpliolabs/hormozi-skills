@@ -1,0 +1,40 @@
+# Business-validation registration: diagnosis and bounded proposed design
+
+Scope: follow up existing draft PR #3 at 1096c9dbe489c9e9723b7aa8d2f555ffdb2c9794. PO authorization attachment SHA256 027601b0b2cf130f6f8086195a72e9f8bdc6656f1a7149b2c6b68ccb82a66fcf authorizes a narrow correction, independent review, tests/CI and one additional original-prompt native run. No merge, release, architecture expansion or retry beyond that one run.
+
+## Verified cause, distinguished from model psychology
+
+Both immutable archives declare a non-empty BRIEF.facts list containing only source_type=synthetic. The latest archive also records 'Real demand and results' in BRIEF.unknowns. SUMMARY/CHECKPOINT/QA acknowledge fictional inputs and absent real validation. RUN_STATE.blockers contains refund/cancellation, omitted costs, feedback-window timing and the canonical independent-review blocker, but not absent real-business validation. No separate review ran.
+
+This is a missing registration invariant, not loss of the underlying evidence. The evidence contract prohibits invented demand validation and requires synthetic labeling but does not require an explicit business-validation blocker in controlled state. Orchestration explicitly requires registration and report consistency for the review blocker, not the business-validation blocker. The checker emits BLOCKER_OPEN only for strings already authored in state (plus the new derived review blocker); it does not inspect the existing structured synthetic source types for this obligation. Thus prose acknowledgment satisfies no structural registration requirement and the omission survives validation. We do not claim to know why the model selected those strings internally.
+
+Evidence at the unchanged PR HEAD: repository/scripts/check_outputs.py:180; repository/scripts/check_outputs.py:758; repository/contracts/brief.schema.json:28; repository/contracts/run-state.schema.json:86; repository/references/evidence-contract.md:17; repository/references/orchestration.md:75. Paths in this paragraph are relative to handoff/hormozi-one-chat-2026-11-03. Archived BRIEF and state are inside docs/qa/seven-hold-preservation/first-completion.zip; the earlier seven-obligation archive is docs/qa/summary-contract-1.1.1/first-completion.zip.
+
+## Options and recommendation
+
+1. Instructions alone: require explicit registration whenever real-business validation is absent. Minimal prose change, but the checker still cannot detect this observed structured omission. Not recommended as the full solution.
+2. Instructions plus a narrow structured-evidence guard (recommended): for a controlled ready-mode run whose valid BRIEF has one or more facts and EVERY fact has source_type='synthetic', require an explicit business-validation blocker. This is a conservative missing-evidence guard grounded in an existing enum and the synthetic-evidence policy. It is not an inference that any mixed/supplied/sourced brief has been commercially validated.
+3. A new validation-status schema or evidence ledger: could cover mixed-evidence business validation more generally, but expands the approved contracts and platform. Excluded.
+
+Option 2 is a new concrete predicate requiring the architecture design gate before coding. The existing mechanism is reused; no code or schema change is made in this proposal. The user already authorized the bounded correction; the remaining choice is whether the synthetic-only predicate is the correct scope of enforcement.
+
+## Proposed behavior
+
+- Use only existing BRIEF.facts[].source_type enum values; no keyword search in business prose, filenames, unknowns, approval strings or report text. Non-empty synthetic-only facts trigger the guard. Empty, inferred, supplied, sourced or mixed evidence does not trigger this particular rule and does not imply real-business approval. Independent semantic review still governs evidence sufficiency.
+- Formalize the existing historical blocker text as the canonical registration string: `Fictional fixture; real business validation absent`. This is a generic synthetic-workflow limitation already present in the older immutable run, not a new fixture fact or a match against customer/price/test identity. It preserves historical exact registration without introducing loose synonym matching or multiple legacy strings.
+- Root instructions require synthetic facts to remain labeled synthetic and this blocker to be registered in RUN_STATE and named in CHECKPOINT and QA_REPORT when this predicate holds. More generally, known absence of real-business validation must be carried as an explicit business hold even outside this narrow detectable case; do not mislabel real or synthetic evidence just to pass validation. Keep refund/cancellation, omitted-cost and all four review obligations intact. HELD status, narrative disclaimers, owner draft authorization and independent copy review cannot remove this business hold.
+- In ready mode, derive one BLOCKER_OPEN for the canonical business limitation if missing, and emit a distinct BUSINESS_VALIDATION_BLOCKER_UNREGISTERED error naming RUN_STATE.blockers. When the exact canonical blocker is already present, reuse the ordinary BLOCKER_OPEN and do not add another. The registration error ensures a derived finding is not mistaken for proof that RUN_STATE has the required entry. Checker never writes/repairs state or reports.
+- Preserve existing draft mode and standalone behavior. Do not alter independent-review matching: a genuine current separate review clears only its own review obligation, never the synthetic-business limitation. Do not automatically clear explicit blockers when evidence changes; root must reconcile actual evidence and authority.
+- Keep version1.1.1 for the exact unchanged invocation prompt; install an immutable corrected Git pin through supported CLI and verify all package bytes. No new schema, dependency, service, classifier, model route, prompt facts or architecture.
+
+## Focused verification plan
+
+Before implementation, independent design review checks whether the enum predicate follows the evidence policy and whether the canonical historical text is justified rather than fixture hardcoding. After PO predicate choice, one admitted lower-tier implementer writes public validator tests first and shows the missing registration on the observed archived failure.
+
+Tests: synthetic-only missing registration even HELD/ready=false; canonical present yields one hold; unrelated timing/task/review findings do not substitute; existing business blockers and valid separate reviews coexist correctly; no false positive on empty/mixed/inferred/supplied/sourced cases and no new claim those cases are business-approved; checker read-only; draft/standalone/SUMMARY unchanged. Do not silently update fixture source types just to preserve green tests.
+
+Replay both immutable archives without editing their bytes. The old registered seven-obligation archive retains its seven identities and no new registration error. The latest omission archive gains the missing business obligation plus explicit registration error; its unrelated findings remain. Candidate replay does not count as native acceptance.
+
+Run full unit tests/repo QA and Windows/Ubuntu CI; independent exact-artifact code review. Then exactly one newly authorized native run after gates pass, with the same four input hashes and byte-identical prompt, Sol/medium and byte-verified installation. Freeze first completion before inspection, no post-completion edits. Validate all seven identities in state/checkpoint/QA/checker and SUMMARY/chosen hook/three priorities. Additional genuine holds are disclosed and never substitute for a missing identity. Authentic separate review resolving a hold makes this gate INCONCLUSIVE, not passed. A failed attempt gets its observed cause reported, no automatic retry.
+
+One previous native attempt cost 342.87 seconds plus review effort; this predicate and archive regression should be reviewed before spending the one newly authorized attempt. No monetary cost estimate is inferred.

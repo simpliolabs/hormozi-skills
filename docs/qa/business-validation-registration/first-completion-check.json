@@ -1,0 +1,110 @@
+{
+  "source_commit": "d99b77a8533551b748ea8a6496f4418d3b769e98",
+  "archive_sha256": "9d4ac300b841f9975a7607bf841a72d50deeb09b6112811a8e651dd84200b074",
+  "file_count": 20,
+  "first_completed_files_unchanged": true,
+  "checker_exit": 1,
+  "findings": [
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: Fictional fixture; real business validation absent"
+    },
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: Refund/cancellation policy undecided; unknown costs held."
+    },
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: [review] Independent review remains required."
+    },
+    {
+      "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+      "severity": "error",
+      "artifact": "output/PITCH.md",
+      "reason": "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"
+    },
+    {
+      "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+      "severity": "error",
+      "artifact": "output/HOOKS.md",
+      "reason": "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"
+    },
+    {
+      "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+      "severity": "error",
+      "artifact": "output/LANDING_PAGE.md",
+      "reason": "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"
+    }
+  ],
+  "phase": "HELD",
+  "constraints": [
+    "Fictional fixture; real business validation absent",
+    "No external tools, research, publishing or sending",
+    "Keep USD 750 one-time, eligibility, scope and timing unchanged",
+    "Exactly five hooks",
+    "Unapproved brainstorm is neither authority nor evidence"
+  ],
+  "blockers": [
+    "Fictional fixture; real business validation absent",
+    "Refund/cancellation policy undecided; unknown costs held.",
+    "[review] Independent review remains required."
+  ],
+  "reviews": {
+    "same": 9
+  },
+  "risk": [
+    {
+      "path": "output/ORIGINAL_OFFER_AUDIT.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/OFFER.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/REVISED_OFFER_CHECK.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/PRICING.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/PITCH.md",
+      "high_risk": true,
+      "ready": false
+    },
+    {
+      "path": "output/HOOKS.md",
+      "high_risk": true,
+      "ready": false
+    },
+    {
+      "path": "output/LANDING_PAGE.md",
+      "high_risk": true,
+      "ready": false
+    },
+    {
+      "path": "output/SUMMARY.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/OFFER_AUDIT.md",
+      "high_risk": false,
+      "ready": false
+    }
+  ],
+  "input_hashes_match": true,
+  "prompt_unchanged": true
+}

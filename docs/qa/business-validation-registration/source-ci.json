@@ -1,0 +1,29 @@
+{
+  "conclusion": "success",
+  "headSha": "d99b77a8533551b748ea8a6496f4418d3b769e98",
+  "jobs": [
+    {
+      "name": "qa (windows-latest)",
+      "conclusion": "success",
+      "url": "https://github.com/simpliolabs/hormozi-skills/actions/runs/42059373099/job/127356453447"
+    },
+    {
+      "name": "qa (ubuntu-latest)",
+      "conclusion": "success",
+      "url": "https://github.com/simpliolabs/hormozi-skills/actions/runs/42059373099/job/127356453719"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/simpliolabs/hormozi-skills/actions/runs/42059373099",
+  "selected_lines": [
+    "qa (windows-latest)\tUnit and integration tests\t2026-11-05T15:52:55.0547167Z Ran 306 tests in 14.315s",
+    "qa (windows-latest)\tUnit and integration tests\t2026-11-05T15:52:55.0547416Z OK (skipped=1)",
+    "qa (windows-latest)\tUnit and integration tests\t2026-11-05T15:52:55.0547654Z PASS",
+    "qa (windows-latest)\tRepository checks\t2026-11-05T15:52:55.5444082Z PASS",
+    "qa (ubuntu-latest)\tUnit and integration tests\t2026-11-05T15:52:35.3418910Z Ran 306 tests in 3.465s",
+    "qa (ubuntu-latest)\tUnit and integration tests\t2026-11-05T15:52:35.3419139Z OK (skipped=1)",
+    "qa (ubuntu-latest)\tUnit and integration tests\t2026-11-05T15:52:35.3419362Z PASS",
+    "qa (ubuntu-latest)\tRepository checks\t2026-11-05T15:52:35.4821717Z PASS"
+  ],
+  "log_sha256": "f335c41d5c4f8884bc38de9e9fcec66b0c6ae6d973bb9809892b45e6e9a14846"
+}

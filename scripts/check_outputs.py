@@ -161,6 +161,9 @@ def validate_run(run_dir: Path, workspace_root: Path, mode: str = "ready") -> li
         findings += _check_receipts(state, workspace)
         findings += _check_routing(state)
         findings += _check_artifacts(state, decisions, claims, brief, workspace, mode)
+        if mode == "ready":
+            findings += _aggregate_review_blocker(state, findings)
+            findings += _check_business_validation_registration(brief, state)
         findings += _check_summary(state, brief, workspace, mode)
     return findings
 
@@ -397,11 +400,13 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
         path = art["path"]
         manifest_paths.add(_norm_path(path))
         full, err = _resolve_inside(workspace, path)
+        # review obligations are manifest metadata, so a missing or unsafe file cannot hide them in ready mode
+        early = _check_review(art, state, path, _independent_review_required(art, tasks, workspace)) if mode == "ready" else []
         if err:
-            out.append(err)
+            out += [err] + early
             continue
         if not full.exists():
-            out.append(Finding("ARTIFACT_MISSING", "error", path, "manifest lists a file that does not exist"))
+            out += [Finding("ARTIFACT_MISSING", "error", path, "manifest lists a file that does not exist")] + early
             continue
         data = full.read_bytes()
         text = data.decode("utf-8", errors="replace")
@@ -426,7 +431,7 @@ def _check_artifacts(state, decisions, claims, brief, workspace, mode) -> list[F
         out += _check_bindings(art, fields, text, path)
         out += _check_claims(art, ledger, text, path)
         if mode == "ready":
-            out += _check_review(art, state, path)
+            out += early
 
     if brief:
         for req in brief["requested_artifacts"]:
@@ -722,17 +727,56 @@ def _check_claims(art, ledger, text, path) -> list[Finding]:
     return out
 
 
-def _check_review(art, state, path) -> list[Finding]:
+# Independent-review floor: these outputs need a separate-context pass whatever the author's high_risk flag says.
+# Identity comes from the manifest's producing task role and the safely resolved path, never from names or keywords.
+INDEPENDENT_REVIEW_ROLE = "sub-sales"
+INDEPENDENT_REVIEW_PATHS = ("output/PITCH.md", "output/HOOKS.md", "output/LANDING_PAGE.md")
+REVIEW_BLOCKER = "[review] Independent review remains required."
+
+
+def _independent_review_required(art, tasks, workspace) -> bool:
+    task = tasks.get(art["task"])
+    if art.get("high_risk") is True or (task is not None and task["role"] == INDEPENDENT_REVIEW_ROLE):
+        return True
+    key, _ = _path_key(workspace, art["path"])
+    return key is not None and key in {_path_key(workspace, p)[0] for p in INDEPENDENT_REVIEW_PATHS}
+
+
+def _check_review(art, state, path, independent) -> list[Finding]:
+    out = []
     match = [r for r in state["reviews"]
              if r["artifact"].replace("\\", "/") == path.replace("\\", "/")
              and r["artifact_sha256"] == art["sha256"]
              and r["decision_version"] == state["decision_version"]
              and r["result"] == "pass"]
     if not match:
-        return [Finding("REVIEW_STALE_OR_MISSING", "error", path, "no passing semantic review bound to this artifact hash and decision version")]
-    if art.get("high_risk") and not any(r["context"] == "separate" for r in match):
-        return [Finding("HIGH_RISK_NO_INDEPENDENT_REVIEW", "error", path, "high-risk readiness requires a separate-context reviewer; hold otherwise")]
-    return []
+        out.append(Finding("REVIEW_STALE_OR_MISSING", "error", path, "no passing semantic review bound to this artifact hash and decision version"))
+    if independent and not any(r["context"] == "separate" for r in match):
+        out.append(Finding("HIGH_RISK_NO_INDEPENDENT_REVIEW", "error", path, "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"))
+    return out
+
+
+def _aggregate_review_blocker(state, findings) -> list[Finding]:
+    """One run-level hold while any independent review is open. An explicit identical blocker is already reported by
+    the ready-state check, so it is reused; otherwise the finding is derived and no input is changed."""
+    if not any(f.code == "HIGH_RISK_NO_INDEPENDENT_REVIEW" for f in findings) or REVIEW_BLOCKER in state["blockers"]:
+        return []
+    return [Finding("BLOCKER_OPEN", "error", "RUN_STATE.json", f"unresolved blocker: {REVIEW_BLOCKER}")]
+
+
+# Declared business limitation: root writes this exact string into BRIEF.constraints after reading the sources. The
+# checker never decides whether it applies; it only requires a declaration to be registered as an identical blocker.
+BUSINESS_VALIDATION_MARKER = "Fictional fixture; real business validation absent"
+
+
+def _check_business_validation_registration(brief, state) -> list[Finding]:
+    """Exact declaration without the identical state blocker: derive the hold (once) plus a distinct registration error.
+    A registered blocker is already reported by the ready-state check, so it is reused. Nothing is inferred or changed."""
+    if not brief or BUSINESS_VALIDATION_MARKER not in brief["constraints"] or BUSINESS_VALIDATION_MARKER in state["blockers"]:
+        return []
+    return [Finding("BLOCKER_OPEN", "error", "RUN_STATE.json", f"unresolved blocker: {BUSINESS_VALIDATION_MARKER}"),
+            Finding("BUSINESS_VALIDATION_BLOCKER_UNREGISTERED", "error", "RUN_STATE.json",
+                    f"BRIEF.constraints declares {BUSINESS_VALIDATION_MARKER!r} but RUN_STATE.blockers lacks the identical blocker")]
 
 
 # ------------------------------------------------------------------ repo checks
