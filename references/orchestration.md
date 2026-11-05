@@ -47,6 +47,18 @@ Modes are exact strings, and `scripts/check_outputs.py` enforces the order below
 | D Service business, scale | `sub-pricing` (`packaging_exploration`, only if needed) -> `sub-offer` (`revision`) -> optional `sub-value` (`revised_check`) -> `sub-pricing` (`final_feasibility`) -> reconciliation -> `sub-sales` | Existing delivery and cost snapshot. Final economics always run after the last scope change |
 | E Custom / mixed | The smallest dependency graph for the gaps found | A focused request runs one skill with proportionate QA |
 
+### Automatic downstream CRO gate (new offer waterfall)
+
+For **every full multi-step offer run** (stage A, B, D, or a comparable stage E offer workflow), perform a root-owned **CRO readiness gate after the accepted offer/value/pricing and requested sales drafts, before the final SUMMARY and output checker**, **even if the owner did not ask for CRO by name**. Stage C includes the gate when a landing page or another digital conversion destination is in scope. A focused one-skill request remains focused.
+
+- Load the actual `<plugin_root>/skills/cro-page-optimizer/SKILL.md`, its `references/CRO_FRAMEWORK.md`, and `<plugin_root>/references/cro-waterfall.md`. Do not infer CRO methodology from this paragraph.
+- At route initialization, assign `CRO_REVIEW.md` to `BRIEF.requested_artifacts` and the **root** `write_set`, not an imaginary `sub-cro` role. For a page with genuine source and behavior data run full CRO; for an offer without a page run conversion readiness; for offline offers run a minimal buyer-handoff review with page and SEO marked not applicable. Missing source means NOT ASSESSED, not invented evidence or a false pass.
+- Preserve task modes, role enums and existing schemas. Root writes `output/CRO_REVIEW.md`, records real hash, decision version, input provenance and any relevant QA findings, and carries its key decision into canonical `SUMMARY.md`. If publish-ready marketing wording appears in this artifact, classify it high-risk and apply the existing separate-context review floor.
+- A CRO fix may propose an upstream revision, but root must obtain any required commercial approval before revising accepted offers, terms, or claims. Re-run affected downstream dependencies and revalidate artifact hashes/reviews. Do not use a CRO result to clear review or business holds.
+- Explicit CRO-only requests select `cro-page-optimizer` directly. An individual request for five hooks does not trigger a whole offer waterfall.
+
+See `references/cro-waterfall.md` for the precise eligibility matrix, stage examples and invariant tests. This gate is a **method and root QA step**, not a newly supported `RUN_STATE.tasks[].mode` or a tested autonomous specialist invocation.
+
 Rules that follow:
 
 - `OFFER_AUDIT.md` is the normal audit name. In B it is the compatibility view of the latest revised audit. The original and revised audits stay separately named and have disjoint write sets.
