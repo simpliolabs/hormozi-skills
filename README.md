@@ -4,6 +4,10 @@
 
 **Structured AI offer workflows with review gates and owner-controlled decisions.**
 
+[![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/nir_theceo)
+[![X](https://img.shields.io/badge/X-Follow-111111?logo=x&logoColor=white)](https://x.com/NirAppelton)
+[Personal website: nirappelton.com (coming soon)](https://nirappelton.com)
+
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-blueviolet)
 ![Platform](https://img.shields.io/badge/platform-Claude%20Code%20%7C%20Codex%20%7C%20Cursor-lightgrey)
@@ -12,6 +16,22 @@
 ---
 
 > An open-source, Hormozi-inspired skill library for Claude Code and Codex. Use standalone methods or a one-chat orchestrator to draft offers and sales materials. Controlled runs record business decisions, review obligations, and structural validation findings. Drafts do not constitute verified commercial claims or publication approval.
+
+---
+
+## Start here: one sentence is enough
+
+**You do not have to remember the skill's internal name to describe the job.** After installing the skills in a compatible host, try a natural-language request:
+
+> Help me build a stronger business offer. Guide me through the process one question at a time, then help with the offer, positioning, pricing, hooks, and landing-page draft. Clearly label what still needs my approval.
+
+For an existing offer, try:
+
+> My current offer isn't converting. Audit it, identify what to fix first, and guide me through the changes. Ask for missing facts instead of making them up.
+
+**How activation works:** In Claude Code, skills can be selected by relevance or invoked from the `/` command menu. In Codex, select an installed skill or explicitly mention it with `$hormozi-orchestrator`. In ChatGPT, select it with `@` if that skill is installed and available. Natural-language matching is host-dependent and **not guaranteed**; use explicit selection if it does not activate. See [Quick Start](#quick-start) and [First-use operator guide](docs/OPERATING_GUIDE.md).
+
+**Proposed next step:** A short `/offer` starter alias would make Claude Code activation even easier, but it is **not implemented** in this documentation update and needs a separate compatible-host test.
 
 ---
 
@@ -229,6 +249,26 @@ Built on Alex Hormozi's offer methodology from *$100M Offers* and *$100M Leads*:
 
 ---
 
+## Who builds and maintains this fork?
+
+**Original project:** [Alex Smedile](https://github.com/alexsmedile) created the original Hormozi Skills project. The original MIT copyright and attribution are retained. This is a fork, not a claim to have authored the upstream library.
+
+**This fork:** [Simpliolabs](https://github.com/simpliolabs) maintains this repository. **Nir Appelton** provides project direction for the updated offer workflows, orchestration review gates, and practical usage experience. Contributions are recorded in the Git history and pull requests; the [PR #3 acceptance record](docs/SEVEN_HOLD_VALIDATION.md) describes exactly what has been tested.
+
+**Why we're working on it:** To make AI-assisted offer creation more practical, transparent, and accountable to the business owner. It should produce useful drafts and preserve decisions requiring human review, rather than imply that unverified business claims have been proven.
+
+**Connect with Nir Appelton**
+
+- Website: [nirappelton.com](https://nirappelton.com) **(coming soon)**
+- Instagram: [@nir_theceo](https://www.instagram.com/nir_theceo)
+- X: [@NirAppelton](https://x.com/NirAppelton)
+
+### What this fork does not claim
+
+This is not an official Alex Hormozi product or an endorsement. The recorded first-completion acceptance was a bounded fictional workflow; real-world factual validation, authenticated review execution, and differentiated native specialist dispatch require further verification. Business decisions and publication remain with the owner.
+
+---
+
 ## Credits
 
-Originally created by [@alexsmedile](https://github.com/alexsmedile) and maintained in this fork at [simpliolabs/hormozi-skills](https://github.com/simpliolabs/hormozi-skills). Inspired by Alex Hormozi's publicly described frameworks; not affiliated with or endorsed by Alex Hormozi. Licensed under [MIT](LICENSE).
+Original author: [Alex Smedile](https://github.com/alexsmedile). Fork maintenance: [Simpliolabs](https://github.com/simpliolabs), with project direction by [Nir Appelton](https://nirappelton.com) (personal site coming soon). Inspired by Alex Hormozi's publicly described frameworks; not affiliated with or endorsed by Alex Hormozi. Licensed under [MIT](LICENSE).
