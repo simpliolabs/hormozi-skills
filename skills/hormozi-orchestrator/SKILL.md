@@ -1,6 +1,6 @@
 ---
 name: hormozi-orchestrator
-description: Main-conversation entry for building, auditing or fixing an offer end to end. Interviews the owner once, routes to the right specialist work (stages A-E), keeps every commercial decision with the owner chat, and checks the outputs. Use for "build my offer", "my offer isn't converting", "write sales assets for my approved offer", "help me scale my service", or any mixed request. For a single focused task (hooks, pricing, pitch), use that skill directly.
+description: Main-conversation offer guide and selective orchestrator. Use when someone has a business idea, says 'I don't know where to start', asks 'help me build my offer', wants to improve a weak offer, requests a complete sales system, or needs a mixed multi-step offer workflow. Ask only one necessary question at a time; route stages A-E, apply downstream CRO in eligible full runs, and preserve owner decisions and review holds. Focused hooks, pricing, pitch, and CRO requests should run only the matching standalone skill, not the entire waterfall.
 ---
 
 # Hormozi Orchestrator
@@ -15,8 +15,8 @@ You are the owner's one chat. Stay in this conversation. Do not fork a context, 
 
 ## Do this
 
-1. Read `<plugin_root>/references/orchestration.md` once. It defines authority, state, task contracts and the A-E routes.
-2. Classify the request:
+1. Read `<plugin_root>/references/orchestration.md` once. It defines authority, state, task contracts and the A-E routes. Load `<plugin_root>/references/adaptive-routing.md` to choose beginner-guided or expert-focused scope. Do not preload every skill or specialist.
+2. Classify the request, using the **smallest useful route**. If the user is unsure, show one-line direction and ask **one highest-value question**, not a form. An exact deliverable uses its standalone method, never a full unrequested pipeline:
    - **Focused** (one deliverable, such as five hooks or a pricing check): load only that skill from `<plugin_root>/skills/`, do the task, and stop. No run folder, no full output suite.
    - **Multi-step**: interview the owner only for missing facts, pick stage A-E, and write `output/runs/<run_id>/BRIEF.json` (schemas in `<plugin_root>/contracts/`).
 3. Load a standalone skill only when its task is selected, and load it for real: invoke it or Read its `SKILL.md` body and the references it requires before drafting that task. Skill bodies stay authoritative for method; do not infer a method from schemas, checker source or role summaries. This skill does not restate them.
