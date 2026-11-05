@@ -21,17 +21,23 @@
 
 ## Start here: one sentence is enough
 
-**You do not have to remember the skill's internal name to describe the job.** After installing the skills in a compatible host, try a natural-language request:
+![Two ways to start: guided for people who do not know what to ask, or focused for people with a precise task](assets/readme/choose-your-path.svg)
 
-> Help me build a stronger business offer. Guide me through the process one question at a time, then help with the offer, positioning, pricing, hooks, and landing-page draft. Clearly label what still needs my approval.
+**You don't need to know the names of the skills.** After installing the library, describe the goal in ordinary language:
 
-For an existing offer, try:
+| I'm starting with... | Say this | What happens |
+|---|---|---|
+| **No idea where to begin** | "I have a business idea. Help me figure out where to start." | One useful question, then the smallest relevant offer route |
+| **An existing offer** | "My offer isn't converting. Find what is wrong first." | Diagnose before rewriting, then work on affected stages only |
+| **A complete offer project** | "Build my offer and the sales assets from my business facts." | Full selected upstream → downstream waterfall, including CRO readiness |
+| **One precise task** | "Write five hooks for this approved offer." | Only the hooks skill and common evidence checks |
+| **A page or checkout issue** | "Review this screenshot and Clarity data for conversion problems." | CRO Page Optimizer directly, without rebuilding the offer |
 
-> My current offer isn't converting. Audit it, identify what to fix first, and guide me through the changes. Ask for missing facts instead of making them up.
+**The rule:** **Small question = small workflow. Full offer = full selective waterfall.** Each specialist's method is loaded only when needed. Even a full run never automatically loads all 18 business skills.
 
-**How activation works:** In Claude Code, skills can be selected by relevance or invoked from the `/` command menu. In Codex, select an installed skill or explicitly mention it with `$hormozi-orchestrator`. In ChatGPT, select it with `@` if that skill is installed and available. Natural-language matching is host-dependent and **not guaranteed**; use explicit selection if it does not activate. See [Quick Start](#quick-start) and [First-use operator guide](docs/OPERATING_GUIDE.md).
+[**Start Here guide**](docs/START_HERE.md) · [Adaptive routing and token discipline](references/adaptive-routing.md) · [Quick Start installation](#quick-start)
 
-**Proposed next step:** A short `/offer` starter alias would make Claude Code activation even easier, but it is **not implemented** in this documentation update and needs a separate compatible-host test.
+**Activation note:** Natural-language skill discovery depends on the host and is not guaranteed. In Claude Code, use the installed skill menu if needed; in Codex use its installed skill selector (such as `$hormozi-orchestrator`), and in ChatGPT use `@` if that skill is available. A short `/offer` alias is still a proposal, not a currently supported command.
 
 ---
 
