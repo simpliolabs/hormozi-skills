@@ -289,6 +289,7 @@ class TestHighRisk(RunCase):
 
     def test_high_risk_requires_separate_context_review(self):
         self.mark_high_risk()
+        self.edit_state(lambda s: s["reviews"][0].update(context="same", reviewer="root"))
         self.assertIn("HIGH_RISK_NO_INDEPENDENT_REVIEW", codes(self.validate()))
 
     def test_high_risk_with_separate_review_passes(self):

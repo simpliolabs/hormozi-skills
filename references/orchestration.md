@@ -68,7 +68,11 @@ Structural `READY` from `check_outputs.py` is not proof that a method was applie
 
 ## Evidence and QA
 
-A clean ledger does not prove clean copy. Semantic review inspects each final artifact and binds its receipt to the artifact hash and decision version. High-risk readiness needs a separate-context reviewer, or it is held.
+A clean ledger does not prove clean copy. Semantic review inspects each final artifact and binds its receipt to the artifact hash and decision version.
+
+**Independent-review floor (required).** In a controlled run, every manifest artifact produced by a `sub-sales` task, the canonical `output/PITCH.md`, `output/HOOKS.md` and `output/LANDING_PAGE.md` (whoever produced them, any safe path spelling), and any artifact marked `high_risk: true` needs a passing review with `context: "separate"` bound to its exact path, hash and decision version. There are no bookkeeping or filename exclusions; renaming a sales output does not remove the requirement. Set `high_risk: true` on those artifacts yourself, but the checker applies the floor even when the flag is false or absent, `ready` is false or the phase is `HELD`. A same-context or missing review is not independent approval: never record same-context work as `separate`, never invent a reviewer run, and never copy a model request into an observation. If a separate reviewer is unavailable or refused, record the exact reason and fall back honestly to your own same-context review, which leaves the hold open.
+
+While any required independent review is missing, add exactly this blocker to `RUN_STATE.blockers`: `[review] Independent review remains required.`, finish with phase `HELD`, and write every unresolved review obligation (artifact path and reason) into both `output/CHECKPOINT.md` and `output/QA_REPORT.md` so the three records agree. The checker never clears or edits it; remove the blocker yourself only after real separate-context passes exist. Held drafts stay useful: still deliver the full provisional result and `SUMMARY.md`.
 
 Check with `python <plugin_root>/scripts/check_outputs.py --workspace <workspace_root> --run <workspace_root>/output/runs/<run_id> --mode ready`.
 

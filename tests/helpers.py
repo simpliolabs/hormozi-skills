@@ -90,7 +90,7 @@ def build_run(workspace: Path, body: str = PITCH_BODY):
             "bindings": [{"field": "price", "rendered_text": PRICE_TEXT}, {"field": "guarantee", "rendered_text": GUARANTEE_TEXT}],
         }],
         "reviews": [{"artifact": "output/PITCH.md", "artifact_sha256": art_sha, "decision_version": 3,
-                     "reviewer": "root", "context": "same", "result": "pass"}],
+                     "reviewer": "adversary", "context": "separate", "result": "pass"}],
         "blockers": [], "qa_result": "not_run",
     }
     write_json(run_dir / "RUN_STATE.json", state)
