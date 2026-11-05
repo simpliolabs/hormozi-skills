@@ -1,0 +1,117 @@
+{
+  "source_commit": "98498924b07b54962e8893ebe6d347ca9765e9f3",
+  "native_receipt_sha256": "2fb2d6178cbf364951e0b11d8c313fbb44ec6b75e25ed8312bebf244727b5eea",
+  "first_archive_sha256": "4d15b2d3f54864709748b0de3cba5ece2747a5412c6f514507ad23ec423e31d5",
+  "first_completed_files_unchanged": true,
+  "file_count": 21,
+  "exit_code": 1,
+  "findings": [
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: Refund/cancellation policy undecided."
+    },
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: Full profitability held: acquisition, overhead, taxes and refund costs unknown."
+    },
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: Feedback-window starting event unspecified."
+    },
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: [review] Independent review remains required."
+    },
+    {
+      "code": "TASK_INCOMPLETE_IN_READY",
+      "severity": "error",
+      "artifact": "review",
+      "reason": "task is held; ready needs every task done or explicitly not run"
+    },
+    {
+      "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+      "severity": "error",
+      "artifact": "output/PITCH.md",
+      "reason": "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"
+    },
+    {
+      "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+      "severity": "error",
+      "artifact": "output/HOOKS.md",
+      "reason": "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"
+    },
+    {
+      "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+      "severity": "error",
+      "artifact": "output/LANDING_PAGE.md",
+      "reason": "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"
+    }
+  ],
+  "phase": "HELD",
+  "blockers": [
+    "Refund/cancellation policy undecided.",
+    "Full profitability held: acquisition, overhead, taxes and refund costs unknown.",
+    "Feedback-window starting event unspecified.",
+    "[review] Independent review remains required."
+  ],
+  "review_contexts": {
+    "same": 9
+  },
+  "artifact_risk": [
+    {
+      "path": "output/ORIGINAL_OFFER_AUDIT.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/OFFER.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/REVISED_OFFER_CHECK.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/PRICING.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/PITCH.md",
+      "high_risk": true,
+      "ready": false
+    },
+    {
+      "path": "output/HOOKS.md",
+      "high_risk": true,
+      "ready": false
+    },
+    {
+      "path": "output/LANDING_PAGE.md",
+      "high_risk": true,
+      "ready": false
+    },
+    {
+      "path": "output/OFFER_AUDIT.md",
+      "high_risk": false,
+      "ready": false
+    },
+    {
+      "path": "output/SUMMARY.md",
+      "high_risk": false,
+      "ready": false
+    }
+  ],
+  "prompt_unchanged": true,
+  "input_hashes_match": true
+}

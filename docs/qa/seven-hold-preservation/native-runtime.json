@@ -1,0 +1,44 @@
+{
+  "session_id": "01a1a98d-b76d-77a0-9b42-f29371abd84a",
+  "observed_turn_context": [
+    {
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "sandbox_policy": {
+        "type": "workspace-write",
+        "network_access": false,
+        "exclude_tmpdir_env_var": false,
+        "exclude_slash_tmp": false
+      },
+      "approval_policy": "never"
+    }
+  ],
+  "native_dispatch_calls": [
+    {
+      "name": "spawn_agent",
+      "call_id": "call_631a8629b7714d418bb9977758bee69a",
+      "task_name": "diagnostic",
+      "message_omitted": "opaque transport payload; not inspected/decrypted or published"
+    },
+    {
+      "name": "spawn_agent",
+      "call_id": "call_428d9069e2504be4943d8956f2a9c475",
+      "task_name": "independent_review",
+      "message_omitted": "opaque transport payload; not inspected/decrypted or published"
+    }
+  ],
+  "native_route_refusals": [
+    {
+      "call_id": "call_631a8629b7714d418bb9977758bee69a",
+      "output": "Tool call blocked by PreToolUse hook: MODEL ROUTE GATE: exactly one TASK CLASS is required in the spawn message. Tool: collaborationspawn_agent"
+    },
+    {
+      "call_id": "call_428d9069e2504be4943d8956f2a9c475",
+      "output": "Tool call blocked by PreToolUse hook: MODEL ROUTE GATE: exactly one TASK CLASS is required in the spawn message. Tool: collaborationspawn_agent"
+    }
+  ],
+  "raw_native_rollout_sha256": "49733b437161fcb1527cd6c0e40e04f967f4c10f8dd5be4fbfc1e5dc5a71b638",
+  "raw_rollout_published": false,
+  "separate_review_execution_observed": false,
+  "execution_mode": "sequential root fallback"
+}

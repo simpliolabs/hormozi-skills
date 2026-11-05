@@ -1,0 +1,99 @@
+{
+  "source_commit": "98498924b07b54962e8893ebe6d347ca9765e9f3",
+  "exit_code": 1,
+  "findings": [
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: Refund/cancellation undecided"
+    },
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: Acquisition, overhead, taxes and refund costs unknown"
+    },
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: Fictional fixture; real business validation absent"
+    },
+    {
+      "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+      "severity": "error",
+      "artifact": "output/PITCH.md",
+      "reason": "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"
+    },
+    {
+      "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+      "severity": "error",
+      "artifact": "output/HOOKS.md",
+      "reason": "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"
+    },
+    {
+      "code": "HIGH_RISK_NO_INDEPENDENT_REVIEW",
+      "severity": "error",
+      "artifact": "output/LANDING_PAGE.md",
+      "reason": "readiness requires a separate-context reviewer for this artifact (sales output, canonical copy file or high-risk); hold otherwise"
+    },
+    {
+      "code": "BLOCKER_OPEN",
+      "severity": "error",
+      "artifact": "RUN_STATE.json",
+      "reason": "unresolved blocker: [review] Independent review remains required."
+    }
+  ],
+  "all_23_files_unchanged": true,
+  "files_before": {
+    "input/costs_and_feedback.md": "9ee1c350c8769af92850a3c4d1787f7d96e0bc60fe063a1c9c6cce1ab997b028",
+    "input/existing_offer.md": "a6d5f6be0a3d9a2660c22441437f08c6a1a4647813e179569139953ba06c5d02",
+    "input/owner_terms.md": "cb133989947c59131ff1e44a61098e5c869d31d1e3b4483cf8ee1e1130d12da8",
+    "input/unapproved_brainstorm.md": "6af48e29229e77bf0f3f786f12d73cfbc890e025817964272e8ef6644c35b42e",
+    "output/build_drafts.py": "96857cac48e4ac51ce0d0d9c19b252a631cab4352eba5768ee41e77c546e7dd1",
+    "output/CHECKPOINT.md": "a497227aa9d757fe0598a8837e4e97dc4cb91b73eb4454081879344e3031cdf0",
+    "output/HOOKS.md": "b9836255aef1060cdc71be0a5f8ca3bc089a6583d9fa65596e55482e95e76895",
+    "output/LANDING_PAGE.md": "76261b658b06fdba61e0907d64ec1593d7a2f7c73cb6040ee427116a24a0ca5e",
+    "output/OFFER.md": "99fae25506740b71f7072e4631a1000998fa3dd247bc4d4e3a72769ef213439c",
+    "output/OFFER_AUDIT.md": "f733e88d31adb78c850f0b39ec2abf9979f13e0bef12cf19cbbf6975f6377262",
+    "output/ORIGINAL_OFFER_AUDIT.md": "8127a233c69b2718f9de81dd6ab03c9ed963b21a389edb55db0ab482734d1460",
+    "output/PITCH.md": "42605be60cbf3186ef53d1609698f327471a0cb1f72f316f0005eba2c4ae6991",
+    "output/PRICING.md": "dd34cf05ff2c2f81294427f4a26110f678406d83f3629823ac7276b235c8ad32",
+    "output/QA_REPORT.md": "27df8cd3901dbda94b8edc0222f586ac0f9177a0722714161ed46f72fd96a7f8",
+    "output/reconcile.py": "bd5f2bde4e3eb64a58be38dbf61b4a26533a5a6c9a2ac605f098b0b2aaf4bd8c",
+    "output/REVISED_OFFER_CHECK.md": "f733e88d31adb78c850f0b39ec2abf9979f13e0bef12cf19cbbf6975f6377262",
+    "output/run_tools.py": "7572485eb1683bd4167e50c9f2a7ae26c4fc07bbe8d1b4be20e1b1fdf6844200",
+    "output/SUMMARY.md": "2853e5364f9a87fd8d99945e27a92ae9c4c538e0651f3269a8390e07d7420fcc",
+    "output/__pycache__/run_tools.cpython-314.pyc": "e73bcf7fe200134df6183b0539eb97a6ee9f5ac84f2e3562f5a7563217179402",
+    "output/runs/2026-11-04-clarity/BRIEF.json": "c8d0a4fcb9e0286df541f9c3b0af142dbab1c1cc753cc0c18d4c82e1abadac0d",
+    "output/runs/2026-11-04-clarity/CLAIMS.json": "5a46b2d729619863153ddfbd08893f02d035d6f73c9c7a57fd6a0850519c71b3",
+    "output/runs/2026-11-04-clarity/OFFER_DECISIONS.json": "04c7c9bb5d8515e11b8e13ac2f692d39dcd935d713430448c53bab816437e828",
+    "output/runs/2026-11-04-clarity/RUN_STATE.json": "27f39bb9f3a3a115fb5970b4e34d60c1d05bed70a0599a8f9b4568e099b7470f"
+  },
+  "files_after": {
+    "input/costs_and_feedback.md": "9ee1c350c8769af92850a3c4d1787f7d96e0bc60fe063a1c9c6cce1ab997b028",
+    "input/existing_offer.md": "a6d5f6be0a3d9a2660c22441437f08c6a1a4647813e179569139953ba06c5d02",
+    "input/owner_terms.md": "cb133989947c59131ff1e44a61098e5c869d31d1e3b4483cf8ee1e1130d12da8",
+    "input/unapproved_brainstorm.md": "6af48e29229e77bf0f3f786f12d73cfbc890e025817964272e8ef6644c35b42e",
+    "output/build_drafts.py": "96857cac48e4ac51ce0d0d9c19b252a631cab4352eba5768ee41e77c546e7dd1",
+    "output/CHECKPOINT.md": "a497227aa9d757fe0598a8837e4e97dc4cb91b73eb4454081879344e3031cdf0",
+    "output/HOOKS.md": "b9836255aef1060cdc71be0a5f8ca3bc089a6583d9fa65596e55482e95e76895",
+    "output/LANDING_PAGE.md": "76261b658b06fdba61e0907d64ec1593d7a2f7c73cb6040ee427116a24a0ca5e",
+    "output/OFFER.md": "99fae25506740b71f7072e4631a1000998fa3dd247bc4d4e3a72769ef213439c",
+    "output/OFFER_AUDIT.md": "f733e88d31adb78c850f0b39ec2abf9979f13e0bef12cf19cbbf6975f6377262",
+    "output/ORIGINAL_OFFER_AUDIT.md": "8127a233c69b2718f9de81dd6ab03c9ed963b21a389edb55db0ab482734d1460",
+    "output/PITCH.md": "42605be60cbf3186ef53d1609698f327471a0cb1f72f316f0005eba2c4ae6991",
+    "output/PRICING.md": "dd34cf05ff2c2f81294427f4a26110f678406d83f3629823ac7276b235c8ad32",
+    "output/QA_REPORT.md": "27df8cd3901dbda94b8edc0222f586ac0f9177a0722714161ed46f72fd96a7f8",
+    "output/reconcile.py": "bd5f2bde4e3eb64a58be38dbf61b4a26533a5a6c9a2ac605f098b0b2aaf4bd8c",
+    "output/REVISED_OFFER_CHECK.md": "f733e88d31adb78c850f0b39ec2abf9979f13e0bef12cf19cbbf6975f6377262",
+    "output/run_tools.py": "7572485eb1683bd4167e50c9f2a7ae26c4fc07bbe8d1b4be20e1b1fdf6844200",
+    "output/SUMMARY.md": "2853e5364f9a87fd8d99945e27a92ae9c4c538e0651f3269a8390e07d7420fcc",
+    "output/__pycache__/run_tools.cpython-314.pyc": "e73bcf7fe200134df6183b0539eb97a6ee9f5ac84f2e3562f5a7563217179402",
+    "output/runs/2026-11-04-clarity/BRIEF.json": "c8d0a4fcb9e0286df541f9c3b0af142dbab1c1cc753cc0c18d4c82e1abadac0d",
+    "output/runs/2026-11-04-clarity/CLAIMS.json": "5a46b2d729619863153ddfbd08893f02d035d6f73c9c7a57fd6a0850519c71b3",
+    "output/runs/2026-11-04-clarity/OFFER_DECISIONS.json": "04c7c9bb5d8515e11b8e13ac2f692d39dcd935d713430448c53bab816437e828",
+    "output/runs/2026-11-04-clarity/RUN_STATE.json": "27f39bb9f3a3a115fb5970b4e34d60c1d05bed70a0599a8f9b4568e099b7470f"
+  }
+}
