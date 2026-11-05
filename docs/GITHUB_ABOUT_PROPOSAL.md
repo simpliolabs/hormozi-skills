@@ -6,7 +6,15 @@ Hormozi-inspired AI offer skills with owner-controlled decisions, review holds, 
 
 **Suggested topics:** `ai-skills`, `claude-code`, `codex`, `offer-design`, `sales-copy`, `marketing-workflow`, `output-validation`
 
-**Homepage:** Keep unset unless the maintainers have a verified official project website. GitHub's repository URL already identifies the Simpliolabs fork.
+**Homepage (after launch):** https://nirappelton.com — personal website of Nir Appelton, project lead for this fork. User reports that the site is **coming soon**; do not present it as a currently live product site or silently set it in repository settings.
+
+**Repository maintainer:** [Simpliolabs](https://github.com/simpliolabs), with project direction from Nir Appelton.
+
+**Social links for README/community:**
+- Instagram: https://www.instagram.com/nir_theceo
+- X: https://x.com/NirAppelton
+
+**Attribution:** Original project by Alex Smedile. This fork does not claim original authorship.
 
 This file is a proposal only; no GitHub About settings or published release metadata are changed by this documentation branch.
 
