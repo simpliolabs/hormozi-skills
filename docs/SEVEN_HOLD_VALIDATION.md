@@ -1,4 +1,28 @@
-# Independent-review floor: deterministic correction, native acceptance gap
+# Business-validation and independent-review hold preservation
+
+## Current result — November 5: bounded native acceptance PASS
+
+The additionally authorized fresh installed run preserves all seven obligation identities without post-completion operator repair. Six findings represent them because refund/cancellation and omitted costs share one explicit compound blocker. Independent acceptance review verified both identities separately; neither count nor HELD status alone proves acceptance. All obligations remain unresolved.
+
+Root now explicitly declares the known source-backed business limitation in BRIEF.constraints, registers it in RUN_STATE.blockers, and carries it into CHECKPOINT and QA_REPORT. The existing read-only checker detects declared-but-unregistered obligations. It does not infer business truth from source provenance or keywords; a missing initial declaration remains a semantic/native acceptance gap.
+
+Reviewed/executed source: d99b77a8533551b748ea8a6496f4418d3b769e98. Five follow-up source files changed: 16 checker lines, three concise instruction changes and 30 public-validator tests. Existing review-floor enforcement, four schemas, original 17 methods, five specialists, SUMMARY contract, standalone behavior and dependencies remain intact. No new architecture, service or schema.
+
+[Windows/Ubuntu CI](https://github.com/simpliolabs/hormozi-skills/actions/runs/42059373099) passes 306 tests per OS, one complementary platform-specific skip each, plus repository QA. One native attempt completed in 316.54 seconds at observed Sol/medium. All 143 tracked installed files match source; the original prompt and four inputs are byte-identical. All 20 first-completion file hashes remain unchanged after validation. Canonical SUMMARY, verbatim hook and three prioritized actions pass.
+
+Current evidence:
+
+- [Root cause and necessity](qa/business-validation-registration/root-cause.md), [corrected design](qa/business-validation-registration/design.md), [design review](qa/business-validation-registration/design-review.md), [exact-artifact code review](qa/business-validation-registration/code-review.md).
+- [Independent acceptance review and seven-row matrix](qa/business-validation-registration/acceptance-review.md), [native acceptance report](qa/business-validation-registration/native-acceptance.md), [first-completion archive](qa/business-validation-registration/first-completion.zip), [checker findings](qa/business-validation-registration/first-completion-check.json).
+- [Immutable/derived replay comparison](qa/business-validation-registration/replay-comparison.json), [sanitized runtime](qa/business-validation-registration/native-runtime.json), [source CI](qa/business-validation-registration/source-ci.json), [hash manifest](qa/business-validation-registration/evidence.json).
+
+First-completion ZIP SHA256: `9d4ac300b841f9975a7607bf841a72d50deeb09b6112811a8e651dd84200b074`. Version1.1.1 remains only to preserve the original prompt path; exact source pin and hashes identify this unpublished local candidate. Actual runtime shows one refused diagnostic dispatch and no independent-review dispatch/execution. Sequential fallback is observed; differentiated native execution remains unproven. No raw reasoning or opaque transport payloads are published.
+
+**PR #3 remains DRAFT and merge remains on HOLD pending separate PO authorization.** This pass covers one specified fictional scenario, not universal intake completeness, authenticated review, full operational reliability or commercial readiness. No merge, deployment, publication or external business-system action occurred; no commercial hold is released.
+
+## Historical report at 1096c9d — preserved failure, superseded by the result above
+
+The following describes the earlier failed attempt. Its archive and reports remain unchanged; the successful follow-up does not rewrite that history.
 
 This change prevents an AI-authored false or absent high_risk flag from suppressing independent-review obligations in controlled runs. The existing checker now covers every sub-sales manifest artifact, safely resolved canonical PITCH/HOOKS/LANDING_PAGE paths, and explicit high-risk artifacts. It emits per-artifact holds plus one deduplicated aggregate blocker, including when the run is HELD or a required artifact file is missing. The checker remains read-only.
 

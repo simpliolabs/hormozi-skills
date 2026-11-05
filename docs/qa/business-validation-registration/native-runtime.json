@@ -1,0 +1,46 @@
+{
+  "session_id": "01a1ac6e-f4c5-78a3-b645-5d88b12f43a5",
+  "observed_turn_context": [
+    {
+      "model": "gpt-6.1-sol",
+      "effort": "medium",
+      "sandbox_policy": {
+        "type": "workspace-write",
+        "network_access": false,
+        "exclude_tmpdir_env_var": false,
+        "exclude_slash_tmp": false
+      },
+      "approval_policy": "never"
+    }
+  ],
+  "dispatch_calls": [
+    {
+      "name": "spawn_agent",
+      "call_id": "call_8d4a0fc82c6c4c4594ce7cc521ff15f9",
+      "task_name": "diagnostic",
+      "message_omitted": "opaque transport payload; not decrypted or published"
+    }
+  ],
+  "route_refusals": [
+    {
+      "call_id": "call_8d4a0fc82c6c4c4594ce7cc521ff15f9",
+      "output": "Tool call blocked by PreToolUse hook: MODEL ROUTE GATE: exactly one TASK CLASS is required in the spawn message. Tool: collaborationspawn_agent"
+    }
+  ],
+  "raw_rollout_sha256": "bbc1503d6551e3b23e8ac0c391da7f8d1070a90b6b784cab85aaf6b46330948b",
+  "raw_rollout_published": false,
+  "separate_review_execution_observed": false,
+  "loaded_method_reference_names_in_successful_commands": [
+    "audit-offer",
+    "commercial-feasibility",
+    "evidence-contract",
+    "hormozi-hooks",
+    "hormozi-offer",
+    "hormozi-orchestrator",
+    "hormozi-pitch",
+    "landing-page-copy",
+    "orchestration.md",
+    "pricing-strategy"
+  ],
+  "execution_mode": "sequential root fallback"
+}

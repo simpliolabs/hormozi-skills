@@ -1,0 +1,159 @@
+{
+  "source_commit": "d99b77a8533551b748ea8a6496f4418d3b769e98",
+  "prior_pr_head": "1096c9dbe489c9e9723b7aa8d2f555ffdb2c9794",
+  "code_review": "PASS",
+  "acceptance_review": "PASS: seven identities across six findings",
+  "native_attempts_this_authorization": 1,
+  "elapsed_seconds": 316.54,
+  "native_exit_code": 0,
+  "native_timeout": false,
+  "session_id": "01a1ac6e-f4c5-78a3-b645-5d88b12f43a5",
+  "prompt_sha256": "58aaffd7557cb5578547ddc6e9a13ede1ab719a6e1bbdf72f89f54e065fb7a0b",
+  "original_inputs_and_prompt_unchanged": true,
+  "first_archive_sha256": "9d4ac300b841f9975a7607bf841a72d50deeb09b6112811a8e651dd84200b074",
+  "first_completion_files": {
+    "input/costs_and_feedback.md": "9ee1c350c8769af92850a3c4d1787f7d96e0bc60fe063a1c9c6cce1ab997b028",
+    "input/existing_offer.md": "a6d5f6be0a3d9a2660c22441437f08c6a1a4647813e179569139953ba06c5d02",
+    "input/owner_terms.md": "cb133989947c59131ff1e44a61098e5c869d31d1e3b4483cf8ee1e1130d12da8",
+    "input/unapproved_brainstorm.md": "6af48e29229e77bf0f3f786f12d73cfbc890e025817964272e8ef6644c35b42e",
+    "output/build_run.py": "1d6c7b7fd477ca4f2e44761a2fe7837df5518f261d71702a40b2f1378acf974a",
+    "output/CHECKPOINT.md": "ca596cf233b6de7961dab26b6c2503fd8afc74be18bb19e8db8af71fdcacac5e",
+    "output/HOOKS.md": "089a827e21921c558919b9018a964b59e40d96e6b571a29b89de0b0e05b283aa",
+    "output/LANDING_PAGE.md": "be919d6cf90038c15f9794805575c2e30fc320a3b8c94c4bdf09c2b3773d5471",
+    "output/OFFER.md": "0aabe1e7f899d868a59e4b8b945af03bc17486057dc10956d987aa82d54e8432",
+    "output/OFFER_AUDIT.md": "71c7aaa8612b32886310f2ad4bb93cf6d41801a72f7312e8cf684b0ea4f870c8",
+    "output/ORIGINAL_OFFER_AUDIT.md": "72bb4d845cc435cec7602d1cf02e831e556bfed53b426003127ec2c054b1e75e",
+    "output/PITCH.md": "dbdc0c5a08574fc5ca955b32f8697904832bf26f6c02db223f2e4f04ea49c17e",
+    "output/PRICING.md": "dbb006d012a2c746614d84427a73f494c3a2c64ba8d25a0b22766cfde10586a1",
+    "output/QA_REPORT.md": "185d2757e9ffa3840a72cd1d1608f3f4e6abc2eb1cb2e131b28a885bd3a2e611",
+    "output/REVISED_OFFER_CHECK.md": "71c7aaa8612b32886310f2ad4bb93cf6d41801a72f7312e8cf684b0ea4f870c8",
+    "output/SUMMARY.md": "1777e18b030c20319203a72524784a12515fe27d39d4a2483d46b60dae75d532",
+    "output/runs/2026-11-05-offer-clarity/BRIEF.json": "a4eaff25e8c6500a2feed52af224d0b9cf6b25f834d3fa2224e56f49cd439c80",
+    "output/runs/2026-11-05-offer-clarity/CLAIMS.json": "842cecfed2b78a6cd29904ef93a1a6dc68f4095e75db5fd57f877a2f0c2a32c9",
+    "output/runs/2026-11-05-offer-clarity/OFFER_DECISIONS.json": "342912afe14789bd72777f89c8b61e32185132792467900c48c3ac238f7f02cb",
+    "output/runs/2026-11-05-offer-clarity/RUN_STATE.json": "aa3ae614614a7be17c749e0f6e15d6cf0565cfb92315f46ebeac2059b2f30f84"
+  },
+  "all_first_completion_bytes_unchanged_after_validation": true,
+  "no_post_completion_operator_edits": true,
+  "seven_identity_matrix": {
+    "refund_cancellation": "PASS: grouped explicit blocker",
+    "omitted_costs_full_profitability": "PASS: grouped explicit blocker",
+    "real_business_validation_absent": "PASS: declaration, state, reports, checker",
+    "pitch_review": "PASS",
+    "hooks_review": "PASS",
+    "landing_page_review": "PASS",
+    "aggregate_review_blocker": "PASS"
+  },
+  "checker_findings": {
+    "BLOCKER_OPEN": 3,
+    "HIGH_RISK_NO_INDEPENDENT_REVIEW": 3
+  },
+  "historical_replay": {
+    "old_registered_immutable": 7,
+    "previous_failed_immutable": 8,
+    "derived_fixture_with_only_declared_constraint": 10,
+    "derived_is_not_immutable_or_native_evidence": true
+  },
+  "installation": {
+    "version": "1.1.1",
+    "source_pin": "d99b77a8533551b748ea8a6496f4418d3b769e98",
+    "tracked_files_verified": 143,
+    "all_bytes_identical": true,
+    "source_archive_sha256": "0d571a9bc523e213df064b2ab4bd66e465d05907fa3a94447edbb76507245b8f"
+  },
+  "ci": {
+    "source_run": 42059373099,
+    "tests_per_os": 306,
+    "platform_specific_skips_per_os": 1,
+    "repo_qa": "PASS"
+  },
+  "native_execution": "sequential fallback; one diagnostic refusal; no independent-review attempt/execution observed",
+  "reported_native_usage": [
+    {
+      "input_tokens": 559281,
+      "cached_input_tokens": 510976,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 11626,
+      "reasoning_output_tokens": 368
+    }
+  ],
+  "limitations": [
+    "Undeclared applicability is a semantic/native gate, not automatically detected",
+    "Review receipts remain cooperative metadata",
+    "No differentiated native specialist execution proven",
+    "One fictional scenario is not universal operational reliability"
+  ],
+  "release": {
+    "pr_must_remain_draft": true,
+    "merge_authorized": false,
+    "commercial_holds_released": false,
+    "deployment_or_publication": false
+  },
+  "files": {
+    "design.md": {
+      "original_sha256": "08f8a0783be5fd2b5174e20a65a92221a8fdab16b3852f224cddb8e18e91bbd7",
+      "published_sha256": "08f8a0783be5fd2b5174e20a65a92221a8fdab16b3852f224cddb8e18e91bbd7",
+      "normalization": "none"
+    },
+    "design-review.md": {
+      "original_sha256": "0ce59823688d091abac1cde38f4bcf2565ba078d6d93e983bdfdc9b8d013af59",
+      "published_sha256": "0ce59823688d091abac1cde38f4bcf2565ba078d6d93e983bdfdc9b8d013af59",
+      "normalization": "none"
+    },
+    "code-review.md": {
+      "original_sha256": "4962d0dea0a546c1c1ec0575a660b1cb9fc5b9823b3f28b6357a5f25416d58f5",
+      "published_sha256": "4962d0dea0a546c1c1ec0575a660b1cb9fc5b9823b3f28b6357a5f25416d58f5",
+      "normalization": "none"
+    },
+    "replay-comparison.json": {
+      "original_sha256": "0e58fbc4686b9354a4ba691dcf71812aa0576c554f4fbbefa4c98403a6257725",
+      "published_sha256": "7ce50e021c6e44d5c7f2c1b6d5e992497ffdbadb6097c8ad5749d815378a5042",
+      "normalization": "CRLF to LF only"
+    },
+    "source-ci.json": {
+      "original_sha256": "5de347b8ac694e107092f6472f0f7e98d9ee276c8f43e336c6b007eeb82ea5e3",
+      "published_sha256": "15a36311d9810325b009885d472b81f2ca9d6975e927fe77cf338112fea92bb7",
+      "normalization": "CRLF to LF only"
+    },
+    "rejected-provenance-design.md": {
+      "original_sha256": "8e1aa9d80ecd11b8cafbc59f98b6b5e9a9634ec3b8bfa928e33ef434b2be3384",
+      "published_sha256": "8e1aa9d80ecd11b8cafbc59f98b6b5e9a9634ec3b8bfa928e33ef434b2be3384",
+      "normalization": "none"
+    },
+    "root-cause.md": {
+      "original_sha256": "eb78747dc582703731dc5440aef8a2b9b18ef0c37456c20461c672841814e9f3",
+      "published_sha256": "eb78747dc582703731dc5440aef8a2b9b18ef0c37456c20461c672841814e9f3",
+      "normalization": "none"
+    },
+    "acceptance-review.md": {
+      "original_sha256": "60665ffd8af4c7c7508929dfe8a2938a0d7749d39c7430d3e1c4f09d637ab8c2",
+      "published_sha256": "60665ffd8af4c7c7508929dfe8a2938a0d7749d39c7430d3e1c4f09d637ab8c2",
+      "normalization": "none"
+    },
+    "native-acceptance.md": {
+      "original_sha256": "d431b9836fff595b5408c895a034ce4019372c3665212c96060be4914268d4f6",
+      "published_sha256": "d431b9836fff595b5408c895a034ce4019372c3665212c96060be4914268d4f6",
+      "normalization": "none"
+    },
+    "first-completion-check.json": {
+      "original_sha256": "32e57631cdc237c7564ab4db18fa7a7cf636d8edada2f4edc70462a6feb04b2e",
+      "published_sha256": "a0882a0f4e29736a859c86514badc22ac09697649de87122825eaccf545ee566",
+      "normalization": "CRLF to LF only"
+    },
+    "native-runtime.json": {
+      "original_sha256": "c228515490e15cb73dc193cad60bc7a15e17e16115e383eebe2acd2b4f36a6e9",
+      "published_sha256": "b681f02119cb12ddda2a8bba01bb3e3c65d10cdf79b1b8ffef7e149a35aef33c",
+      "normalization": "CRLF to LF only"
+    },
+    "first-final-response.md": {
+      "original_sha256": "965c960219e0711709eaf70b01994252ec3fae4773e07676f12dcbf52dcf71ef",
+      "published_sha256": "965c960219e0711709eaf70b01994252ec3fae4773e07676f12dcbf52dcf71ef",
+      "normalization": "none"
+    },
+    "first-completion.zip": {
+      "original_sha256": "9d4ac300b841f9975a7607bf841a72d50deeb09b6112811a8e651dd84200b074",
+      "published_sha256": "9d4ac300b841f9975a7607bf841a72d50deeb09b6112811a8e651dd84200b074",
+      "normalization": "none"
+    }
+  }
+}
