@@ -43,7 +43,28 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
 - Price wrong — too low to be taken seriously, too high without justification
 - Skip the sales layer entirely — no hooks, no pitch, no landing page copy
 
-**hormozi-skills** provides a structured workflow: 17 business skills, a `hormozi-orchestrator` entry skill, five specialist role definitions, and output validation. The orchestrator requests specialist delegation when available; actual execution and any fallback must be reported, not assumed.
+**hormozi-skills** provides a structured workflow: 18 business skills including `cro-page-optimizer`, a `hormozi-orchestrator` entry skill, five specialist role definitions, and output validation. The orchestrator requests specialist delegation when available; actual execution and any fallback must be reported, not assumed.
+
+---
+
+## CRO is part of the offer waterfall by default
+
+![Offer -> sales -> automatic CRO gate -> QA, with owner-approved upstream feedback](assets/readme/cro-waterfall.svg)
+
+When you use the **full orchestrator** to build or repair an offer, it now includes an **evidence-led CRO readiness check downstream** of offer/value/pricing and sales drafts. You do **not** need to say "run CRO." The root writes `output/CRO_REVIEW.md` before the final summary and checker. It asks: Is the buyer's next action clear? Are material terms and proof credible? Is there an actual friction barrier to fix before testing copy?
+
+| Offer situation | Automatic CRO result |
+|---|---|
+| Live website, checkout or form | Evidence-led page and funnel audit if source is accessible; otherwise report missing evidence |
+| New online offer, no page yet | Conversion-readiness preflight; never claim measured drop-off or visual QA |
+| Offline/referral-led offer | Buyer-handoff review; mark irrelevant SEO and page checks `NOT APPLICABLE` |
+| One focused skill task | No heavyweight waterfall; run the requested task only |
+
+**Waterfall:** market (when needed) -> offer -> value -> pricing feasibility -> owner decisions -> sales drafts -> **CRO fix/test/hold gate** -> downstream revalidation -> SUMMARY -> structural QA. A CRO finding can reopen an affected upstream step, but **never silently change approved pricing, claims, guarantees, eligibility or scope**; dependent artifacts and review receipts must be rechecked.
+
+**Run the CRO skill directly:** Select `cro-page-optimizer` where installed, or ask: *"Audit this landing page and find the first barrier to conversion using my screenshots and analytics."* It can also review organic search-intent match and propose a properly isolated A/B test.
+
+See [CRO skill method](skills/cro-page-optimizer/SKILL.md), [public six-gate framework](skills/cro-page-optimizer/references/CRO_FRAMEWORK.md) and [waterfall contract](references/cro-waterfall.md).
 
 ---
 
@@ -157,6 +178,7 @@ Use any skill standalone — no orchestrator needed:
 | `effort-reduction` | Reduce perceived effort in the offer |
 | `idea-to-product` | Turn rough idea into productized offer |
 | `landing-page-copy` | Generate landing page copy from an existing offer |
+| **`cro-page-optimizer`** | **Evidence-led SEO, mobile UX, funnel friction and A/B planning; default downstream gate in full offer runs** |
 | `market-research` | Research market pain and demand signals |
 | `objection-destroyer` | Map and neutralize common objections |
 | `offer-angles` | Generate multiple positioning angles |
@@ -193,7 +215,8 @@ The orchestrator selects tasks based on the owner's stage. It requests native sp
 2. **Interview** — focused questions one at a time, each with a suggested answer
 3. **Stage detection** — classifies your situation (Stage A–E), shows which subagents will run
 4. **Delegation** — requests specialists in dependency order where supported, recording any observed fallback or refusal
-5. **Summary and checks** — produces `output/SUMMARY.md` with an offer paragraph, key decisions/holds, a chosen hook, and exactly three prioritized owner actions, then runs structural validation and reports HELD findings honestly
+5. **Automatic CRO gate** — after accepted sales drafts, reviews the offer-to-conversion path or marks unavailable page evidence; can request an owner-approved upstream fix
+6. **Summary and checks** — produces `output/SUMMARY.md` with an offer paragraph, key decisions/holds, a chosen hook, and exactly three prioritized owner actions, then runs structural validation and reports HELD findings honestly
 
 ---
 
@@ -201,7 +224,7 @@ The orchestrator selects tasks based on the owner's stage. It requests native sp
 
 ```
 hormozi-skills/
-├── skills/     # 17 business skills + hormozi-orchestrator entry (+ create-plugin)
+├── skills/     # 18 business skills (including CRO) + orchestrator entry (+ create-plugin)
 ├── agents/     # Orchestrator + 5 subagents
 ├── references/ # Shared workflow, evidence and feasibility contracts
 ├── contracts/  # JSON schemas for run records
@@ -215,7 +238,7 @@ hormozi-skills/
 
 ## Safe first use
 
-Start with a **supervised, non-public** offer draft using verified inputs. Invoke `hormozi-orchestrator` in an installed checkout or use a focused skill. Review `output/SUMMARY.md`, `output/CHECKPOINT.md`, `output/QA_REPORT.md`, and the output checker's findings. Resolve or disclose unresolved business and independent-review obligations before any external use. The checker does not automatically verify market reality.
+Start with a **supervised, non-public** offer draft using verified inputs. Invoke `hormozi-orchestrator` in an installed checkout or use a focused skill. Review `output/CRO_REVIEW.md` (in full offer runs), `output/SUMMARY.md`, `output/CHECKPOINT.md`, `output/QA_REPORT.md`, and the output checker's findings. Resolve or disclose unresolved business and independent-review obligations before any external use. The checker does not automatically verify market reality.
 
 See [Operator guide](docs/OPERATING_GUIDE.md) for a first-run checklist, limitations and release boundaries.
 
