@@ -1,6 +1,6 @@
 # CRO in the offer upstream/downstream waterfall
 
-This file is normative for the **root orchestrator** in multi-step offer work. It augments, but does not replace, `references/orchestration.md` and `contracts/`. No new specialist role, mode, checker condition or schema is introduced.
+This file is normative for the **root orchestrator** in multi-step offer work. It augments, but does not replace, `<plugin_root>/references/orchestration.md` and `<plugin_root>/contracts/`. The CRO step adds no specialist role, task mode, schema or CRO-specific checker rule; the separate commercial-hold correction does extend the read-only checker.
 
 ## The automatic gate
 
@@ -18,7 +18,7 @@ The gate is **not optional** for eligible full runs: include `CRO_REVIEW.md` in 
 | Stage C pitch-only without destination | Minimal handoff or `NOT APPLICABLE` with recorded reason | No spurious full page audit |
 | Focused five hooks / one copy edit | Do not force CRO gate; use requested skill | A full CRO audit is available via explicit invocation |
 
-`CRO_REVIEW.md` is a **root-authored diagnostic record**, never a published page or substitute for `LANDING_PAGE.md`. The root loads the real `skills/cro-page-optimizer/SKILL.md` and its references before the gate; don't infer the method from this routing file alone.
+`CRO_REVIEW.md` is a **root-authored diagnostic record**, never a published page or substitute for `LANDING_PAGE.md`. The root loads the real `<plugin_root>/skills/cro-page-optimizer/SKILL.md` and its references before the gate; don't infer the method from this routing file alone.
 
 ## Dependency order and feedback
 
@@ -48,7 +48,7 @@ A **CRO observation never becomes an automatic commercial edit**. If it suggests
 4. Record `CRO_REVIEW.md` in the artifact manifest with real path, file hash, decision version and root task. Add gate findings/holds and method loading to `QA_REPORT.md` and `CHECKPOINT.md` as needed; state the CRO recommendation and unresolved facts in `SUMMARY.md -> Key Decisions` without changing its four canonical headings.
 5. The default `CRO_REVIEW.md` contains diagnosis and hypotheses, **not** final publication copy. If it includes ready-to-publish sales wording or high-risk claims, mark it `high_risk: true` and require the same genuine separate-context review floor; otherwise keep proposed words unmistakably provisional. Never use a renamed CRO artifact to evade the sales artifact review floor.
 6. When missing CRO inputs prevent even a reasonable offer/buyer-path assessment, keep a transparent diagnostic gap and any applicable real business blocker in RUN_STATE, CHECKPOINT and QA_REPORT. Missing screenshot data alone is **not** grounds to fabricate a new blocker or call the checker READY.
-7. The existing checker remains read-only and unchanged. Structural `READY` is not CRO success, claim verification, independent reviewer authentication or commercial publication authority.
+7. The checker remains read-only, but the commercial-hold floor is extended for controlled priced-offer runs. CRO eligibility is an instruction-level root obligation: if root omits CRO from the brief entirely, the checker does not independently detect that omission. Once `CRO_REVIEW.md` is declared in `BRIEF.requested_artifacts`, existing manifest and file checks require it. Structural `READY` is not CRO success, claim verification, independent reviewer authentication or commercial publication authority.
 
 ## Route examples (unambiguous)
 

@@ -44,7 +44,7 @@ Avoid actual customer secrets or confidential personal data in a public demonstr
 
 ### CRO is automatic in the full offer waterfall
 
-A full new-offer or offer-repair run now includes a **downstream CRO readiness gate** even if the request never says CRO. After offer, value, pricing and requested sales work, the root loads `cro-page-optimizer` and records `output/CRO_REVIEW.md`.
+The V1 instructions call for a **downstream CRO readiness gate** in a full new-offer or offer-repair run even if the request never says CRO. After offer, value, pricing and requested sales work, they direct the root to load `cro-page-optimizer` and record `output/CRO_REVIEW.md`.
 
 - For an existing page, provide actual URL/HTML or screenshots and analytics to permit a concrete mobile/form/intent audit. Missing information is `NOT ASSESSED`.
 - For a new offer with no page, the skill examines conversion readiness, not imaginary webpage metrics.
@@ -53,6 +53,8 @@ A full new-offer or offer-repair run now includes a **downstream CRO readiness g
 - A standalone focused request, such as five hooks, remains focused.
 
 Optional deterministic planning example: `python scripts/cro_gate.py --stage A --surface planned`. This helper prints the required gate/depth as JSON. It never writes records or changes authorization.
+
+V1 eligibility is an instruction-level root obligation, demonstrated in one fresh full-offer native run. The checker cannot detect an eligible run if root omits CRO from the brief entirely; once `CRO_REVIEW.md` is declared in `BRIEF.requested_artifacts`, existing manifest and file checks require it. The helper defaults Stage E to offer work, so pass `--no-offer-workflow` for unrelated custom work. These routing instructions are not a hard token cap: the corrected full-offer run used more tokens and time than the original. Native differentiated specialist dispatch was refused, and native browser-render QA remains unproven.
 
 ## 4. Inspect outputs and checks
 
@@ -63,6 +65,8 @@ For controlled multi-step work, look for:
 - Results from `python scripts/check_outputs.py --workspace <workspace-root> --run <workspace-root>/output/runs/<run-id> --mode ready` (from the corresponding installed root; consult the checked-in scripts and docs for host-specific details).
 
 Controlled sales outputs have a review floor even if their `high_risk` metadata is false or absent. Missing, failed, stale or same-context evidence must remain a hold, together with one aggregate review blocker where required. A checker is not an independent reviewer, and a receipt is cooperative metadata rather than cryptographically authenticated proof.
+
+For controlled priced offers, normal Stage A/B/D runs include final feasibility. In ready mode, the read-only checker derives **two distinct holds** from `OFFER_DECISIONS`: unresolved refund/cancellation terms and unverified delivery costs/financial feasibility. An `unknown` or `proposed` value is not approved; a generic blocker or existing `HELD` phase does not hide either obligation. The same floor applies at any stage with a requested or manifested `output/PRICING.md` or active final-feasibility task. Stage C/E work without that pricing scope is outside this floor. Evidence and authorization references are cooperative records, not independent proof that a business decision was approved or profitable.
 
 ## 5. Decide what is ready
 

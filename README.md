@@ -57,7 +57,9 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
 
 ![Offer -> sales -> automatic CRO gate -> QA, with owner-approved upstream feedback](assets/readme/cro-waterfall.svg)
 
-When you use the **full orchestrator** to build or repair an offer, it now includes an **evidence-led CRO readiness check downstream** of offer/value/pricing and sales drafts. You do **not** need to say "run CRO." The root writes `output/CRO_REVIEW.md` before the final summary and checker. It asks: Is the buyer's next action clear? Are material terms and proof credible? Is there an actual friction barrier to fix before testing copy?
+The V1 **full orchestrator** instructions include an **evidence-led CRO readiness check downstream** of offer/value/pricing and sales drafts. They say you do **not** need to say "run CRO" for an eligible full-offer request, and direct the root to write `output/CRO_REVIEW.md` before the final summary and checker. The check asks: Is the buyer's next action clear? Are material terms and proof credible? Is there an actual friction barrier to fix before testing copy?
+
+This V1 routing is an instruction-level obligation, observed in a [bounded native full-offer run](https://github.com/simpliolabs/hormozi-skills/blob/48ee079ad87890d5e2b4641473d21738d1198d97/docs/qa/pr5-fictional-business/native-acceptance-fix-2026-11-06/README.md), not a universal runtime guarantee. The helper plans eligibility and depth; the checker cannot detect a root that omits CRO from the brief entirely. Once `CRO_REVIEW.md` is requested, existing manifest and file checks require it. No measured token savings follow from this routing rule: the corrected full-offer run used more tokens than the original.
 
 | Offer situation | Automatic CRO result |
 |---|---|
@@ -95,6 +97,8 @@ See the [acceptance report and evidence](docs/SEVEN_HOLD_VALIDATION.md). This is
 ![Illustrated workflow: brief, orchestrator, draft assets, and checks with HELD or structural READY outcomes](assets/readme/workflow-illustrated.svg)
 
 **Independent-review floor:** Controlled sales artifacts keep review holds even when an author marks `high_risk` false or leaves it out. Missing/failed/stale/same-context receipts do not satisfy separate-context review. See the [review policy](references/orchestration.md) and [validation evidence](docs/SEVEN_HOLD_VALIDATION.md).
+
+**Commercial-hold floor:** For controlled priced offers, including normal Stage A/B/D ready-mode runs, the read-only checker derives separate refund/cancellation and delivery-cost/financial-feasibility holds from structured `OFFER_DECISIONS`. Unknown or proposed terms do not become approved because a free-text blocker is generic or the workflow is already `HELD`. Stage C/E work without a requested or manifested pricing artifact or active final-feasibility task is outside this specific floor. Authorization and evidence references are cooperative metadata, not authenticated approval or proof of profitability.
 
 A `READY` check is structural only. Pricing, guarantees, eligibility, claims, publication and external business actions remain under the owner's control.
 
