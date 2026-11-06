@@ -156,6 +156,50 @@ class TestCommercialHoldFloor(CommercialCase):
         self.state["tasks"][-1]["status"] = "not_applicable"
         self.assertEqual(self.commercial(self.validate()), {})
 
+    def test_pricing_manifest_path_triggers_without_request_or_task(self):
+        self.unknowns()
+        art = dict(self.state["artifacts"][0], path="output/PRICING.md")
+        self.state["artifacts"].append(art)
+        self.assertEqual(set(self.commercial(self.validate())), {POLICY, COST})
+
+    def test_equivalent_pricing_request_spellings_trigger(self):
+        self.unknowns()
+        for spelling in ("PRICING.md", "output/PRICING.md", ".\\output\\PRICING.md"):
+            with self.subTest(spelling=spelling):
+                self.brief["requested_artifacts"] = ["PITCH.md", spelling]
+                self.assertEqual(set(self.commercial(self.validate())), {POLICY, COST})
+
+    def test_missing_decisions_or_invalid_state_still_hold_without_traceback(self):
+        self.priced()
+        self.validate()
+        (self.run_dir / "OFFER_DECISIONS.json").unlink()
+        found = co.validate_run(self.run_dir, self.ws, "ready")
+        self.assertIn("CONTROL_FILE_MISSING", {f.code for f in found})
+        self.assertEqual(set(self.commercial(found)), {POLICY, COST})
+        write_json(self.run_dir / "OFFER_DECISIONS.json", self.decisions)
+        bad_state = read_json(self.run_dir / "RUN_STATE.json")
+        bad_state.pop("phase")
+        write_json(self.run_dir / "RUN_STATE.json", bad_state)
+        found = co.validate_run(self.run_dir, self.ws, "ready")
+        self.assertIn("SCHEMA_INVALID", {f.code for f in found})
+        self.assertEqual(set(self.commercial(found)), {POLICY, COST})
+
+    def test_numeric_policy_and_superseded_alias_cannot_clear(self):
+        self.priced()
+        self.approved()
+        self.decisions["fields"]["refunds"]["value"] = 0
+        self.assertIn("refunds=policy text missing", self.commercial(self.validate())[POLICY])
+        self.decisions["fields"]["refunds"]["value"] = "Refund policy approved"
+        self.decisions["fields"]["refund_policy"] = field("Old policy", "superseded")
+        self.assertIn("refund_policy=superseded", self.commercial(self.validate())[POLICY])
+
+    def test_fulfillment_cost_alias_must_resolve_with_delivery_cost(self):
+        self.priced()
+        self.approved()
+        self.decisions["fields"]["fulfillment_cost"] = field(None, "unknown", kind="money",
+                                                            authorization_ref=None)
+        self.assertIn("fulfillment_cost=unknown", self.commercial(self.validate())[COST])
+
     def test_checker_is_read_only(self):
         self.priced()
         self.unknowns()

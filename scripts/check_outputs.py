@@ -821,13 +821,15 @@ def _commercial_value_present(value) -> bool:
     return True  # numeric zero is a known value, not an unknown/null placeholder
 
 
-def _commercial_field_issue(name, field, *, money=False, evidence=False, conclusion=False) -> str | None:
+def _commercial_field_issue(name, field, *, money=False, evidence=False, conclusion=False, policy=False) -> str | None:
     if field is None:
         return f"{name}=missing"
     if field["status"] != "approved":
         return f"{name}={field['status']}"
     if not _commercial_value_present(field["value"]):
         return f"{name}=empty"
+    if policy and not isinstance(field["value"], str):
+        return f"{name}=policy text missing"
     if not isinstance(field.get("authorization_ref"), str) or not field["authorization_ref"].strip():
         return f"{name}=authorization_ref missing"
     if money and (field.get("kind") != "money" or not isinstance(field["value"], dict)
@@ -852,7 +854,7 @@ def _commercial_hold_findings(brief, decisions, state, workspace) -> list[Findin
             policy_issues.append(f"{identity}=missing")
         else:
             policy_issues += [issue for key in present
-                              if (issue := _commercial_field_issue(key, fields[key]))]
+                              if (issue := _commercial_field_issue(key, fields[key], policy=True))]
     cost_issues = []
     delivery = [key for key in _DELIVERY_COST_KEYS if key in fields]
     if not delivery:
