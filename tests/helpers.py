@@ -36,6 +36,28 @@ def read_json(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def complete_commercial_fields(run_dir: Path) -> None:
+    """Make a synthetic full-pricing test run structurally complete without changing the base focused fixture."""
+    decisions = read_json(run_dir / "OFFER_DECISIONS.json")
+    fields = decisions["fields"]
+    common = {"status": "approved", "owner": "owner", "updated": "2026-11-03T00:00:00Z",
+              "authorization_ref": "chat:synthetic-owner-approval"}
+    fields["refunds"] = dict(common, kind="text", value="Synthetic approved refund policy")
+    fields["cancellation"] = dict(common, kind="text", value="Synthetic approved cancellation policy")
+    fields["delivery_cost"] = dict(common, kind="money", value={"amount_minor": 100000, "currency": "USD", "cadence": "one_time"},
+                                   evidence=["input/offer.md"])
+    fields["financial_feasibility"] = dict(common, kind="text", value="Synthetic scoped contribution reviewed",
+                                           evidence=["input/offer.md"])
+    fields["cac"] = dict(common, kind="money", value={"amount_minor": 1000, "currency": "USD", "cadence": "one_time"})
+    write_json(run_dir / "OFFER_DECISIONS.json", decisions)
+    state = read_json(run_dir / "RUN_STATE.json")
+    state["decision_hash"] = check_outputs.canonical_hash(run_dir / "OFFER_DECISIONS.json")
+    write_json(run_dir / "RUN_STATE.json", state)
+    brief = read_json(run_dir / "BRIEF.json")
+    brief["unknowns"] = [u for u in brief["unknowns"] if u != "CAC"]
+    write_json(run_dir / "BRIEF.json", brief)
+
+
 def build_run(workspace: Path, body: str = PITCH_BODY):
     """Return (run_dir, workspace) for a valid ready run."""
     out = workspace / "output"
@@ -114,9 +136,9 @@ def refresh_artifact_hash(run_dir: Path, workspace: Path, *, review=True):
 VALID_SUMMARY = (
     "# Owner Summary\n\n"
     "## Offer\n\nA done-with-you pitch program for coaches, priced as approved.\n\n"
-    "## Key Decisions\n\n- Price approved by the owner.\n- CAC is unknown and held until measured.\n\n"
+    "## Key Decisions\n\n- Price approved by the owner.\n- Seller economics in this synthetic fixture are structurally recorded.\n\n"
     "## Best Hook\n\n> Stop guessing what to say to your first client.\n\n"
-    "## Next Actions\n\n1. Confirm the approved price with the owner.\n2. Measure CAC on the first ten leads.\n"
+    "## Next Actions\n\n1. Confirm the approved price with the owner.\n2. Verify costs against real records before use.\n"
     "3. Send the pitch to the first five prospects.\n"
 )
 

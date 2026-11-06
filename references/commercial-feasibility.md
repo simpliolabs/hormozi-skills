@@ -13,6 +13,21 @@ price and currency · billing cadence · deposit/payment plan · fulfillment cos
 
 Pricing never checks whether an audit or bonus file happens to exist. It receives the named input version or an explicit `not_requested`/`not_applicable`.
 
+## Controlled priced-offer decision fields
+
+For a controlled run that requests or writes `output/PRICING.md`, or runs a `sub-pricing/final_feasibility` task, root records these exact keys in `OFFER_DECISIONS.fields`. The read-only checker derives two separate unresolved commercial findings from the statuses even when a free-text blocker is generic or the run is already HELD. Matching is case-sensitive; `support_cost/capacity` is one field key.
+
+| Obligation | Canonical key | Accepted existing aliases |
+| --- | --- | --- |
+| Refund terms | `refunds` | `refund_cancellation`, `refund_policy` |
+| Cancellation terms | `cancellation` | `refund_cancellation`, `cancellation_terms`, `renewal/cancellation_terms` |
+| Delivery cost | `delivery_cost` | `fulfillment_cost` (not `delivery`, which describes service scope) |
+| Approved price | `price` | None; `price_anchor` is a proposal, not approval |
+| Feasibility conclusion | `financial_feasibility` | None |
+| Other declared cost inputs | Exact keys only | `acquisition_cost`, `CAC`, `cac`, `overhead`, `overhead_allocation`, `taxes`, `refund_cost`, `refund_costs`, `refund_cost_and_treatment`, `refund_exposure`, `guarantee_cost`, `affiliate_commission`, `payment_fees`, `support_cost/capacity` |
+
+When canonical and alias keys coexist, every present source must be resolved; no preferred wording hides an unresolved value. Refund and cancellation terms need `status: approved`, a nonempty value, and a nonempty `authorization_ref`. Delivery cost needs an approved structured money value, an authorization reference and at least one evidence reference. Price needs an approved money value and authorization reference. `financial_feasibility` needs an approved nonempty conclusion, authorization reference and evidence reference; every present cost key in the closed table needs an approved nonempty value and authorization reference. Missing fields, `unknown`, `proposed`, `held`, `superseded`, null values or missing references leave the relevant hold open. A real zero is a documented money value, never a substitute for unknown. These structural checks cannot authenticate owner approval or prove net profitability.
+
 ## Arithmetic
 
 Money is integer minor units + currency + cadence. Do not mix cadences (an annual refund policy is not a monthly one).

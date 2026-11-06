@@ -87,6 +87,14 @@ class FiveAssetCase(unittest.TestCase):
         prop_price = {"amount_minor": FIX["proposals"]["price"]["amount_minor"], "currency": "USD", "cadence": "one_time"}
         decisions = {"schema_version": 1, "offer_id": "offer1", "version": 3, "parent_hash": None, "fields": {
             "price": field("money", {k: T["price"][k] for k in ("amount_minor", "currency", "cadence")}, T["price"]["display"]),
+            "refunds": field("text", "Synthetic approved refund policy", "Synthetic approved refund policy"),
+            "cancellation": field("text", "Synthetic approved cancellation policy", "Synthetic approved cancellation policy"),
+            "delivery_cost": field("money", {"amount_minor": 100000, "currency": "USD", "cadence": "one_time"},
+                                   "$1,000 one-time synthetic cost", evidence=["input/offer.md"]),
+            "financial_feasibility": field("text", "Synthetic scoped contribution reviewed",
+                                           "Synthetic scoped contribution reviewed", evidence=["input/offer.md"]),
+            "cac": field("money", {"amount_minor": 1000, "currency": "USD", "cadence": "one_time"},
+                         "$10 one-time synthetic CAC"),
             "guarantee": field("guarantee", T["guarantee"]["value"], T["guarantee"]["display"], conditions=T["guarantee"]["conditions"]),
             "bonus": field("text", T["bonus"]["value"], T["bonus"]["display"]),
             # specialist proposals live beside, never over, the approved terms
@@ -100,6 +108,7 @@ class FiveAssetCase(unittest.TestCase):
              "scope": "all assets", "qualifications": [], "checked_at": NOW, "owner": "root"}] + [claim(c) for c in BLOCKED]})
         brief = read_json(run / "BRIEF.json")
         brief["stage"], brief["requested_artifacts"] = "A", [asset_path(n) for n in ASSETS]
+        brief["unknowns"] = []  # this simulated clean-run fixture has approved synthetic economics
         write_json(run / "BRIEF.json", brief)
         arts, reviews = [], []
         for n in ASSETS:
@@ -302,6 +311,9 @@ class TestSimulatedMatureB2BHolds(FiveAssetCase):
             for u in self.UNKNOWN:
                 d["fields"][u] = {"kind": "money", "value": None, "status": "unknown", "owner": "root", "updated": NOW}
         self.edit_decisions(f)
+        brief = read_json(self.run_dir / "BRIEF.json")
+        brief["unknowns"] = list(self.UNKNOWN)
+        write_json(self.run_dir / "BRIEF.json", brief)
         c = read_json(self.run_dir / "CLAIMS.json")
         c["claims"] += [claim(b) for b in FIX["mature_b2b"]["blocked_claims"]]
         write_json(self.run_dir / "CLAIMS.json", c)
@@ -310,7 +322,7 @@ class TestSimulatedMatureB2BHolds(FiveAssetCase):
         d = read_json(self.run_dir / "OFFER_DECISIONS.json")
         for u in self.UNKNOWN:
             self.assertEqual((d["fields"][u]["status"], d["fields"][u]["value"], d["fields"][u]["owner"]), ("unknown", None, "root"))
-        self.assertEqual(self.found(), [])  # honest unknowns alone do not break a run that does not use them
+        self.assertEqual(codes(self.found()), {"COMMERCIAL_COST_FEASIBILITY_UNVERIFIED"})
 
     def test_no_asset_may_certify_an_unknown_term(self):
         for u in self.UNKNOWN:
@@ -351,7 +363,7 @@ class TestSimulatedMatureB2BHolds(FiveAssetCase):
             for a in st["artifacts"]:
                 next(b for b in a["bindings"] if b["field"] == "price")["rendered_text"] = m["display"]
         self.edit_state(f)
-        self.assertEqual(self.found(), [])
+        self.assertEqual(codes(self.found()), {"COMMERCIAL_COST_FEASIBILITY_UNVERIFIED"})
         self.edit_asset("PITCH", lambda t: t.replace(m["display"], "$4,800 per month"))
         self.assertIn("BINDING_TEXT_MISSING", codes(self.found()))
         d = read_json(self.run_dir / "OFFER_DECISIONS.json")
