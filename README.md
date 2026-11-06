@@ -4,6 +4,10 @@
 
 **Structured AI offer workflows with review gates and owner-controlled decisions.**
 
+**Latest merged feature baseline: [PR #5](https://github.com/simpliolabs/hormozi-skills/pull/5), merged November 6, 2026** ([merge commit `862f3c7`](https://github.com/simpliolabs/hormozi-skills/commit/862f3c770f8264750c7c288506f02aedb0cbdb29)). It adds adaptive QUICK / GUIDED / opt-in DEEP routing, the CRO Page Optimizer, downstream CRO readiness for eligible offer workflows, and deterministic commercial-hold checks. [PR #4](https://github.com/simpliolabs/hormozi-skills/pull/4) merged the onboarding/visual update first.
+
+**Source vs. release:** These capabilities are in the repository's `main` source. The plugin and marketplace manifests still declare **`1.1.1`**; no new versioned marketplace release or host auto-update has been verified. For the latest source, use a fresh clone of `main` and confirm your host is loading that checkout, not an older plugin cache.
+
 [![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/nir_theceo)
 [![X](https://img.shields.io/badge/X-Follow-111111?logo=x&logoColor=white)](https://x.com/NirAppelton)
 [Personal website: nirappelton.com (coming soon)](https://nirappelton.com)
@@ -78,19 +82,24 @@ See [CRO skill method](skills/cro-page-optimizer/SKILL.md), [public six-gate fra
 
 ## What has actually been validated
 
-![Evidence chart: original checker surfaced three of seven obligations; corrected replay preserved all seven](assets/readme/validation-evidence-chart.svg)
-
+**Current verification includes PR #5, not just the earlier PR #3 baseline.** These are source and bounded fictional-workflow results, not commercial performance or a plugin distribution release.
 
 | Check | Evidence-backed result |
 |---|---|
-| PR #3 merged | [`b05b1c0`](https://github.com/simpliolabs/hormozi-skills/commit/b05b1c041b27b2fbf5bc4225ff14c48abaf40e2f) |
-| Post-merge CI | [Windows and Ubuntu passed](https://github.com/simpliolabs/hormozi-skills/actions/runs/42110615431) |
-| Bounded native acceptance | Seven **obligation identities** preserved in first completion, represented across six checker findings; no operator repair |
-| Summary contract | Canonical offer summary, chosen hook, and three prioritized owner actions validated |
-| Separate-context review | Missing/failed/stale/same-context receipts remain held; recorded receipts are **cooperative metadata**, not authenticated reviewer proof |
-| Native specialist execution | **Not proven**; observed run used sequential fallback after a refused dispatch |
+| Latest source merge | [PR #5 merged](https://github.com/simpliolabs/hormozi-skills/pull/5) as [`862f3c7`](https://github.com/simpliolabs/hormozi-skills/commit/862f3c770f8264750c7c288506f02aedb0cbdb29); PR #4 onboarding docs merged separately |
+| Exact pre-merge CI | [Final PR #5 Windows and Ubuntu checks passed](https://github.com/simpliolabs/hormozi-skills/actions/runs/42266056918): **342 tests and one skip per OS** plus repository checks, at reviewed PR head `31f5cb2` |
+| Beginner guidance | **PASS, bounded**: selected the guided entry and asked one question; full novice persistence/journey was not proven |
+| Focused expert request | **PASS**: exactly five hooks, only the hooks method loaded; no full offer/CRO waterfall |
+| Full fictional offer | **PASS** at corrected runtime source `7b37ac3`: downstream CRO ran without an explicit request, the first-completion checker kept the workflow `HELD`, and **all seven business/review obligation identities remained explicit** without operator edits |
+| Standalone CRO audit | **PASS, bounded**: found the planted mobile/form/unsupported-proof issues from supplied HTML and synthetic analytics; native browser rendering was unavailable |
+| Separate review | Exact-source code and final-documentation reviews reported PASS within their recorded scopes, **not** authenticated GitHub approval or independent sales-copy approval |
+| Unproven capabilities | Differentiated native specialist dispatch, automatic CRO detection if root omits it from the brief, native screenshot QA, token savings and general real-business reliability |
 
-See the [acceptance report and evidence](docs/SEVEN_HOLD_VALIDATION.md). This is a bounded fictional-scenario result, **not** evidence of universal business accuracy, a real independent reviewer, or commercial readiness.
+[Corrected native DeskFern evidence and 40-criterion matrix](https://github.com/simpliolabs/hormozi-skills/blob/48ee079ad87890d5e2b4641473d21738d1198d97/docs/qa/pr5-fictional-business/native-acceptance-fix-2026-11-06/README.md) · [Final documentation review](https://github.com/simpliolabs/hormozi-skills/blob/512364ab0265696d56fac52a213267590523d1aa/docs/qa/pr5-fictional-business/final-doc-closure-2026-11-06/README.md) · [Historical PR #3 acceptance](docs/SEVEN_HOLD_VALIDATION.md)
+
+**Historical baseline illustration (PR #3 only):** it compares seven identities represented across six findings. PR #5's corrected checker can emit additional distinct commercial findings, so this chart is not the latest checker finding-count report.
+
+![Historical PR #3 seven-obligation acceptance baseline](assets/readme/validation-evidence-chart.svg)
 
 ### How the system works
 
@@ -107,6 +116,8 @@ A `READY` check is structural only. Pricing, guarantees, eligibility, claims, pu
 ## Quick Start
 
 > **Install this fork:** The source below is `simpliolabs/hormozi-skills`. The original project by [Alex Smedile](https://github.com/alexsmedile/hormozi-skills) retains its attribution and MIT license.
+>
+> **Latest-source check:** Install or clone the **current `main`** for post-PR #5 features, then confirm the installed skill files and commit. The manifests still say `1.1.1` and a cached marketplace install may not match latest source. A marketplace version bump and release need separate approval.
 
 ### Claude Code
 
@@ -158,7 +169,7 @@ The 11 business-content files below are generated as applicable. Controlled mult
 
 | File | What's Inside |
 |------|--------------|
-| `MARKET_RESEARCH.md` | Validated niche, pain map, demand signals |
+| `MARKET_RESEARCH.md` | Niche and pain analysis, with source-backed signals where available; missing market validation stays explicit |
 | `OFFER.md` | Full Grand Slam Offer — avatar, obstacles, solution map, value stack |
 | `OFFER_ANGLES.md` | 8 positioning angles, ranked |
 | `OFFER_AUDIT.md` | Score per dimension + priority fixes |
@@ -234,7 +245,7 @@ The orchestrator selects tasks based on the owner's stage. It requests native sp
 
 ```
 hormozi-skills/
-├── skills/     # 18 business skills (including CRO) + orchestrator entry (+ create-plugin)
+├── skills/     # 20 directories: 18 business methods + orchestrator + create-plugin
 ├── agents/     # Orchestrator + 5 subagents
 ├── references/ # Shared workflow, evidence and feasibility contracts
 ├── contracts/  # JSON schemas for run records
@@ -264,7 +275,7 @@ See [Operator guide](docs/OPERATING_GUIDE.md) for a first-run checklist, limitat
 
 - Generic copywriters looking for fill-in-the-blank templates — this thinks, it doesn't just fill
 - Developers needing a code library — this is prompt-based, agent-native
-- People who want a one-shot answer without iteration — the orchestrator interviews you
+- People seeking publication-ready commercial claims without verifying the underlying business facts and approvals
 
 ---
 
@@ -298,7 +309,7 @@ Built on Alex Hormozi's offer methodology from *$100M Offers* and *$100M Leads*:
 
 ### What this fork does not claim
 
-This is not an official Alex Hormozi product or an endorsement. The recorded first-completion acceptance was a bounded fictional workflow; real-world factual validation, authenticated review execution, and differentiated native specialist dispatch require further verification. Business decisions and publication remain with the owner.
+This is not an official Alex Hormozi product or an endorsement. PR #5's corrected first-completion acceptance was a bounded fictional workflow, not a general commercial endorsement. Business validation, authenticated sales-copy review, differentiated native specialist dispatch, automatic CRO eligibility enforcement when root omits its declaration, and measured token efficiency remain unproven. Business decisions and publication remain with the owner.
 
 ---
 
