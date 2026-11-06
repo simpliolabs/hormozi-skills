@@ -1,0 +1,85 @@
+diff --git a/README.md b/README.md
+index 43d2f31..40b9037 100644
+--- a/README.md
++++ b/README.md
+@@ -57,7 +57,9 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
+ 
+ ![Offer -> sales -> automatic CRO gate -> QA, with owner-approved upstream feedback](assets/readme/cro-waterfall.svg)
+ 
+-When you use the **full orchestrator** to build or repair an offer, it now includes an **evidence-led CRO readiness check downstream** of offer/value/pricing and sales drafts. You do **not** need to say "run CRO." The root writes `output/CRO_REVIEW.md` before the final summary and checker. It asks: Is the buyer's next action clear? Are material terms and proof credible? Is there an actual friction barrier to fix before testing copy?
++The V1 **full orchestrator** instructions include an **evidence-led CRO readiness check downstream** of offer/value/pricing and sales drafts. They say you do **not** need to say "run CRO" for an eligible full-offer request, and direct the root to write `output/CRO_REVIEW.md` before the final summary and checker. The check asks: Is the buyer's next action clear? Are material terms and proof credible? Is there an actual friction barrier to fix before testing copy?
++
++This V1 routing is an instruction-level obligation, observed in a [bounded native full-offer run](https://github.com/simpliolabs/hormozi-skills/blob/48ee079ad87890d5e2b4641473d21738d1198d97/docs/qa/pr5-fictional-business/native-acceptance-fix-2026-11-06/README.md), not a universal runtime guarantee. The helper plans eligibility and depth; the checker cannot detect a root that omits CRO from the brief entirely. Once `CRO_REVIEW.md` is requested, existing manifest and file checks require it. No measured token savings follow from this routing rule: the corrected full-offer run used more tokens than the original.
+ 
+ | Offer situation | Automatic CRO result |
+ |---|---|
+@@ -96,6 +98,8 @@ See the [acceptance report and evidence](docs/SEVEN_HOLD_VALIDATION.md). This is
+ 
+ **Independent-review floor:** Controlled sales artifacts keep review holds even when an author marks `high_risk` false or leaves it out. Missing/failed/stale/same-context receipts do not satisfy separate-context review. See the [review policy](references/orchestration.md) and [validation evidence](docs/SEVEN_HOLD_VALIDATION.md).
+ 
++**Commercial-hold floor:** For controlled priced offers, including normal Stage A/B/D ready-mode runs, the read-only checker derives separate refund/cancellation and delivery-cost/financial-feasibility holds from structured `OFFER_DECISIONS`. Unknown or proposed terms do not become approved because a free-text blocker is generic or the workflow is already `HELD`. Stage C/E work without a requested or manifested pricing artifact or active final-feasibility task is outside this specific floor. Authorization and evidence references are cooperative metadata, not authenticated approval or proof of profitability.
++
+ A `READY` check is structural only. Pricing, guarantees, eligibility, claims, publication and external business actions remain under the owner's control.
+ 
+ ---
+diff --git a/docs/OPERATING_GUIDE.md b/docs/OPERATING_GUIDE.md
+index c57efd2..994d1de 100644
+--- a/docs/OPERATING_GUIDE.md
++++ b/docs/OPERATING_GUIDE.md
+@@ -44,7 +44,7 @@ Avoid actual customer secrets or confidential personal data in a public demonstr
+ 
+ ### CRO is automatic in the full offer waterfall
+ 
+-A full new-offer or offer-repair run now includes a **downstream CRO readiness gate** even if the request never says CRO. After offer, value, pricing and requested sales work, the root loads `cro-page-optimizer` and records `output/CRO_REVIEW.md`.
++The V1 instructions call for a **downstream CRO readiness gate** in a full new-offer or offer-repair run even if the request never says CRO. After offer, value, pricing and requested sales work, they direct the root to load `cro-page-optimizer` and record `output/CRO_REVIEW.md`.
+ 
+ - For an existing page, provide actual URL/HTML or screenshots and analytics to permit a concrete mobile/form/intent audit. Missing information is `NOT ASSESSED`.
+ - For a new offer with no page, the skill examines conversion readiness, not imaginary webpage metrics.
+@@ -54,6 +54,8 @@ A full new-offer or offer-repair run now includes a **downstream CRO readiness g
+ 
+ Optional deterministic planning example: `python scripts/cro_gate.py --stage A --surface planned`. This helper prints the required gate/depth as JSON. It never writes records or changes authorization.
+ 
++V1 eligibility is an instruction-level root obligation, demonstrated in one fresh full-offer native run. The checker cannot detect an eligible run if root omits CRO from the brief entirely; once `CRO_REVIEW.md` is declared in `BRIEF.requested_artifacts`, existing manifest and file checks require it. The helper defaults Stage E to offer work, so pass `--no-offer-workflow` for unrelated custom work. These routing instructions are not a hard token cap: the corrected full-offer run used more tokens and time than the original. Native differentiated specialist dispatch was refused, and native browser-render QA remains unproven.
++
+ ## 4. Inspect outputs and checks
+ 
+ For controlled multi-step work, look for:
+@@ -64,6 +66,8 @@ For controlled multi-step work, look for:
+ 
+ Controlled sales outputs have a review floor even if their `high_risk` metadata is false or absent. Missing, failed, stale or same-context evidence must remain a hold, together with one aggregate review blocker where required. A checker is not an independent reviewer, and a receipt is cooperative metadata rather than cryptographically authenticated proof.
+ 
++For controlled priced offers, normal Stage A/B/D runs include final feasibility. In ready mode, the read-only checker derives **two distinct holds** from `OFFER_DECISIONS`: unresolved refund/cancellation terms and unverified delivery costs/financial feasibility. An `unknown` or `proposed` value is not approved; a generic blocker or existing `HELD` phase does not hide either obligation. The same floor applies at any stage with a requested or manifested `output/PRICING.md` or active final-feasibility task. Stage C/E work without that pricing scope is outside this floor. Evidence and authorization references are cooperative records, not independent proof that a business decision was approved or profitable.
++
+ ## 5. Decide what is ready
+ 
+ `READY` means checker-defined **structural** conditions are satisfied. It is **not** factual validation, independent business advice, permission to make commercial claims, or authority to publish.
+diff --git a/references/cro-waterfall.md b/references/cro-waterfall.md
+index 1f64e2d..6eddaae 100644
+--- a/references/cro-waterfall.md
++++ b/references/cro-waterfall.md
+@@ -1,6 +1,6 @@
+ # CRO in the offer upstream/downstream waterfall
+ 
+-This file is normative for the **root orchestrator** in multi-step offer work. It augments, but does not replace, `references/orchestration.md` and `contracts/`. No new specialist role, mode, checker condition or schema is introduced.
++This file is normative for the **root orchestrator** in multi-step offer work. It augments, but does not replace, `<plugin_root>/references/orchestration.md` and `<plugin_root>/contracts/`. The CRO step adds no specialist role, task mode, schema or CRO-specific checker rule; the separate commercial-hold correction does extend the read-only checker.
+ 
+ ## The automatic gate
+ 
+@@ -18,7 +18,7 @@ The gate is **not optional** for eligible full runs: include `CRO_REVIEW.md` in
+ | Stage C pitch-only without destination | Minimal handoff or `NOT APPLICABLE` with recorded reason | No spurious full page audit |
+ | Focused five hooks / one copy edit | Do not force CRO gate; use requested skill | A full CRO audit is available via explicit invocation |
+ 
+-`CRO_REVIEW.md` is a **root-authored diagnostic record**, never a published page or substitute for `LANDING_PAGE.md`. The root loads the real `skills/cro-page-optimizer/SKILL.md` and its references before the gate; don't infer the method from this routing file alone.
++`CRO_REVIEW.md` is a **root-authored diagnostic record**, never a published page or substitute for `LANDING_PAGE.md`. The root loads the real `<plugin_root>/skills/cro-page-optimizer/SKILL.md` and its references before the gate; don't infer the method from this routing file alone.
+ 
+ ## Dependency order and feedback
+ 
+@@ -48,7 +48,7 @@ A **CRO observation never becomes an automatic commercial edit**. If it suggests
+ 4. Record `CRO_REVIEW.md` in the artifact manifest with real path, file hash, decision version and root task. Add gate findings/holds and method loading to `QA_REPORT.md` and `CHECKPOINT.md` as needed; state the CRO recommendation and unresolved facts in `SUMMARY.md -> Key Decisions` without changing its four canonical headings.
+ 5. The default `CRO_REVIEW.md` contains diagnosis and hypotheses, **not** final publication copy. If it includes ready-to-publish sales wording or high-risk claims, mark it `high_risk: true` and require the same genuine separate-context review floor; otherwise keep proposed words unmistakably provisional. Never use a renamed CRO artifact to evade the sales artifact review floor.
+ 6. When missing CRO inputs prevent even a reasonable offer/buyer-path assessment, keep a transparent diagnostic gap and any applicable real business blocker in RUN_STATE, CHECKPOINT and QA_REPORT. Missing screenshot data alone is **not** grounds to fabricate a new blocker or call the checker READY.
+-7. The existing checker remains read-only and unchanged. Structural `READY` is not CRO success, claim verification, independent reviewer authentication or commercial publication authority.
++7. The checker remains read-only, but the commercial-hold floor is extended for controlled priced-offer runs. CRO eligibility is an instruction-level root obligation: if root omits CRO from the brief entirely, the checker does not independently detect that omission. Once `CRO_REVIEW.md` is declared in `BRIEF.requested_artifacts`, existing manifest and file checks require it. Structural `READY` is not CRO success, claim verification, independent reviewer authentication or commercial publication authority.
+ 
+ ## Route examples (unambiguous)
+ 
