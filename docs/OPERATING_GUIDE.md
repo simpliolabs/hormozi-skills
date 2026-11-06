@@ -42,7 +42,7 @@ Suggested pilot prompt:
 
 Avoid actual customer secrets or confidential personal data in a public demonstration.
 
-### CRO is automatic in the full offer waterfall
+### CRO is called for in the full offer waterfall
 
 The V1 instructions call for a **downstream CRO readiness gate** in a full new-offer or offer-repair run even if the request never says CRO. After offer, value, pricing and requested sales work, they direct the root to load `cro-page-optimizer` and record `output/CRO_REVIEW.md`.
 
@@ -54,7 +54,7 @@ The V1 instructions call for a **downstream CRO readiness gate** in a full new-o
 
 Optional deterministic planning example: `python scripts/cro_gate.py --stage A --surface planned`. This helper prints the required gate/depth as JSON. It never writes records or changes authorization.
 
-V1 eligibility is an instruction-level root obligation, demonstrated in one fresh full-offer native run. The checker cannot detect an eligible run if root omits CRO from the brief entirely; once `CRO_REVIEW.md` is declared in `BRIEF.requested_artifacts`, existing manifest and file checks require it. The helper defaults Stage E to offer work, so pass `--no-offer-workflow` for unrelated custom work. These routing instructions are not a hard token cap: the corrected full-offer run used more tokens and time than the original. Native differentiated specialist dispatch was refused, and native browser-render QA remains unproven.
+V1 eligibility is an instruction-level root obligation, demonstrated in one fresh full-offer native run. The checker cannot detect an eligible run if root omits CRO from the brief entirely; in ready mode with valid brief and run state records, existing manifest and file checks require `CRO_REVIEW.md` once declared in `BRIEF.requested_artifacts`. The helper defaults Stage E to offer work, so pass `--no-offer-workflow` for unrelated custom work. These routing instructions are not a hard token cap: the corrected full-offer run used more tokens and time than the original. Native differentiated specialist dispatch was refused, and native browser-render QA remains unproven.
 
 ## 4. Inspect outputs and checks
 
