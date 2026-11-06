@@ -5,7 +5,7 @@ This guide applies to the Simpliolabs fork of Hormozi Skills at a specifically r
 ## 1. Install the intended revision
 
 1. Clone `https://github.com/simpliolabs/hormozi-skills.git` (or register that fork as the Claude marketplace).
-2. Record the exact installed commit with `git rev-parse HEAD`. For the initial merged review baseline, the known merge commit is `b05b1c041b27b2fbf5bc4225ff14c48abaf40e2f`.
+2. Record the exact installed commit with `git rev-parse HEAD`. Use the commit currently checked out in your installation; do not assume an older cached plugin is current.
 3. Confirm that `skills/hormozi-orchestrator/SKILL.md`, `references/orchestration.md`, `contracts/` and `scripts/check_outputs.py` resolve from the *same* installed root.
 4. Confirm how your host actually loads the skill and whether specialist delegation is available. Do not treat a role definition as proof that a distinct agent executed.
 5. For a focused request, invoke only the relevant standalone skill. Full orchestration and run controls are not required for every focused task.
@@ -18,7 +18,7 @@ For an experienced user, request the exact deliverable, for example "Write five 
 
 If the request is a full multi-stage offer workflow, the downstream CRO gate remains part of the accepted path. A narrow focused request does not trigger the full waterfall.
 
-## 2. Activate the guided experience
+## 3. Activate the guided experience
 
 After installation in a compatible host, begin with this plain-language request:
 
@@ -32,7 +32,7 @@ The existing orchestrator skill description is already scoped to multi-step offe
 
 A short `/offer` alias is a **proposed follow-up**, not a currently implemented command in this fork. It would require compatibility testing and separate review; do not instruct users to rely on it yet.
 
-## 3. Start a supervised, non-public pilot
+## 4. Start a supervised, non-public pilot
 
 Provide a brief with customer, offer, source-backed claims, known unknowns and owner-controlled decisions. Do not invent market validation, guarantees, pricing approvals, reviewers or receipts.
 
@@ -56,7 +56,7 @@ Optional deterministic planning example: `python scripts/cro_gate.py --stage A -
 
 V1 eligibility is an instruction-level root obligation, demonstrated in one fresh full-offer native run. The checker cannot detect an eligible run if root omits CRO from the brief entirely; in ready mode with valid brief and run state records, existing manifest and file checks require `CRO_REVIEW.md` once declared in `BRIEF.requested_artifacts`. The helper defaults Stage E to offer work, so pass `--no-offer-workflow` for unrelated custom work. These routing instructions are not a hard token cap: the corrected full-offer run used more tokens and time than the original. Native differentiated specialist dispatch was refused, and native browser-render QA remains unproven.
 
-## 4. Inspect outputs and checks
+## 5. Inspect outputs and checks
 
 For controlled multi-step work, look for:
 
@@ -68,15 +68,15 @@ Controlled sales outputs have a review floor even if their `high_risk` metadata 
 
 For controlled priced offers, normal Stage A/B/D runs include final feasibility. In ready mode, the read-only checker derives **two distinct holds** from `OFFER_DECISIONS`: unresolved refund/cancellation terms and unverified delivery costs/financial feasibility. An `unknown` or `proposed` value is not approved; a generic blocker or existing `HELD` phase does not hide either obligation. The same floor applies at any stage with a requested or manifested `output/PRICING.md` or active final-feasibility task. Stage C/E work without that pricing scope is outside this floor. Evidence and authorization references are cooperative records, not independent proof that a business decision was approved or profitable.
 
-## 5. Decide what is ready
+## 6. Decide what is ready
 
 `READY` means checker-defined **structural** conditions are satisfied. It is **not** factual validation, independent business advice, permission to make commercial claims, or authority to publish.
 
 `HELD` means unresolved obligations must remain visible to the owner. Drafts can still be useful, but they are not cleared for commercial release.
 
-The recorded [seven-obligation acceptance](SEVEN_HOLD_VALIDATION.md) verifies preservation in one bounded fictional workflow. It does not establish universal detection of undeclared business limitations or authenticated separate-context execution. The observed native attempt fell back sequentially after a refused diagnostic dispatch.
+The [current test summary](../README.md#tested-behavior-and-known-limits) describes a bounded fictional acceptance run, including preservation of seven business and review obligation identities. It does not establish universal detection of undeclared business limitations or authenticated separate-context execution. The observed native attempt fell back sequentially after a refused diagnostic dispatch.
 
-## 6. Safe next milestones
+## 7. Safe next milestones
 
 - Have a human owner check prices, guarantees, eligibility, claims and source evidence.
 - Document which methods and agents actually ran in the target host.
