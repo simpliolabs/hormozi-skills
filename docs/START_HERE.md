@@ -43,4 +43,4 @@ A short `/offer` alias is only a **proposal** until separately implemented and t
 
 The current checker tests structure and known obligations. A `READY` result does **not** mean an independent reviewer actually ran, claims are independently verified, or a business asset is approved for publication. A `HELD` result can contain useful drafts while required reviews, owner approvals and evidence remain unresolved.
 
-For the precise route matrix, see [Adaptive routing](../references/adaptive-routing.md). For the default downstream CRO rule, see [CRO waterfall](../references/cro-waterfall.md). For the recorded, bounded acceptance evidence, see [Seven-hold validation](SEVEN_HOLD_VALIDATION.md).
+For the precise route matrix, see [Adaptive routing](../references/adaptive-routing.md). For the default downstream CRO rule, see [CRO waterfall](../references/cro-waterfall.md). For the recorded, bounded acceptance evidence, see [tested behavior and limits](../README.md#tested-behavior-and-known-limits).

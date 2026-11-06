@@ -4,9 +4,7 @@
 
 **Structured AI offer workflows with review gates and owner-controlled decisions.**
 
-**Latest merged feature baseline: [PR #5](https://github.com/simpliolabs/hormozi-skills/pull/5), merged November 6, 2026** ([merge commit `862f3c7`](https://github.com/simpliolabs/hormozi-skills/commit/862f3c770f8264750c7c288506f02aedb0cbdb29)). It adds adaptive QUICK / GUIDED / opt-in DEEP routing, the CRO Page Optimizer, downstream CRO readiness for eligible offer workflows, and deterministic commercial-hold checks. [PR #4](https://github.com/simpliolabs/hormozi-skills/pull/4) merged the onboarding/visual update first.
-
-**Source vs. release:** These capabilities are in the repository's `main` source. The plugin and marketplace manifests still declare **`1.1.1`**; no new versioned marketplace release or host auto-update has been verified. For the latest source, use a fresh clone of `main` and confirm your host is loading that checkout, not an older plugin cache.
+**One goal, the right workflow.** Start with one question, request a precise deliverable, or build a complete offer. The orchestrator selects only relevant skills, includes CRO readiness for eligible full offer workflows, and preserves decisions that need human approval.
 
 [![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/nir_theceo)
 [![X](https://img.shields.io/badge/X-Follow-111111?logo=x&logoColor=white)](https://x.com/NirAppelton)
@@ -63,7 +61,7 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
 
 The V1 **full orchestrator** instructions include an **evidence-led CRO readiness check downstream** of offer/value/pricing and sales drafts. They say you do **not** need to say "run CRO" for an eligible full-offer request, and direct the root to write `output/CRO_REVIEW.md` before the final summary and checker. The check asks: Is the buyer's next action clear? Are material terms and proof credible? Is there an actual friction barrier to fix before testing copy?
 
-This V1 routing is an instruction-level obligation, observed in a [bounded native full-offer run](https://github.com/simpliolabs/hormozi-skills/blob/48ee079ad87890d5e2b4641473d21738d1198d97/docs/qa/pr5-fictional-business/native-acceptance-fix-2026-11-06/README.md), not a universal runtime guarantee. The helper plans eligibility and depth; the checker cannot detect a root that omits CRO from the brief entirely. In ready mode with valid brief and run state records, existing manifest and file checks require `CRO_REVIEW.md` once requested. No measured token savings follow from this routing rule: the corrected full-offer run used more tokens than the original.
+This V1 routing is an instruction-level obligation, observed in a bounded fictional full-offer run, not a universal runtime guarantee. The helper plans eligibility and depth; the checker cannot detect a root that omits CRO from the brief entirely. In ready mode with valid brief and run state records, existing manifest and file checks require `CRO_REVIEW.md` once requested. No measured token savings follow from this routing rule: the corrected full-offer run used more tokens than the original.
 
 | Offer situation | Automatic CRO result |
 |---|---|
@@ -80,26 +78,21 @@ See [CRO skill method](skills/cro-page-optimizer/SKILL.md), [public six-gate fra
 
 ---
 
-## What has actually been validated
+## Tested behavior and known limits
 
-**Current verification includes PR #5, not just the earlier PR #3 baseline.** These are source and bounded fictional-workflow results, not commercial performance or a plugin distribution release.
+The skills have been exercised with a **fictional example business**, not with verified customer outcomes. The results below describe observed behavior, not a guarantee that every host or business will behave identically.
 
-| Check | Evidence-backed result |
-|---|---|
-| Latest source merge | [PR #5 merged](https://github.com/simpliolabs/hormozi-skills/pull/5) as [`862f3c7`](https://github.com/simpliolabs/hormozi-skills/commit/862f3c770f8264750c7c288506f02aedb0cbdb29); PR #4 onboarding docs merged separately |
-| Exact pre-merge CI | [Final PR #5 Windows and Ubuntu checks passed](https://github.com/simpliolabs/hormozi-skills/actions/runs/42266056918): **342 tests and one skip per OS** plus repository checks, at reviewed PR head `31f5cb2` |
-| Beginner guidance | **PASS, bounded**: selected the guided entry and asked one question; full novice persistence/journey was not proven |
-| Focused expert request | **PASS**: exactly five hooks, only the hooks method loaded; no full offer/CRO waterfall |
-| Full fictional offer | **PASS** at corrected runtime source `7b37ac3`: downstream CRO ran without an explicit request, the first-completion checker kept the workflow `HELD`, and **all seven business/review obligation identities remained explicit** without operator edits |
-| Standalone CRO audit | **PASS, bounded**: found the planted mobile/form/unsupported-proof issues from supplied HTML and synthetic analytics; native browser rendering was unavailable |
-| Separate review | Exact-source code and final-documentation reviews reported PASS within their recorded scopes, **not** authenticated GitHub approval or independent sales-copy approval |
-| Unproven capabilities | Differentiated native specialist dispatch, automatic CRO detection if root omits it from the brief, native screenshot QA, token savings and general real-business reliability |
+| Capability | What was observed | Important boundary |
+|---|---|---|
+| **Guided start** | The assistant asked one useful question instead of launching every skill | The complete beginner journey and persistent resume were not proven |
+| **Focused request** | A five-hook request returned exactly five hooks using only the relevant skill | No unrelated offer waterfall or CRO file was generated |
+| **Full offer workflow** | The orchestrator produced a provisional offer, ran a CRO readiness check without being asked for CRO, and preserved all seven identified business/review obligations at first completion | The fictional output correctly remained `HELD`; that is not permission to publish |
+| **Standalone CRO** | The optimizer flagged planted mobile overflow, a delayed form submission and unsupported proof in supplied HTML | Native browser rendering was unavailable; synthetic analytics do not establish causality |
+| **Automated checks** | The reviewed source passed Windows and Ubuntu CI with 342 tests and one platform-specific skip on each OS | Green code tests are not independent business validation or a plugin distribution guarantee |
 
-[Corrected native DeskFern evidence and 40-criterion matrix](https://github.com/simpliolabs/hormozi-skills/blob/48ee079ad87890d5e2b4641473d21738d1198d97/docs/qa/pr5-fictional-business/native-acceptance-fix-2026-11-06/README.md) · [Final documentation review](https://github.com/simpliolabs/hormozi-skills/blob/512364ab0265696d56fac52a213267590523d1aa/docs/qa/pr5-fictional-business/final-doc-closure-2026-11-06/README.md) · [Historical PR #3 acceptance](docs/SEVEN_HOLD_VALIDATION.md)
+**Still unproven:** differentiated native specialist execution, automatic CRO enforcement when a host omits the CRO declaration entirely, live browser screenshots in the tested host, measured token savings and authenticated sales-copy approval. Review receipts are records, not proof that a separate authorized reviewer actually signed off.
 
-**Historical baseline illustration (PR #3 only):** it compares seven identities represented across six findings. PR #5's corrected checker can emit additional distinct commercial findings, so this chart is not the latest checker finding-count report.
-
-![Historical PR #3 seven-obligation acceptance baseline](assets/readme/validation-evidence-chart.svg)
+For a supervised first run, see the [operator guide](docs/OPERATING_GUIDE.md). For implementation behavior, see the [adaptive routing reference](references/adaptive-routing.md) and [CRO waterfall](references/cro-waterfall.md). The repository's test files and QA archives retain detailed engineering evidence separately from this getting-started guide.
 
 ### How the system works
 
@@ -117,7 +110,7 @@ A `READY` check is structural only. Pricing, guarantees, eligibility, claims, pu
 
 > **Install this fork:** The source below is `simpliolabs/hormozi-skills`. The original project by [Alex Smedile](https://github.com/alexsmedile/hormozi-skills) retains its attribution and MIT license.
 >
-> **Latest-source check:** Install or clone the **current `main`** for post-PR #5 features, then confirm the installed skill files and commit. The manifests still say `1.1.1` and a cached marketplace install may not match latest source. A marketplace version bump and release need separate approval.
+> **Latest-source check:** Clone the current `main` branch for the capabilities described here, then verify the installed skill files and commit. The plugin and marketplace manifests still say `1.1.1`; a cached marketplace install might not match this source. A new versioned plugin distribution has not been verified.
 
 ### Claude Code
 
@@ -297,7 +290,7 @@ Built on Alex Hormozi's offer methodology from *$100M Offers* and *$100M Leads*:
 
 **Original project:** [Alex Smedile](https://github.com/alexsmedile) created the original Hormozi Skills project. The original MIT copyright and attribution are retained. This is a fork, not a claim to have authored the upstream library.
 
-**This fork:** [Simpliolabs](https://github.com/simpliolabs) maintains this repository. **Nir Appelton** provides project direction for the updated offer workflows, orchestration review gates, and practical usage experience. Contributions are recorded in the Git history and pull requests; the [PR #3 acceptance record](docs/SEVEN_HOLD_VALIDATION.md) describes exactly what has been tested.
+**This fork:** [Simpliolabs](https://github.com/simpliolabs) maintains this repository. **Nir Appelton** provides project direction for offer workflows, orchestration review gates and practical usage. Contributions and change history are available in the repository's Git history.
 
 **Why we're working on it:** To make AI-assisted offer creation more practical, transparent, and accountable to the business owner. It should produce useful drafts and preserve decisions requiring human review, rather than imply that unverified business claims have been proven.
 
@@ -309,7 +302,7 @@ Built on Alex Hormozi's offer methodology from *$100M Offers* and *$100M Leads*:
 
 ### What this fork does not claim
 
-This is not an official Alex Hormozi product or an endorsement. PR #5's corrected first-completion acceptance was a bounded fictional workflow, not a general commercial endorsement. Business validation, authenticated sales-copy review, differentiated native specialist dispatch, automatic CRO eligibility enforcement when root omits its declaration, and measured token efficiency remain unproven. Business decisions and publication remain with the owner.
+This is not an official Alex Hormozi product or an endorsement. The recorded first-completion acceptance used a bounded fictional workflow, not real customer results. Business validation, authenticated sales-copy review, differentiated native specialist dispatch, automatic CRO eligibility enforcement when root omits its declaration, and measured token efficiency remain unproven. Business decisions and publication remain with the owner.
 
 ---
 

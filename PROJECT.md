@@ -6,24 +6,33 @@ title: hormozi-skills
 status: active
 created: 2026-04-14
 updated: 2026-11-06
-description: Hormozi-inspired adaptive offer workflows, CRO optimization and owner-controlled commercial safeguards.
+description: Hormozi-inspired adaptive offer workflows, CRO optimization, and owner-controlled commercial safeguards.
 kind: skill
 owner: simpliolabs
 repo: simpliolabs/hormozi-skills
 ---
 
-# hormozi-skills
+# Hormozi Skills
 
-The Simpliolabs-maintained fork of an open-source, Hormozi-inspired skill library for coding agents. Its current merged source has 18 business methods (including CRO), a one-chat orchestrator, focused QUICK routing, guided one-question intake and opt-in DEEP workflows. Eligible full offer workflows call for a downstream CRO readiness or evidence-led page/handoff review, with owner-controlled commercial decisions, independent sales-review holds and structural output checks.
+A Simpliolabs-maintained fork of an open-source, Hormozi-inspired skill library for Claude Code and Codex. Build and improve offers using **18 standalone business methods**, a one-chat orchestrator, focused QUICK requests, one-question-at-a-time GUIDED intake, and opt-in DEEP workflows.
 
-**Upstream:** [alexsmedile/hormozi-skills](https://github.com/alexsmedile/hormozi-skills), created by Alex Smedile; original MIT license and attribution remain intact.
+Full, eligible offer workflows call for a downstream CRO readiness check. A dedicated CRO Page Optimizer can diagnose an existing landing page, form, checkout, or buyer handoff. Evidence checks and commercial approval boundaries keep unknown information explicit.
 
-**Merged:** [PR #3](https://github.com/simpliolabs/hormozi-skills/pull/3) established the initial hold floor; [PR #4](https://github.com/simpliolabs/hormozi-skills/pull/4) updated onboarding; and [PR #5](https://github.com/simpliolabs/hormozi-skills/pull/5) merged adaptive routing, CRO and corrected commercial-hold identity checks at [commit `862f3c7`](https://github.com/simpliolabs/hormozi-skills/commit/862f3c770f8264750c7c288506f02aedb0cbdb29).
+## What it does
 
-**Validated (bounded):** PR #5's corrected DeskFern full-offer first-completion acceptance preserved all seven obligation identities without operator repair, with automatic CRO in that test and an expected `HELD` result; the focused hooks run passed and beginner/direct CRO had stated limits. Final PR-head Windows/Ubuntu CI passed 342 tests per OS, one skip each. This is **not** authenticated sales-copy approval, proof of general business reliability, differentiated native specialist execution or a new plugin release. Plugin manifests still declare `1.1.1`.
+- **Start simply:** Describe a business idea and answer one useful question at a time.
+- **Stay focused:** Ask for a few hooks, pricing input, a pitch, or a page audit without launching every skill.
+- **Build a complete offer:** Select the relevant offer, value, pricing, and sales steps, then evaluate conversion readiness.
+- **Preserve control:** Keep pricing, claims, guarantees, eligibility, unknown costs, and sales reviews subject to owner approval and appropriate evidence.
 
-## Links
+## Verification and limits
 
-- [Status](STATUS.md) · [Tasks](TODO.md)
-- [Usage and quick start](README.md) · [Operating guide](docs/OPERATING_GUIDE.md)
-- [Current validation status](STATUS.md) · [Native PR #5 evidence](https://github.com/simpliolabs/hormozi-skills/blob/48ee079ad87890d5e2b4641473d21738d1198d97/docs/qa/pr5-fictional-business/native-acceptance-fix-2026-11-06/README.md) · [Historical PR #3 baseline](docs/SEVEN_HOLD_VALIDATION.md)
+A bounded fictional-business test observed focused hooks, guided first-step intake, full-offer CRO readiness and explicit preservation of seven business/review obligation identities. The full workflow remained `HELD` because real approval and independent sales-copy review were not supplied.
+
+This testing does **not** establish real-business accuracy, native differentiated specialist dispatch, live browser rendering, token savings, independently authenticated review, or commercial publication permission. The repository source and a versioned plugin marketplace distribution may differ.
+
+**Original author:** [Alex Smedile](https://github.com/alexsmedile/hormozi-skills). The original MIT attribution and license remain.
+
+## Get started
+
+[README](README.md) · [Start Here](docs/START_HERE.md) · [Operating guide](docs/OPERATING_GUIDE.md) · [Current status](STATUS.md) · [Open tasks](TODO.md)

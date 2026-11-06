@@ -1,36 +1,38 @@
 ---
 schema: make-a-change/status/v1
 updated: 2026-11-06
-summary: "PRs #3, #4 and #5 merged; adaptive offer routing, downstream CRO and explicit commercial holds are in main source; no new marketplace release or commercial publication."
-next: "Verify a fresh host installation of main, run supervised first use, reconcile plugin version metadata only in a separately approved release."
+summary: "Adaptive offer routing, the CRO Page Optimizer and owner-controlled review/commercial holds are in main source; plugin distribution and commercial publication remain separate."
+next: "Verify a clean host install, run supervised first use, and separately review marketplace metadata before a versioned release."
 branch: main
 ---
 
-# hormozi-skills — Status
+# Hormozi Skills: Status
 
-## Current merged source
+## Available in repository source
 
-- [PR #3](https://github.com/simpliolabs/hormozi-skills/pull/3) established the original seven-obligation business/review hold floor and canonical summary.
-- [PR #4](https://github.com/simpliolabs/hormozi-skills/pull/4) merged fork onboarding, README graphics and attribution.
-- [PR #5](https://github.com/simpliolabs/hormozi-skills/pull/5) merged into `main` on November 6, 2026 as [`862f3c7`](https://github.com/simpliolabs/hormozi-skills/commit/862f3c770f8264750c7c288506f02aedb0cbdb29). The latest source includes QUICK/GUIDED/opt-in DEEP routing, the CRO Page Optimizer, downstream readiness in eligible full offer workflows, and two separate deterministic commercial-hold findings.
+- **QUICK / focused:** One selected method and its required references for a precise request.
+- **GUIDED:** One-question-at-a-time intake, selecting only the necessary offer workflow steps.
+- **DEEP:** Expanded research and deliverables when explicitly requested.
+- **CRO Page Optimizer:** Evidence-led website, form, checkout and buyer-handoff diagnosis; CRO readiness is an instructed downstream step in eligible multi-stage offer workflows.
+- **Owner controls:** Read-only validation, explicit refund/cancellation and delivery-cost/feasibility holds, independent sales-asset review requirements, and a canonical final summary.
 
-## Verification scope
+## Verified behavior and boundaries
 
-- At PR #5's final reviewed head `31f5cb2`, [Windows and Ubuntu CI passed](https://github.com/simpliolabs/hormozi-skills/actions/runs/42266056918), 342 tests and one platform-specific skip per OS, plus repository checks.
-- [Corrected DeskFern native acceptance](https://github.com/simpliolabs/hormozi-skills/blob/48ee079ad87890d5e2b4641473d21738d1198d97/docs/qa/pr5-fictional-business/native-acceptance-fix-2026-11-06/README.md): guided beginner PASS bounded, five focused hooks PASS, full fictional offer PASS with all seven obligation identities at first completion and expected `HELD`, standalone CRO PASS bounded. The final documentation-only update did not rerun the native scenarios.
-- The separate-context code and documentation reviews were scoped evidence, **not** authenticated GitHub reviews or approval of sales copy.
-- Native differentiated specialist dispatch, native browser rendering, universal CRO enforcement before declaration, measured token savings and real-business reliability remain **unproven**.
-- The repository's plugin and marketplace manifests still say `1.1.1`. The new merged source does **not** itself prove a versioned plugin release, installed-host upgrade or commercial deployment.
+- Windows and Ubuntu automated checks passed: **342 tests with one platform-specific skip per OS** on the reviewed source.
+- A bounded native fictional-business test demonstrated guided first-step intake, five focused hooks without an unrelated waterfall, automatic CRO readiness on a full offer, and standalone detection of planted page defects.
+- Seven identified business and independent-review obligations were preserved at first completion without operator repair; the full-offer workflow appropriately remained `HELD`.
+- **Not yet proven:** full beginner persistence, differentiated native specialist dispatch, native browser rendering in the tested host, universal CRO enforcement before root declaration, token savings, authenticated external review or real-business outcomes.
+- Current plugin and marketplace manifests still declare **`1.1.1`**. The merged source does not itself imply a published marketplace upgrade or deployment.
 
-## Next
+## Next steps
 
-1. Confirm a clean host install loads the correct `main` source and all required packaged paths.
-2. Run a supervised, non-public pilot using real owner-supplied business facts; keep unknowns, commercial decisions and independent sales reviews held until verified.
-3. Reconcile marketplace version/skill counts, credits and distribution metadata in a separately authorized release.
-4. Address native specialist dispatch, authenticated review and efficiency proof as separate follow-up work.
+1. Verify a clean installation of the current source in the intended host and inspect loaded methods, resources, and actual fallback.
+2. Run a supervised, non-public pilot with approved business facts and preserved decision/review obligations.
+3. Prepare separately reviewed plugin/version metadata and installation validation before distribution.
+4. Investigate host dispatch, browser QA, and performance as distinct engineering work.
 
-## Resume here
+## References
 
-1. Read [README.md](README.md), [TODO.md](TODO.md) and [the first-use guide](docs/OPERATING_GUIDE.md).
-2. Record the exact installed commit and execute only the necessary method.
-3. Interpret `READY` as structural only, never as commercial approval.
+[Start here](README.md) · [Operator guide](docs/OPERATING_GUIDE.md) · [Open tasks](TODO.md)
+
+`READY` is a structural checker state, **not** commercial or publication approval.
