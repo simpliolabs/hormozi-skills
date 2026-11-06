@@ -13,6 +13,20 @@ extensions:
 - [ ] Verify a fresh installation of the Simpliolabs fork at a recorded commit SHA using the supported host(s); confirm which skills/roles actually load.
 - [ ] Run a supervised, non-public business pilot with approved input facts. Preserve the first completed artifacts and validate SUMMARY, claims, business holds, reviewer receipts and owner approvals.
 
+## Beginner/expert onboarding and resource discipline (proposed PR #5)
+
+- [ ] Test novice natural-language routing in a fresh installed host: one initial question and smallest suitable A-E plan; verify actual method loading.
+- [ ] Test expert focused invocations (five hooks, pricing, CRO) do **not** run unrelated specialists or full CRO bookkeeping.
+- [ ] Observe real runtime usage where the host exposes it. Instruction-level efficiency guidance is not a guaranteed token budget.
+- [ ] Keep PR #3 seven-hold review and business obligations intact in every path.
+
+## CRO waterfall integration (proposed PR #5)
+
+- [ ] Review `skills/cro-page-optimizer/SKILL.md`, `references/cro-waterfall.md`, the new root routing helper and regression tests.
+- [ ] Verify that the revised host actually loads and runs the CRO method by default in full offer tasks; static routing tests alone do not establish native skill execution.
+- [ ] Exercise a real page with owner-approved sources and actual mobile renders. Preserve separate baseline repair vs A/B hypotheses and all prior commercial/review holds.
+- [ ] Reconcile skill counts and plugin marketplace metadata in a separately authorized versioned release; do not silently change the PR #3 pinned fixture version.
+
 ## Separate future reliability work
 
 - [ ] Design and independently verify evidence of actual differentiated native specialist dispatch; recorded fallback is not equivalent.

@@ -2,7 +2,7 @@
 
 **Description (suggested):**
 
-Hormozi-inspired AI offer skills with owner-controlled decisions, review holds, and structured output validation for Claude Code and Codex.
+Hormozi-inspired AI offer skills with evidence-led SEO/CRO, owner-controlled decisions, review holds, and output validation for Claude Code and Codex.
 
 **Suggested topics:** `ai-skills`, `claude-code`, `codex`, `offer-design`, `sales-copy`, `marketing-workflow`, `output-validation`
 

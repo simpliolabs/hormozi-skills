@@ -164,7 +164,10 @@ def validate_run(run_dir: Path, workspace_root: Path, mode: str = "ready") -> li
         if mode == "ready":
             findings += _aggregate_review_blocker(state, findings)
             findings += _check_business_validation_registration(brief, state)
+            findings += _commercial_hold_findings(brief, decisions, state, workspace)
         findings += _check_summary(state, brief, workspace, mode)
+    elif mode == "ready":
+        findings += _commercial_hold_findings(brief, decisions, state, workspace)
     return findings
 
 
@@ -777,6 +780,103 @@ def _check_business_validation_registration(brief, state) -> list[Finding]:
     return [Finding("BLOCKER_OPEN", "error", "RUN_STATE.json", f"unresolved blocker: {BUSINESS_VALIDATION_MARKER}"),
             Finding("BUSINESS_VALIDATION_BLOCKER_UNREGISTERED", "error", "RUN_STATE.json",
                     f"BRIEF.constraints declares {BUSINESS_VALIDATION_MARKER!r} but RUN_STATE.blockers lacks the identical blocker")]
+
+
+# Closed commercial key set for controlled priced-offer runs. Exact field identities are shared with
+# references/commercial-feasibility.md; arbitrary field names and copy wording cannot clear these holds.
+_POLICY_KEYS = {
+    "refunds": ("refunds", "refund_cancellation", "refund_policy"),
+    "cancellation": ("cancellation", "refund_cancellation", "cancellation_terms", "renewal/cancellation_terms"),
+}
+_DELIVERY_COST_KEYS = ("delivery_cost", "fulfillment_cost")
+_OTHER_COST_KEYS = (
+    "acquisition_cost", "CAC", "cac", "overhead", "overhead_allocation", "taxes", "refund_cost",
+    "refund_costs", "refund_cost_and_treatment", "refund_exposure", "guarantee_cost", "affiliate_commission",
+    "payment_fees", "support_cost/capacity",
+)
+
+
+def _priced_offer_scope(brief, state, workspace) -> bool:
+    """Use declared pricing work at any stage; focused standalone routes do not have this scope."""
+    wanted, _ = _path_key(workspace, "output/PRICING.md")
+    if brief and any(_path_key(workspace, _request_key(req))[0] == wanted
+                     for req in brief["requested_artifacts"]):
+        return True
+    if state:
+        if any(_path_key(workspace, art["path"])[0] == wanted for art in state["artifacts"]):
+            return True
+        if any(task["role"] == "sub-pricing" and task.get("mode") == "final_feasibility"
+               and task["status"] not in _NOT_RUN for task in state["tasks"]):
+            return True
+    return False
+
+
+def _commercial_value_present(value) -> bool:
+    if value is None or isinstance(value, bool):
+        return False
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, (dict, list)):
+        return bool(value)
+    return True  # numeric zero is a known value, not an unknown/null placeholder
+
+
+def _commercial_field_issue(name, field, *, money=False, evidence=False, conclusion=False, policy=False) -> str | None:
+    if field is None:
+        return f"{name}=missing"
+    if field["status"] != "approved":
+        return f"{name}={field['status']}"
+    if not _commercial_value_present(field["value"]):
+        return f"{name}=empty"
+    if policy and not isinstance(field["value"], str):
+        return f"{name}=policy text missing"
+    if not isinstance(field.get("authorization_ref"), str) or not field["authorization_ref"].strip():
+        return f"{name}=authorization_ref missing"
+    if money and (field.get("kind") != "money" or not isinstance(field["value"], dict)
+                  or "amount_minor" not in field["value"]):
+        return f"{name}=approved money value missing"
+    if conclusion and not isinstance(field["value"], str):
+        return f"{name}=conclusion text missing"
+    if evidence and not any(isinstance(ref, str) and ref.strip() for ref in field.get("evidence", [])):
+        return f"{name}=evidence missing"
+    return None
+
+
+def _commercial_hold_findings(brief, decisions, state, workspace) -> list[Finding]:
+    """Derive two unresolved identities from structured decisions, regardless of AI blocker wording or phase."""
+    if not _priced_offer_scope(brief, state, workspace):
+        return []
+    fields = decisions["fields"] if decisions else {}
+    policy_issues = []
+    for identity, keys in _POLICY_KEYS.items():
+        present = [key for key in keys if key in fields]
+        if not present:
+            policy_issues.append(f"{identity}=missing")
+        else:
+            policy_issues += [issue for key in present
+                              if (issue := _commercial_field_issue(key, fields[key], policy=True))]
+    cost_issues = []
+    delivery = [key for key in _DELIVERY_COST_KEYS if key in fields]
+    if not delivery:
+        cost_issues.append("delivery_cost=missing")
+    else:
+        cost_issues += [issue for key in delivery
+                        if (issue := _commercial_field_issue(key, fields[key], money=True, evidence=True))]
+    for key, options in (("price", {"money": True}),
+                         ("financial_feasibility", {"conclusion": True, "evidence": True})):
+        issue = _commercial_field_issue(key, fields.get(key), **options)
+        if issue:
+            cost_issues.append(issue)
+    cost_issues += [issue for key in _OTHER_COST_KEYS if key in fields
+                    if (issue := _commercial_field_issue(key, fields[key]))]
+    out = []
+    if policy_issues:
+        out.append(Finding("COMMERCIAL_REFUND_CANCELLATION_UNRESOLVED", "error", "OFFER_DECISIONS.json",
+                           "refund/cancellation terms unresolved: " + "; ".join(policy_issues)))
+    if cost_issues:
+        out.append(Finding("COMMERCIAL_COST_FEASIBILITY_UNVERIFIED", "error", "OFFER_DECISIONS.json",
+                           "delivery costs and financial feasibility unverified: " + "; ".join(cost_issues)))
+    return out
 
 
 # ------------------------------------------------------------------ repo checks

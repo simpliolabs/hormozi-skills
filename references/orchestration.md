@@ -4,6 +4,8 @@ One workflow, loaded by both entry points: the `hormozi-orchestrator` skill (mai
 
 Original standalone skills in `<plugin_root>/skills/` stay the authority for methodology. Load a skill only when its task is selected. This file defines who decides, who writes, and in what order. It does not restate the frameworks.
 
+**Adaptive entry and resource discipline:** Before choosing A-E, apply `<plugin_root>/references/adaptive-routing.md`: beginner uncertainty starts with one useful question; precise requests use one standalone skill. Only full eligible offer workflows trigger the downstream CRO gate. Select the smallest sufficient dependency graph, load only actually selected methods, and reuse checkpoints with hash/version checks. A prompt-level economy rule is not a guaranteed runtime token cap; never relax commercial and independent-review holds to save tokens.
+
 ## Authority
 
 | Who | May | May not |
@@ -12,6 +14,8 @@ Original standalone skills in `<plugin_root>/skills/` stay the authority for met
 | Specialist (`sub-*`) | Read its frozen inputs; write proposals and drafts to its assigned write set | Edit control files, approve terms, write outside its write set, read files not listed as inputs |
 
 Decisions (price, currency, cadence, guarantee, eligibility, audience, scope) are root-only. A specialist proposing a change returns it as a proposal. An unauthorized state change holds that result. These are cooperative-agent contracts plus detection, not filesystem isolation.
+
+**Commercial hold identities for priced-offer runs:** Use the closed `OFFER_DECISIONS.fields` key table and approval/evidence rules in `<plugin_root>/references/commercial-feasibility.md`. When policy terms are unresolved, name **refund/cancellation terms unresolved** in `RUN_STATE.blockers`, CHECKPOINT and QA_REPORT. When delivery cost or financial feasibility is unverified, name **delivery costs and financial feasibility unverified** there. One compound blocker may carry both explicit identities. The ready-mode checker independently derives both identities from the structured fields even if a root-authored blocker is generic or the workflow is already HELD; it never repairs the records or treats a proposed price as approved. Focused standalone requests remain outside this controlled priced-offer floor.
 
 ## Workspace and state
 
@@ -46,6 +50,18 @@ Modes are exact strings, and `scripts/check_outputs.py` enforces the order below
 | C Sales assets only | `sub-sales` only | Existing authorized offer version and claim check. No repricing, new guarantee, or market rebuild. Upstream tasks are `not_applicable` |
 | D Service business, scale | `sub-pricing` (`packaging_exploration`, only if needed) -> `sub-offer` (`revision`) -> optional `sub-value` (`revised_check`) -> `sub-pricing` (`final_feasibility`) -> reconciliation -> `sub-sales` | Existing delivery and cost snapshot. Final economics always run after the last scope change |
 | E Custom / mixed | The smallest dependency graph for the gaps found | A focused request runs one skill with proportionate QA |
+
+### Automatic downstream CRO gate (new offer waterfall)
+
+For **every full multi-step offer run** (stage A, B, D, or a comparable stage E offer workflow), perform a root-owned **CRO readiness gate after the accepted offer/value/pricing and requested sales drafts, before the final SUMMARY and output checker**, **even if the owner did not ask for CRO by name**. Stage C includes the gate when a landing page or another digital conversion destination is in scope. A focused one-skill request remains focused.
+
+- Load the actual `<plugin_root>/skills/cro-page-optimizer/SKILL.md`, its `<plugin_root>/skills/cro-page-optimizer/references/CRO_FRAMEWORK.md`, and `<plugin_root>/references/cro-waterfall.md`. Do not infer CRO methodology from this paragraph.
+- At route initialization, assign `CRO_REVIEW.md` to `BRIEF.requested_artifacts` and the **root** `write_set`, not an imaginary `sub-cro` role. For a page with genuine source and behavior data run full CRO; for an offer without a page run conversion readiness; for offline offers run a minimal buyer-handoff review with page and SEO marked not applicable. Missing source means NOT ASSESSED, not invented evidence or a false pass.
+- Preserve task modes, role enums and existing schemas. Root writes `output/CRO_REVIEW.md`, records real hash, decision version, input provenance and any relevant QA findings, and carries its key decision into canonical `SUMMARY.md`. If publish-ready marketing wording appears in this artifact, classify it high-risk and apply the existing separate-context review floor.
+- A CRO fix may propose an upstream revision, but root must obtain any required commercial approval before revising accepted offers, terms, or claims. Re-run affected downstream dependencies and revalidate artifact hashes/reviews. Do not use a CRO result to clear review or business holds.
+- Explicit CRO-only requests select `cro-page-optimizer` directly. An individual request for five hooks does not trigger a whole offer waterfall.
+
+Use `<plugin_root>/scripts/cro_gate.py` as a read-only eligibility/depth helper when Python is available, with the actual brief stage and evidenced conversion surface; its `depth` is not a `RUN_STATE.tasks[].mode`. If unavailable, apply the documented routing table and name the fallback. See `<plugin_root>/references/cro-waterfall.md` for the precise eligibility matrix, stage examples and invariant tests. This gate is a **method and root QA step**, not a newly supported `RUN_STATE.tasks[].mode` or a tested autonomous specialist invocation.
 
 Rules that follow:
 

@@ -21,17 +21,23 @@
 
 ## Start here: one sentence is enough
 
-**You do not have to remember the skill's internal name to describe the job.** After installing the skills in a compatible host, try a natural-language request:
+![Two ways to start: guided for people who do not know what to ask, or focused for people with a precise task](assets/readme/choose-your-path.svg)
 
-> Help me build a stronger business offer. Guide me through the process one question at a time, then help with the offer, positioning, pricing, hooks, and landing-page draft. Clearly label what still needs my approval.
+**You don't need to know the names of the skills.** After installing the library, describe the goal in ordinary language:
 
-For an existing offer, try:
+| I'm starting with... | Say this | What happens |
+|---|---|---|
+| **No idea where to begin** | "I have a business idea. Help me figure out where to start." | One useful question, then the smallest relevant offer route |
+| **An existing offer** | "My offer isn't converting. Find what is wrong first." | Diagnose before rewriting, then work on affected stages only |
+| **A complete offer project** | "Build my offer and the sales assets from my business facts." | Full selected upstream → downstream waterfall, including CRO readiness |
+| **One precise task** | "Write five hooks for this approved offer." | Only the hooks skill and common evidence checks |
+| **A page or checkout issue** | "Review this screenshot and Clarity data for conversion problems." | CRO Page Optimizer directly, without rebuilding the offer |
 
-> My current offer isn't converting. Audit it, identify what to fix first, and guide me through the changes. Ask for missing facts instead of making them up.
+**The rule:** **Small question = small workflow. Full offer = full selective waterfall.** Each specialist's method is loaded only when needed. Even a full run never automatically loads all 18 business skills.
 
-**How activation works:** In Claude Code, skills can be selected by relevance or invoked from the `/` command menu. In Codex, select an installed skill or explicitly mention it with `$hormozi-orchestrator`. In ChatGPT, select it with `@` if that skill is installed and available. Natural-language matching is host-dependent and **not guaranteed**; use explicit selection if it does not activate. See [Quick Start](#quick-start) and [First-use operator guide](docs/OPERATING_GUIDE.md).
+[**Start Here guide**](docs/START_HERE.md) · [Adaptive routing and token discipline](references/adaptive-routing.md) · [Quick Start installation](#quick-start)
 
-**Proposed next step:** A short `/offer` starter alias would make Claude Code activation even easier, but it is **not implemented** in this documentation update and needs a separate compatible-host test.
+**Activation note:** Natural-language skill discovery depends on the host and is not guaranteed. In Claude Code, use the installed skill menu if needed; in Codex use its installed skill selector (such as `$hormozi-orchestrator`), and in ChatGPT use `@` if that skill is available. A short `/offer` alias is still a proposal, not a currently supported command.
 
 ---
 
@@ -43,7 +49,30 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
 - Price wrong — too low to be taken seriously, too high without justification
 - Skip the sales layer entirely — no hooks, no pitch, no landing page copy
 
-**hormozi-skills** provides a structured workflow: 17 business skills, a `hormozi-orchestrator` entry skill, five specialist role definitions, and output validation. The orchestrator requests specialist delegation when available; actual execution and any fallback must be reported, not assumed.
+**hormozi-skills** provides a structured workflow: 18 business skills including `cro-page-optimizer`, a `hormozi-orchestrator` entry skill, five specialist role definitions, and output validation. The orchestrator requests specialist delegation when available; actual execution and any fallback must be reported, not assumed.
+
+---
+
+## CRO is part of the offer waterfall by default
+
+![Offer -> sales -> automatic CRO gate -> QA, with owner-approved upstream feedback](assets/readme/cro-waterfall.svg)
+
+The V1 **full orchestrator** instructions include an **evidence-led CRO readiness check downstream** of offer/value/pricing and sales drafts. They say you do **not** need to say "run CRO" for an eligible full-offer request, and direct the root to write `output/CRO_REVIEW.md` before the final summary and checker. The check asks: Is the buyer's next action clear? Are material terms and proof credible? Is there an actual friction barrier to fix before testing copy?
+
+This V1 routing is an instruction-level obligation, observed in a [bounded native full-offer run](https://github.com/simpliolabs/hormozi-skills/blob/48ee079ad87890d5e2b4641473d21738d1198d97/docs/qa/pr5-fictional-business/native-acceptance-fix-2026-11-06/README.md), not a universal runtime guarantee. The helper plans eligibility and depth; the checker cannot detect a root that omits CRO from the brief entirely. In ready mode with valid brief and run state records, existing manifest and file checks require `CRO_REVIEW.md` once requested. No measured token savings follow from this routing rule: the corrected full-offer run used more tokens than the original.
+
+| Offer situation | Automatic CRO result |
+|---|---|
+| Live website, checkout or form | Evidence-led page and funnel audit if source is accessible; otherwise report missing evidence |
+| New online offer, no page yet | Conversion-readiness preflight; never claim measured drop-off or visual QA |
+| Offline/referral-led offer | Buyer-handoff review; mark irrelevant SEO and page checks `NOT APPLICABLE` |
+| One focused skill task | No heavyweight waterfall; run the requested task only |
+
+**Waterfall:** market (when needed) -> offer -> value -> pricing feasibility -> owner decisions -> sales drafts -> **CRO fix/test/hold gate** -> downstream revalidation -> SUMMARY -> structural QA. A CRO finding can reopen an affected upstream step, but **never silently change approved pricing, claims, guarantees, eligibility or scope**; dependent artifacts and review receipts must be rechecked.
+
+**Run the CRO skill directly:** Select `cro-page-optimizer` where installed, or ask: *"Audit this landing page and find the first barrier to conversion using my screenshots and analytics."* It can also review organic search-intent match and propose a properly isolated A/B test.
+
+See [CRO skill method](skills/cro-page-optimizer/SKILL.md), [public six-gate framework](skills/cro-page-optimizer/references/CRO_FRAMEWORK.md) and [waterfall contract](references/cro-waterfall.md).
 
 ---
 
@@ -68,6 +97,8 @@ See the [acceptance report and evidence](docs/SEVEN_HOLD_VALIDATION.md). This is
 ![Illustrated workflow: brief, orchestrator, draft assets, and checks with HELD or structural READY outcomes](assets/readme/workflow-illustrated.svg)
 
 **Independent-review floor:** Controlled sales artifacts keep review holds even when an author marks `high_risk` false or leaves it out. Missing/failed/stale/same-context receipts do not satisfy separate-context review. See the [review policy](references/orchestration.md) and [validation evidence](docs/SEVEN_HOLD_VALIDATION.md).
+
+**Commercial-hold floor:** For controlled priced offers, including normal Stage A/B/D ready-mode runs, the read-only checker derives separate refund/cancellation and delivery-cost/financial-feasibility holds from structured `OFFER_DECISIONS`. Unknown or proposed terms do not become approved because a free-text blocker is generic or the workflow is already `HELD`. Stage C/E work without a requested or manifested pricing artifact or active final-feasibility task is outside this specific floor. Authorization and evidence references are cooperative metadata, not authenticated approval or proof of profitability.
 
 A `READY` check is structural only. Pricing, guarantees, eligibility, claims, publication and external business actions remain under the owner's control.
 
@@ -157,6 +188,7 @@ Use any skill standalone — no orchestrator needed:
 | `effort-reduction` | Reduce perceived effort in the offer |
 | `idea-to-product` | Turn rough idea into productized offer |
 | `landing-page-copy` | Generate landing page copy from an existing offer |
+| **`cro-page-optimizer`** | **Evidence-led SEO, mobile UX, funnel friction and A/B planning; default downstream gate in full offer runs** |
 | `market-research` | Research market pain and demand signals |
 | `objection-destroyer` | Map and neutralize common objections |
 | `offer-angles` | Generate multiple positioning angles |
@@ -193,7 +225,8 @@ The orchestrator selects tasks based on the owner's stage. It requests native sp
 2. **Interview** — focused questions one at a time, each with a suggested answer
 3. **Stage detection** — classifies your situation (Stage A–E), shows which subagents will run
 4. **Delegation** — requests specialists in dependency order where supported, recording any observed fallback or refusal
-5. **Summary and checks** — produces `output/SUMMARY.md` with an offer paragraph, key decisions/holds, a chosen hook, and exactly three prioritized owner actions, then runs structural validation and reports HELD findings honestly
+5. **Automatic CRO gate** — after accepted sales drafts, reviews the offer-to-conversion path or marks unavailable page evidence; can request an owner-approved upstream fix
+6. **Summary and checks** — produces `output/SUMMARY.md` with an offer paragraph, key decisions/holds, a chosen hook, and exactly three prioritized owner actions, then runs structural validation and reports HELD findings honestly
 
 ---
 
@@ -201,7 +234,7 @@ The orchestrator selects tasks based on the owner's stage. It requests native sp
 
 ```
 hormozi-skills/
-├── skills/     # 17 business skills + hormozi-orchestrator entry (+ create-plugin)
+├── skills/     # 18 business skills (including CRO) + orchestrator entry (+ create-plugin)
 ├── agents/     # Orchestrator + 5 subagents
 ├── references/ # Shared workflow, evidence and feasibility contracts
 ├── contracts/  # JSON schemas for run records
@@ -215,7 +248,7 @@ hormozi-skills/
 
 ## Safe first use
 
-Start with a **supervised, non-public** offer draft using verified inputs. Invoke `hormozi-orchestrator` in an installed checkout or use a focused skill. Review `output/SUMMARY.md`, `output/CHECKPOINT.md`, `output/QA_REPORT.md`, and the output checker's findings. Resolve or disclose unresolved business and independent-review obligations before any external use. The checker does not automatically verify market reality.
+Start with a **supervised, non-public** offer draft using verified inputs. Invoke `hormozi-orchestrator` in an installed checkout or use a focused skill. Review `output/CRO_REVIEW.md` (in full offer runs), `output/SUMMARY.md`, `output/CHECKPOINT.md`, `output/QA_REPORT.md`, and the output checker's findings. Resolve or disclose unresolved business and independent-review obligations before any external use. The checker does not automatically verify market reality.
 
 See [Operator guide](docs/OPERATING_GUIDE.md) for a first-run checklist, limitations and release boundaries.
 

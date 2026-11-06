@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from helpers import add_summary, build_run, codes, read_json, write_json, sha
+from helpers import add_summary, build_run, codes, complete_commercial_fields, read_json, write_json, sha
 import check_outputs as co
 
 SRC = "input/offer.md"
@@ -71,6 +71,9 @@ class RouteCase(unittest.TestCase):
             tasks.append(t)
         st["tasks"] = tasks
         write_json(self.run_dir / "RUN_STATE.json", st)
+        if any(t["role"] == "sub-pricing" and t.get("mode") == "final_feasibility"
+               and t["status"] not in ("not_requested", "not_applicable") for t in tasks):
+            complete_commercial_fields(self.run_dir)
         if summary is None:
             summary = stage in ("A", "B", "D")
         if summary:
@@ -248,6 +251,7 @@ LEGACY_OUTPUTS = {
     "MARKET_RESEARCH", "OFFER", "OFFER_ANGLES", "OFFER_AUDIT", "ORIGINAL_OFFER_AUDIT", "REVISED_OFFER_CHECK",
     "VALUE_PERCEPTION", "BONUS_STACK", "PRICING", "OBJECTIONS", "PRODUCTIZATION", "PACKAGING",
     "PITCH", "HOOKS", "LANDING_PAGE", "SUMMARY", "CHECKPOINT", "QA_REPORT",
+    "CRO_REVIEW",  # Additive root-authored diagnostic artifact, not a new task role.
 }
 
 

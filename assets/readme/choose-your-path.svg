@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" role="img" aria-labelledby="t d">
+<title id="t">Start Hormozi Skills with a business goal, not a skill name</title>
+<desc id="d">Two paths: Guided for beginners goes to a single useful question and selective offer waterfall; Focused for experts runs only the specific requested skill. Both retain evidence and owner safeguards.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#091a31"/><stop offset="1" stop-color="#1d4168"/></linearGradient></defs>
+<rect width="1200" height="330" rx="18" fill="url(#bg)"/>
+<text x="46" y="54" fill="#ffffff" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700">Start with your goal. The system chooses the scope.</text>
+<g font-family="Arial,Helvetica,sans-serif">
+<rect x="46" y="91" width="520" height="166" rx="16" fill="#25496b" stroke="#5b84a5" stroke-width="2"/>
+<text x="68" y="128" fill="#FFAD53" font-weight="700" font-size="21">I AM NOT SURE WHAT TO ASK</text>
+<text x="68" y="162" fill="#ffffff" font-size="27" font-weight="700">Guided start</text>
+<text x="68" y="192" fill="#d2e0ec" font-size="19">One helpful question, then selected</text>
+<text x="68" y="217" fill="#d2e0ec" font-size="19">offer stages and downstream CRO</text>
+<rect x="636" y="91" width="518" height="166" rx="16" fill="#25496b" stroke="#5b84a5" stroke-width="2"/>
+<text x="658" y="128" fill="#56DFC8" font-weight="700" font-size="21">I KNOW EXACTLY WHAT I WANT</text>
+<text x="658" y="162" fill="#ffffff" font-size="27" font-weight="700">Focused start</text>
+<text x="658" y="192" fill="#d2e0ec" font-size="19">One selected skill and its method.</text>
+<text x="658" y="217" fill="#d2e0ec" font-size="19">No unrequested full waterfall.</text>
+<rect x="318" y="272" width="566" height="40" rx="17" fill="#203b59" stroke="#547b9f" stroke-width="1.5"/>
+<text x="601" y="298" text-anchor="middle" fill="#ffffff" font-size="17">Both keep evidence checks, approvals and review holds.</text>
+</g></svg>
