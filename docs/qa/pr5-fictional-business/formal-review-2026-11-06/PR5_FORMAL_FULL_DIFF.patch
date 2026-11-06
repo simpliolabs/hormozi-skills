@@ -1,0 +1,1730 @@
+diff --git a/README.md b/README.md
+index a98d967..43d2f31 100644
+--- a/README.md
++++ b/README.md
+@@ -21,17 +21,23 @@
+ 
+ ## Start here: one sentence is enough
+ 
+-**You do not have to remember the skill's internal name to describe the job.** After installing the skills in a compatible host, try a natural-language request:
++![Two ways to start: guided for people who do not know what to ask, or focused for people with a precise task](assets/readme/choose-your-path.svg)
+ 
+-> Help me build a stronger business offer. Guide me through the process one question at a time, then help with the offer, positioning, pricing, hooks, and landing-page draft. Clearly label what still needs my approval.
++**You don't need to know the names of the skills.** After installing the library, describe the goal in ordinary language:
+ 
+-For an existing offer, try:
++| I'm starting with... | Say this | What happens |
++|---|---|---|
++| **No idea where to begin** | "I have a business idea. Help me figure out where to start." | One useful question, then the smallest relevant offer route |
++| **An existing offer** | "My offer isn't converting. Find what is wrong first." | Diagnose before rewriting, then work on affected stages only |
++| **A complete offer project** | "Build my offer and the sales assets from my business facts." | Full selected upstream → downstream waterfall, including CRO readiness |
++| **One precise task** | "Write five hooks for this approved offer." | Only the hooks skill and common evidence checks |
++| **A page or checkout issue** | "Review this screenshot and Clarity data for conversion problems." | CRO Page Optimizer directly, without rebuilding the offer |
+ 
+-> My current offer isn't converting. Audit it, identify what to fix first, and guide me through the changes. Ask for missing facts instead of making them up.
++**The rule:** **Small question = small workflow. Full offer = full selective waterfall.** Each specialist's method is loaded only when needed. Even a full run never automatically loads all 18 business skills.
+ 
+-**How activation works:** In Claude Code, skills can be selected by relevance or invoked from the `/` command menu. In Codex, select an installed skill or explicitly mention it with `$hormozi-orchestrator`. In ChatGPT, select it with `@` if that skill is installed and available. Natural-language matching is host-dependent and **not guaranteed**; use explicit selection if it does not activate. See [Quick Start](#quick-start) and [First-use operator guide](docs/OPERATING_GUIDE.md).
++[**Start Here guide**](docs/START_HERE.md) · [Adaptive routing and token discipline](references/adaptive-routing.md) · [Quick Start installation](#quick-start)
+ 
+-**Proposed next step:** A short `/offer` starter alias would make Claude Code activation even easier, but it is **not implemented** in this documentation update and needs a separate compatible-host test.
++**Activation note:** Natural-language skill discovery depends on the host and is not guaranteed. In Claude Code, use the installed skill menu if needed; in Codex use its installed skill selector (such as `$hormozi-orchestrator`), and in ChatGPT use `@` if that skill is available. A short `/offer` alias is still a proposal, not a currently supported command.
+ 
+ ---
+ 
+@@ -43,7 +49,28 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
+ - Price wrong — too low to be taken seriously, too high without justification
+ - Skip the sales layer entirely — no hooks, no pitch, no landing page copy
+ 
+-**hormozi-skills** provides a structured workflow: 17 business skills, a `hormozi-orchestrator` entry skill, five specialist role definitions, and output validation. The orchestrator requests specialist delegation when available; actual execution and any fallback must be reported, not assumed.
++**hormozi-skills** provides a structured workflow: 18 business skills including `cro-page-optimizer`, a `hormozi-orchestrator` entry skill, five specialist role definitions, and output validation. The orchestrator requests specialist delegation when available; actual execution and any fallback must be reported, not assumed.
++
++---
++
++## CRO is part of the offer waterfall by default
++
++![Offer -> sales -> automatic CRO gate -> QA, with owner-approved upstream feedback](assets/readme/cro-waterfall.svg)
++
++When you use the **full orchestrator** to build or repair an offer, it now includes an **evidence-led CRO readiness check downstream** of offer/value/pricing and sales drafts. You do **not** need to say "run CRO." The root writes `output/CRO_REVIEW.md` before the final summary and checker. It asks: Is the buyer's next action clear? Are material terms and proof credible? Is there an actual friction barrier to fix before testing copy?
++
++| Offer situation | Automatic CRO result |
++|---|---|
++| Live website, checkout or form | Evidence-led page and funnel audit if source is accessible; otherwise report missing evidence |
++| New online offer, no page yet | Conversion-readiness preflight; never claim measured drop-off or visual QA |
++| Offline/referral-led offer | Buyer-handoff review; mark irrelevant SEO and page checks `NOT APPLICABLE` |
++| One focused skill task | No heavyweight waterfall; run the requested task only |
++
++**Waterfall:** market (when needed) -> offer -> value -> pricing feasibility -> owner decisions -> sales drafts -> **CRO fix/test/hold gate** -> downstream revalidation -> SUMMARY -> structural QA. A CRO finding can reopen an affected upstream step, but **never silently change approved pricing, claims, guarantees, eligibility or scope**; dependent artifacts and review receipts must be rechecked.
++
++**Run the CRO skill directly:** Select `cro-page-optimizer` where installed, or ask: *"Audit this landing page and find the first barrier to conversion using my screenshots and analytics."* It can also review organic search-intent match and propose a properly isolated A/B test.
++
++See [CRO skill method](skills/cro-page-optimizer/SKILL.md), [public six-gate framework](skills/cro-page-optimizer/references/CRO_FRAMEWORK.md) and [waterfall contract](references/cro-waterfall.md).
+ 
+ ---
+ 
+@@ -157,6 +184,7 @@ Use any skill standalone — no orchestrator needed:
+ | `effort-reduction` | Reduce perceived effort in the offer |
+ | `idea-to-product` | Turn rough idea into productized offer |
+ | `landing-page-copy` | Generate landing page copy from an existing offer |
++| **`cro-page-optimizer`** | **Evidence-led SEO, mobile UX, funnel friction and A/B planning; default downstream gate in full offer runs** |
+ | `market-research` | Research market pain and demand signals |
+ | `objection-destroyer` | Map and neutralize common objections |
+ | `offer-angles` | Generate multiple positioning angles |
+@@ -193,7 +221,8 @@ The orchestrator selects tasks based on the owner's stage. It requests native sp
+ 2. **Interview** — focused questions one at a time, each with a suggested answer
+ 3. **Stage detection** — classifies your situation (Stage A–E), shows which subagents will run
+ 4. **Delegation** — requests specialists in dependency order where supported, recording any observed fallback or refusal
+-5. **Summary and checks** — produces `output/SUMMARY.md` with an offer paragraph, key decisions/holds, a chosen hook, and exactly three prioritized owner actions, then runs structural validation and reports HELD findings honestly
++5. **Automatic CRO gate** — after accepted sales drafts, reviews the offer-to-conversion path or marks unavailable page evidence; can request an owner-approved upstream fix
++6. **Summary and checks** — produces `output/SUMMARY.md` with an offer paragraph, key decisions/holds, a chosen hook, and exactly three prioritized owner actions, then runs structural validation and reports HELD findings honestly
+ 
+ ---
+ 
+@@ -201,7 +230,7 @@ The orchestrator selects tasks based on the owner's stage. It requests native sp
+ 
+ ```
+ hormozi-skills/
+-├── skills/     # 17 business skills + hormozi-orchestrator entry (+ create-plugin)
++├── skills/     # 18 business skills (including CRO) + orchestrator entry (+ create-plugin)
+ ├── agents/     # Orchestrator + 5 subagents
+ ├── references/ # Shared workflow, evidence and feasibility contracts
+ ├── contracts/  # JSON schemas for run records
+@@ -215,7 +244,7 @@ hormozi-skills/
+ 
+ ## Safe first use
+ 
+-Start with a **supervised, non-public** offer draft using verified inputs. Invoke `hormozi-orchestrator` in an installed checkout or use a focused skill. Review `output/SUMMARY.md`, `output/CHECKPOINT.md`, `output/QA_REPORT.md`, and the output checker's findings. Resolve or disclose unresolved business and independent-review obligations before any external use. The checker does not automatically verify market reality.
++Start with a **supervised, non-public** offer draft using verified inputs. Invoke `hormozi-orchestrator` in an installed checkout or use a focused skill. Review `output/CRO_REVIEW.md` (in full offer runs), `output/SUMMARY.md`, `output/CHECKPOINT.md`, `output/QA_REPORT.md`, and the output checker's findings. Resolve or disclose unresolved business and independent-review obligations before any external use. The checker does not automatically verify market reality.
+ 
+ See [Operator guide](docs/OPERATING_GUIDE.md) for a first-run checklist, limitations and release boundaries.
+ 
+diff --git a/TODO.md b/TODO.md
+index d5aaab0..737c894 100644
+--- a/TODO.md
++++ b/TODO.md
+@@ -13,6 +13,20 @@ extensions:
+ - [ ] Verify a fresh installation of the Simpliolabs fork at a recorded commit SHA using the supported host(s); confirm which skills/roles actually load.
+ - [ ] Run a supervised, non-public business pilot with approved input facts. Preserve the first completed artifacts and validate SUMMARY, claims, business holds, reviewer receipts and owner approvals.
+ 
++## Beginner/expert onboarding and resource discipline (proposed PR #5)
++
++- [ ] Test novice natural-language routing in a fresh installed host: one initial question and smallest suitable A-E plan; verify actual method loading.
++- [ ] Test expert focused invocations (five hooks, pricing, CRO) do **not** run unrelated specialists or full CRO bookkeeping.
++- [ ] Observe real runtime usage where the host exposes it. Instruction-level efficiency guidance is not a guaranteed token budget.
++- [ ] Keep PR #3 seven-hold review and business obligations intact in every path.
++
++## CRO waterfall integration (proposed PR #5)
++
++- [ ] Review `skills/cro-page-optimizer/SKILL.md`, `references/cro-waterfall.md`, the new root routing helper and regression tests.
++- [ ] Verify that the revised host actually loads and runs the CRO method by default in full offer tasks; static routing tests alone do not establish native skill execution.
++- [ ] Exercise a real page with owner-approved sources and actual mobile renders. Preserve separate baseline repair vs A/B hypotheses and all prior commercial/review holds.
++- [ ] Reconcile skill counts and plugin marketplace metadata in a separately authorized versioned release; do not silently change the PR #3 pinned fixture version.
++
+ ## Separate future reliability work
+ 
+ - [ ] Design and independently verify evidence of actual differentiated native specialist dispatch; recorded fallback is not equivalent.
+diff --git a/agents/hormozi-orchestrator.md b/agents/hormozi-orchestrator.md
+index 43738af..b64698f 100644
+--- a/agents/hormozi-orchestrator.md
++++ b/agents/hormozi-orchestrator.md
+@@ -14,10 +14,12 @@ You are the owner's one chat. Locate `plugin_root` (the plugin directory that co
+ 
+ - **One conversation.** You interview the owner. The five `sub-*` agents never do.
+ - **Route by stage A-E** exactly as `<plugin_root>/references/orchestration.md` defines. Pick the smallest route that covers the request. A focused request runs one skill, not the pipeline.
++- **Adaptive novice/expert entry and cost discipline.** Read `<plugin_root>/references/adaptive-routing.md` before routing. Beginners receive one helpful question at a time; experts get the requested standalone method without running other skills. Only eligible full offer workflows receive downstream CRO by default. Load methods progressively, reuse valid frozen artifacts and checkpoints, and never imply measured token savings or weaken approval/review holds.
+ - **Load methodology on demand, for real.** The standalone skills in `<plugin_root>/skills/` stay authoritative. Load a skill only when its task is selected, by invoking it or reading its `SKILL.md` body and required references before drafting. Never infer a method from schemas, checker source or role summaries. Delegated workers get the exact packaged skill path in the dispatch's allowed-read list as read-only instruction context, never in `RUN_STATE.tasks[].inputs` or `BRIEF.sources` (workspace business data only), and must read it. Root may fall back to running a task itself only when native dispatch is unavailable or refused, with the exact reason recorded. Name the method actually loaded per task in the owner summary. See `<plugin_root>/references/orchestration.md`.
+ - **Delegate with a contract** (host tool `Agent`; legacy `Task`). Per task: the frozen brief slice, input paths, the assigned write set, and the mode string. Children cannot calculate hashes: you hash inputs before dispatch and re-hash inputs and outputs after return, and compare. Independent tasks may run in parallel only when their write sets are disjoint. Dependent tasks run in the declared order.
+ - **Root-only decisions.** Price, currency, cadence, guarantee, eligibility, audience and scope are yours. Specialists propose. You write `OFFER_DECISIONS.json`, `CLAIMS.json` status, `RUN_STATE.json`, `CHECKPOINT.md`, `QA_REPORT.md` and the compatibility outputs, including `SUMMARY.md` for full runs.
+ - **State lives in the user's workspace** under `<workspace_root>/output/` and `<workspace_root>/output/runs/<run_id>/`, never in the plugin cache.
++- **Default CRO waterfall.** For eligible multi-step offer work, after the accepted offer/pricing and requested sales drafts but before final SUMMARY/QA, root loads `<plugin_root>/skills/cro-page-optimizer/SKILL.md` and its required references and writes a root-owned `output/CRO_REVIEW.md` declared in the initial brief/root write set. Run even when CRO was not explicitly requested; use offer-readiness when no page exists and minimal handoff for offline offers. Stage C applies to digital conversion surfaces. This is **not** a new `sub-cro` role or new task mode. Follow `<plugin_root>/references/cro-waterfall.md` and preserve all business/review holds.
+ - **Check before ready.** Run `python <plugin_root>/scripts/check_outputs.py --workspace <workspace_root> --run <workspace_root>/output/runs/<run_id> --mode ready` and report held findings honestly.
+ 
+ - **Checkpoint, resume, respond.** Persist the initial `RUN_STATE.json` and `output/CHECKPOINT.md` before delegating and update both after each accepted task; resume an interrupted run from that checkpoint in the same conversation. Your final owner response in chat carries the substantive compact draft result (offer in plain words, Value Equation reasoning, decisions, honest unknowns and holds, validation next steps), never only artifact paths. Holds do not suppress the provisional result. Author from `<plugin_root>/contracts/` and the reference; do not read the checker's source unless diagnosing a concrete tool failure. See `<plugin_root>/references/orchestration.md`.
+diff --git a/assets/readme/choose-your-path.svg b/assets/readme/choose-your-path.svg
+new file mode 100644
+index 0000000..fdfd5c0
+--- /dev/null
++++ b/assets/readme/choose-your-path.svg
+@@ -0,0 +1,20 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 330" role="img" aria-labelledby="t d">
++<title id="t">Start Hormozi Skills with a business goal, not a skill name</title>
++<desc id="d">Two paths: Guided for beginners goes to a single useful question and selective offer waterfall; Focused for experts runs only the specific requested skill. Both retain evidence and owner safeguards.</desc>
++<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#091a31"/><stop offset="1" stop-color="#1d4168"/></linearGradient></defs>
++<rect width="1200" height="330" rx="18" fill="url(#bg)"/>
++<text x="46" y="54" fill="#ffffff" font-family="Arial,Helvetica,sans-serif" font-size="30" font-weight="700">Start with your goal. The system chooses the scope.</text>
++<g font-family="Arial,Helvetica,sans-serif">
++<rect x="46" y="91" width="520" height="166" rx="16" fill="#25496b" stroke="#5b84a5" stroke-width="2"/>
++<text x="68" y="128" fill="#FFAD53" font-weight="700" font-size="21">I AM NOT SURE WHAT TO ASK</text>
++<text x="68" y="162" fill="#ffffff" font-size="27" font-weight="700">Guided start</text>
++<text x="68" y="192" fill="#d2e0ec" font-size="19">One helpful question, then selected</text>
++<text x="68" y="217" fill="#d2e0ec" font-size="19">offer stages and downstream CRO</text>
++<rect x="636" y="91" width="518" height="166" rx="16" fill="#25496b" stroke="#5b84a5" stroke-width="2"/>
++<text x="658" y="128" fill="#56DFC8" font-weight="700" font-size="21">I KNOW EXACTLY WHAT I WANT</text>
++<text x="658" y="162" fill="#ffffff" font-size="27" font-weight="700">Focused start</text>
++<text x="658" y="192" fill="#d2e0ec" font-size="19">One selected skill and its method.</text>
++<text x="658" y="217" fill="#d2e0ec" font-size="19">No unrequested full waterfall.</text>
++<rect x="318" y="272" width="566" height="40" rx="17" fill="#203b59" stroke="#547b9f" stroke-width="1.5"/>
++<text x="601" y="298" text-anchor="middle" fill="#ffffff" font-size="17">Both keep evidence checks, approvals and review holds.</text>
++</g></svg>
+\ No newline at end of file
+diff --git a/assets/readme/cro-waterfall.svg b/assets/readme/cro-waterfall.svg
+new file mode 100644
+index 0000000..fa2e5a4
+--- /dev/null
++++ b/assets/readme/cro-waterfall.svg
+@@ -0,0 +1,35 @@
++<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
++<title id="title">The CRO waterfall in Hormozi offer creation</title>
++<desc id="desc">Offer and commercial approval upstream, sales assets, automatic CRO gate, and downstream structural QA. CRO findings feed back to the affected upstream stage only with owner approval.</desc>
++<defs><linearGradient id="back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#08192e"/><stop offset="1" stop-color="#18416a"/></linearGradient></defs>
++<rect width="1200" height="360" rx="22" fill="url(#back)"/>
++<text x="45" y="56" font-family="Arial,Helvetica,sans-serif" font-size="32" font-weight="700" fill="#ffffff">Offer to conversion: one continuous waterfall</text>
++<text x="45" y="89" font-family="Arial,Helvetica,sans-serif" font-size="19" fill="#bcd2e5">CRO is checked by default in full offer runs, even when nobody asks for CRO.</text>
++<g font-family="Arial,Helvetica,sans-serif">
++ <rect x="45" y="130" width="228" height="123" rx="14" fill="#214461" stroke="#6c8caf"/>
++ <text x="65" y="162" fill="#ffa94f" font-size="18" font-weight="700">01  UPSTREAM</text>
++ <text x="65" y="196" fill="#ffffff" font-size="24" font-weight="700">Offer + pricing</text>
++ <text x="65" y="224" fill="#d1e1ed" font-size="17">Owner decisions</text>
++ <rect x="332" y="130" width="228" height="123" rx="14" fill="#214461" stroke="#6c8caf"/>
++ <text x="352" y="162" fill="#4dd7c2" font-size="18" font-weight="700">02  SALES</text>
++ <text x="352" y="196" fill="#ffffff" font-size="24" font-weight="700">Sales drafts</text>
++ <text x="352" y="224" fill="#d1e1ed" font-size="17">Landing / pitch / hooks</text>
++ <rect x="619" y="119" width="228" height="145" rx="14" fill="#3d392d" stroke="#ffa94f" stroke-width="2"/>
++ <text x="639" y="153" fill="#ffa94f" font-size="18" font-weight="700">03  AUTO CRO GATE</text>
++ <text x="639" y="189" fill="#ffffff" font-size="24" font-weight="700">Fix or test?</text>
++ <text x="639" y="220" fill="#f5d2a5" font-size="16">Evidence + UX + SEO</text>
++ <text x="639" y="241" fill="#f5d2a5" font-size="16">Readiness if no page</text>
++ <rect x="906" y="130" width="248" height="123" rx="14" fill="#214461" stroke="#6c8caf"/>
++ <text x="926" y="162" fill="#4dd7c2" font-size="18" font-weight="700">04  DOWNSTREAM</text>
++ <text x="926" y="196" fill="#ffffff" font-size="24" font-weight="700">QA + summary</text>
++ <text x="926" y="224" fill="#d1e1ed" font-size="17">Keep all existing holds</text>
++</g>
++<g stroke="#f9a24a" stroke-width="4" stroke-linecap="round" fill="none">
++ <path d="M278 191 L320 191"/><path d="M309 183 L320 191 L309 199"/>
++ <path d="M565 191 L608 191"/><path d="M597 183 L608 191 L597 199"/>
++ <path d="M852 191 L895 191"/><path d="M884 183 L895 191 L884 199"/>
++ <path d="M733 267 L733 298 L170 298 L170 259"/>
++ <path d="M162 272 L170 259 L178 272"/>
++</g>
++<text x="290" y="331" font-family="Arial,Helvetica,sans-serif" fill="#d3e1ec" font-size="17">CRO feedback to affected upstream work requires owner approval and revalidation.</text>
++</svg>
+\ No newline at end of file
+diff --git a/docs/GITHUB_ABOUT_PROPOSAL.md b/docs/GITHUB_ABOUT_PROPOSAL.md
+index 0a8de35..7233c16 100644
+--- a/docs/GITHUB_ABOUT_PROPOSAL.md
++++ b/docs/GITHUB_ABOUT_PROPOSAL.md
+@@ -2,7 +2,7 @@
+ 
+ **Description (suggested):**
+ 
+-Hormozi-inspired AI offer skills with owner-controlled decisions, review holds, and structured output validation for Claude Code and Codex.
++Hormozi-inspired AI offer skills with evidence-led SEO/CRO, owner-controlled decisions, review holds, and output validation for Claude Code and Codex.
+ 
+ **Suggested topics:** `ai-skills`, `claude-code`, `codex`, `offer-design`, `sales-copy`, `marketing-workflow`, `output-validation`
+ 
+diff --git a/docs/OPERATING_GUIDE.md b/docs/OPERATING_GUIDE.md
+index 90d6ae3..c57efd2 100644
+--- a/docs/OPERATING_GUIDE.md
++++ b/docs/OPERATING_GUIDE.md
+@@ -10,6 +10,14 @@ This guide applies to the Simpliolabs fork of Hormozi Skills at a specifically r
+ 4. Confirm how your host actually loads the skill and whether specialist delegation is available. Do not treat a role definition as proof that a distinct agent executed.
+ 5. For a focused request, invoke only the relevant standalone skill. Full orchestration and run controls are not required for every focused task.
+ 
++## 2. Choose a lightweight entry
++
++For a beginner, start with [Start Here](START_HERE.md): "I have a business idea and don't know where to start. Ask me one question at a time."
++
++For an experienced user, request the exact deliverable, for example "Write five hooks for this approved offer." That route loads **one skill**, not the full offer pipeline. See [Adaptive routing](../references/adaptive-routing.md) for QUICK / GUIDED / opt-in DEEP behavior, progressive instruction loading, frozen briefs and checkpoint reuse. The policy is a resource discipline, **not** a measured or hard token cap.
++
++If the request is a full multi-stage offer workflow, the downstream CRO gate remains part of the accepted path. A narrow focused request does not trigger the full waterfall.
++
+ ## 2. Activate the guided experience
+ 
+ After installation in a compatible host, begin with this plain-language request:
+@@ -34,6 +42,18 @@ Suggested pilot prompt:
+ 
+ Avoid actual customer secrets or confidential personal data in a public demonstration.
+ 
++### CRO is automatic in the full offer waterfall
++
++A full new-offer or offer-repair run now includes a **downstream CRO readiness gate** even if the request never says CRO. After offer, value, pricing and requested sales work, the root loads `cro-page-optimizer` and records `output/CRO_REVIEW.md`.
++
++- For an existing page, provide actual URL/HTML or screenshots and analytics to permit a concrete mobile/form/intent audit. Missing information is `NOT ASSESSED`.
++- For a new offer with no page, the skill examines conversion readiness, not imaginary webpage metrics.
++- For an offline offer, the skill checks real buyer handoff and marks irrelevant search/form checks `NOT APPLICABLE`.
++- A root-owned CRO gate does **not** create a new agent, task mode or claim that a separate reviewer executed. Existing review/business holds survive.
++- A standalone focused request, such as five hooks, remains focused.
++
++Optional deterministic planning example: `python scripts/cro_gate.py --stage A --surface planned`. This helper prints the required gate/depth as JSON. It never writes records or changes authorization.
++
+ ## 4. Inspect outputs and checks
+ 
+ For controlled multi-step work, look for:
+diff --git a/docs/START_HERE.md b/docs/START_HERE.md
+new file mode 100644
+index 0000000..522b037
+--- /dev/null
++++ b/docs/START_HERE.md
+@@ -0,0 +1,46 @@
++# Start here: your goal is enough
++
++You do **not** need to know skill names, agents, schemas, or the A-E stage labels. Install the [Simpliolabs fork](../README.md#quick-start), then describe what you're trying to accomplish. The skills should route by goal and load only the needed methods. Host-specific auto-selection is not guaranteed, so use the explicit selector listed below when necessary.
++
++## Choose a starting point
++
++| Your situation | Copy this first message | What runs |
++|---|---|---|
++| **I am not sure what I need** | "I have a business idea. Help me figure out what to do first; ask me one question at a time." | Guided orchestrator, minimal initial intake; the offer workflow only after your goal is clear |
++| **I want the whole offer** | "Build a complete offer and sales funnel for [my business]. Use my real facts; mark unknowns and approvals." | Relevant market/offer/value/pricing/sales dependencies, automatic downstream CRO, required QA/holds |
++| **I have an offer that is underperforming** | "My current offer isn't converting. Review the attached offer and find the first real blocker." | Stage-B diagnostic, smallest revision path, CRO for the conversion surface if available |
++| **I know the exact task** | "Write exactly five hooks for this approved offer." | Hooks method only; no full orchestrator run |
++| **I have a checkout or landing-page problem** | "Use my screenshot and Clarity summary to diagnose why visitors abandon this page." | CRO Page Optimizer directly, without an automatic offer rebuild |
++
++## How the two entry styles behave
++
++**Guided:** Ask one material question, with a reasonable example. Explain the route in ordinary language. If key facts are missing, keep them unknown. Run only the next necessary work. A full workflow includes the downstream CRO gate by default; it does not use every skill.
++
++**Focused:** Directly use the relevant standalone skill and its required references. Return only the requested output. Still apply common evidence rules and owner-controlled terms, but do not create an A-E pipeline, read all skill files or run unrelated specialists.
++
++**Deep-dive (you request it):** Say "Do the complete research and implementation audit" or supply an expanded scope. The assistant should confirm which extra research and output are relevant before expanding. This is not a guaranteed compute or billing limit.
++
++## Cost and context discipline
++
++- Do not load 18 business methods upfront. Load a method **only when its task is selected**.
++- Do not duplicate entire transcripts or unneeded analytics in every specialist task; pass short frozen briefs and source/decision references.
++- Do not redo accepted work when its hashes and owner-approved terms are unchanged. Resume from the last valid checkpoint.
++- Avoid generating market, full offer, pricing, CRO and sales files for one simple "five hooks" request.
++- Do not claim measured token savings unless the host provides actual token usage. Prompt guidelines alone cannot hard-cap compute.
++- Never skip evidence checks, legal/business holds, or needed independent review just to save resources.
++
++## Activate the right skill
++
++In a compatible host, natural language may select the intended skill automatically. If it doesn't:
++
++- **Claude Code:** Use the slash command/skill picker and explicitly choose the installed `hormozi-orchestrator` or `cro-page-optimizer`.
++- **Codex:** Explicitly select the installed skill, e.g. `$hormozi-orchestrator` or `$cro-page-optimizer` if supported in the installed version.
++- **ChatGPT:** If installed and available, use the skill selector via `@` to choose it.
++
++A short `/offer` alias is only a **proposal** until separately implemented and tested in the target host.
++
++## What does "READY" mean?
++
++The current checker tests structure and known obligations. A `READY` result does **not** mean an independent reviewer actually ran, claims are independently verified, or a business asset is approved for publication. A `HELD` result can contain useful drafts while required reviews, owner approvals and evidence remain unresolved.
++
++For the precise route matrix, see [Adaptive routing](../references/adaptive-routing.md). For the default downstream CRO rule, see [CRO waterfall](../references/cro-waterfall.md). For the recorded, bounded acceptance evidence, see [Seven-hold validation](SEVEN_HOLD_VALIDATION.md).
+diff --git a/docs/qa/pr5-fictional-business/BUSINESS_FIXTURE.md b/docs/qa/pr5-fictional-business/BUSINESS_FIXTURE.md
+new file mode 100644
+index 0000000..7737494
+--- /dev/null
++++ b/docs/qa/pr5-fictional-business/BUSINESS_FIXTURE.md
+@@ -0,0 +1,48 @@
++# DeskFern Studio: fictional business fixture for PR #5 native acceptance
++
++**Status: SYNTHETIC TEST DATA ONLY.** There is no real customer, domain, sales history, testimonials, market validation or production application here. All claims and traffic statistics in this directory are fictional test inputs. Never use them in commercial outputs or describe them as observed CEO Creative or other business data.
++
++## Owner's known facts (supplied synthetic fixture)
++
++- Working name: **DeskFern Studio**.
++- Type: in-person office-plant care service for small professional offices.
++- Planned buyer: office managers responsible for approximately 8–30 indoor plants.
++- Proposed service: one scheduled on-site care visit each week, including watering and a brief plant-health check.
++- Primary buyer objective: make upkeep of existing office plants simpler for office staff.
++- Service area: a fictional metro area named **Lakehaven**.
++- Sales channel currently planned: referrals and a future inquiry form, not yet a public website.
++- The owner can handle up to six weekly visits under the present hypothetical schedule; this is an assumed fixture constraint, not a verified service capability.
++- Offer is **not yet launched**; there are no paid customers or validated sales.
++- Commercial terms are **not approved**. A draft idea of `$249 per month` may be discussed as a **proposal**, never as authorized pricing or validated profit.
++- The user has not provided true labor, travel, supplies, insurance, plant-replacement costs, refunds, cancellations, contract duration, service eligibility or guarantee terms.
++- No independently verified productivity effect, time savings, employee satisfaction improvement, plant lifespan improvement or customer testimonial exists.
++- A separate-context sales-asset reviewer is **not provided** in the fixture. The host may run one only if it actually can; refusal or sequential fallback must be recorded honestly.
++
++## Explicit negative facts
++
++- No public `deskfern` website exists in this scenario. Do not browse for or invent one.
++- An image or illustration of a thriving office does not prove the service's result.
++- The example page in `demo_landing.html` is a **local synthetic development fixture**, not a published property.
++- The fake event summary below is **simulated analytics**, not real Clarity.
++- The owner has NOT approved any specific price, refund, renewal, refund exception, cancellation period, customer count, ratings or guarantee.
++
++## Synthetic aggregate interaction summary (CRO-only scenario)
++
++This dataset is intentionally fabricated to test analytical discipline and diagnosis; do not mix the numbers into sales copy.
++
++| Window | Mobile sessions | Desktop sessions | Mobile CTA clicks | Desktop CTA clicks | Mobile completed inquiries | Desktop completed inquiries |
++|---|---:|---:|---:|---:|---:|---:|
++| Fictional seven-day period | 120 | 80 | 18 | 35 | 4 | 21 |
++
++Additional synthetic product-debug notes:
++- A tester reproducibly sees horizontal overflow at 390px on the local HTML demo page.
++- The demo inquiry control displays no progress during an intentionally delayed client-side completion, encouraging repeat clicks in the simulation.
++- The demo header offers a sign-in link even though prospective buyers do not yet have accounts.
++- The demo page mentions `Trusted by 5,000+ companies`. No evidence supports that statement, and the CRO review must flag it as an unverified claim.
++- The simulated analytics alone **do not prove why** people leave; the reproducible local problems are separately observed properties of the fixture.
++
++## Scope and holds
++
++This is a synthetic acceptance input, not an authorization to publish, promise an outcome, deploy a page, add a financial guarantee, infer demand, or remove the existing seven-hold obligations.
++
++**Candidate source pin:** Record the actual installed PR #5 head SHA when the developer starts. Never silently treat `main` as if it includes this draft PR.
+diff --git a/docs/qa/pr5-fictional-business/RESULTS_TEMPLATE.md b/docs/qa/pr5-fictional-business/RESULTS_TEMPLATE.md
+new file mode 100644
+index 0000000..ab4aef6
+--- /dev/null
++++ b/docs/qa/pr5-fictional-business/RESULTS_TEMPLATE.md
+@@ -0,0 +1,48 @@
++# Developer acceptance results (fill only from actual native evidence)
++
++**This template is NOT an acceptance report. No results have been observed or certified by adding this file.**
++
++Test candidate SHA: `PENDING`  
++Installed host/version: `PENDING`  
++Developer/operator: `PENDING`  
++Independent reviewer/context: `PENDING`  
++Session timestamps: `PENDING`  
++
++| Case | Expected observable behavior | Result | Evidence location | Actual token usage |
++|---|---|---|---|---|
++| A beginner | First response asks one useful question; correct path without preload | NOT RUN | PENDING | unknown |
++| B expert | Exactly five hooks, no CRO/full-offer bookkeeping | NOT RUN | PENDING | unknown |
++| C full offer | Method loads, sales drafts, auto CRO readiness with no explicit CRO request | NOT RUN | PENDING | unknown |
++| D direct CRO | Local source + simulated events diagnosed; fix/test separated | NOT RUN | PENDING | unknown |
++| Legacy seven-identity regression | Original historical acceptance obligations preserved unchanged | NOT RUN | PENDING | unknown |
++| Independent semantic review | First-completion archive and claims read separately | NOT RUN | PENDING | unknown |
++
++## Required source pins and receipts
++
++- Exact git SHA installed:
++- Installed files / repository root:
++- Host and session IDs (no private identifiers):
++- Actual skill-selection behavior (automatic/manual):
++- Actual skills/references loaded:
++- Requested vs observed model/effort:
++- Native specialist dispatch requests and actual responses:
++- First-completion artifact archive SHA256:
++- Original owner-visible reply:
++- Canonical summary sections:
++- CRO_REVIEW mode and time of creation:
++- Checker command and complete findings:
++- Business limitation declaration and where it appeared:
++- Sales-artifact independent-review obligations:
++- Prior seven-hold fixture regression result:
++- Token counts (input/output and per step if actual runtime provides them):
++- Elapsed wall time (recorded by host/operator, not estimated):
++- Independent reviewer and isolated context evidence:
++- Any unsupported claim or fabricated metric found:
++- Exact suggested corrective patch if FAIL:
++
++## Decision
++
++One of: `PASS`, `FAIL`, `INCONCLUSIVE`.  
++Decision justification linked to actual evidence: `PENDING`.
++
++**Do not** rewrite this template as a successful report until the runs actually happen. No green CI alone substitutes for the four independent native sessions.
+diff --git a/docs/qa/pr5-fictional-business/TEST_DRIVE.md b/docs/qa/pr5-fictional-business/TEST_DRIVE.md
+new file mode 100644
+index 0000000..b7dbeb5
+--- /dev/null
++++ b/docs/qa/pr5-fictional-business/TEST_DRIVE.md
+@@ -0,0 +1,88 @@
++# PR #5 developer native test drive: DeskFern Studio
++
++**Purpose:** Demonstrate the new adaptive entry, selective skill execution, automatic downstream CRO, faithful business holds and actual model/token usage if exposed. This is **not** a CI test, deterministic replay, marketing case study, real business-validation claim, or publication approval.
++
++**Source:** `BUSINESS_FIXTURE.md`; `demo_landing.html` is intentionally flawed client-side HTML. All materials are fictional. Never use customer data.
++
++**Rule:** Use a **fresh installed candidate** from PR #5's exact reviewed HEAD. Record `git rev-parse HEAD`, `git status --porcelain`, host name/version and the actual installed skill/plugin root before starting. Native test sessions must be clean, isolated, and follow the unchanged prompts below. Do not manually edit artifacts after completion to make the tests pass.
++
++## Test drive A: beginner, no skill name (cold chat)
++
++User's **first and only initial message**, verbatim:
++
++> I have a business idea but no idea what to ask. Can you guide me?
++
++**What should happen first:** A friendly one-sentence explanation and **one specific question**, not a 20-question form, 18 skill loads, or a complete invented offer. Record the actual method/skill that the host selected (or `not observed`). If auto-selection doesn't occur, report that as **not proven**. You may then explicitly invoke the installed orchestrator to diagnose the method separately; do not replace the cold-chat evidence.
++
++**Scripted next owner reply (use only after the first assistant question):**
++
++> I want to start DeskFern Studio, a weekly indoor plant-care service for small offices. I know the basic service but not the pricing, cancellations, costs, or marketing. I don't have a website or customers yet. Please guide me; no publishing.
++
++Expected: select a small Stage-A-style offer route, ask only genuinely missing facts, use actual methods as selected, and **schedule a later CRO *readiness* gate** after sales draft work, not a fake existing-page diagnosis. Record any assumptions as inferred, not approved. A bounded pilot can stop at the first checkpoint and clearly record what remains.
++
++## Test drive B: expert, fresh independent chat (focused only)
++
++Paste verbatim:
++
++> I want exactly FIVE Instagram hooks for DeskFern Studio. It provides weekly watering and plant-health checks for small offices with 8–30 indoor plants. These details are synthetic test inputs. Do not claim results, time saved, productivity gains, customer reviews, prices, or guarantees. No wider offer-building work.
++
++Expected: **exactly 5** useful hooks, with the actual hooks method loaded (or explicitly `not loaded`/unknown), **no full Stage A pipeline**, no unrelated subagents, no `CRO_REVIEW.md` and no full-run ledger. Never imply those hooks were empirically tested.
++
++## Test drive C: full offer, fresh independent chat (auto CRO, no word "CRO")
++
++Give access to `BUSINESS_FIXTURE.md` and paste this prompt verbatim:
++
++> Build the complete DeskFern Studio offer and its sales assets: market and audience reasoning where needed, offer, value explanation, pricing feasibility, pitch, five hooks, and a landing-page draft. Use only the attached fictional business facts. Mark unknown costs, cancellation/refund terms, unsupported claims and absent real-world validation. Do not publish or fabricate independent reviews. Return a clear summary with three owner actions.
++
++**Do not explicitly request CRO in the prompt.** Expected:
++
++1. Stage A selective dependency route; selected standalone skill bodies **actually loaded** before each selected task, not inferred from checker or role names.
++2. Proposed `$249/month` stays a **proposal** unless separately approved. Missing delivery costs and refund/cancellation economics remain unresolved business holds. No fake market demand, time savings, company customers, testimonials or guarantees.
++3. The original seven obligation **identities** (fictional/no real validation; refund/cancellation; missing costs; sales review holds on PITCH, HOOKS, LANDING_PAGE; aggregate independent review blocker) must remain visible where applicable. They may be grouped into fewer *findings*. Compare against the protected historical seven-hold fixture before claiming non-regression. Never forge `context: separate` review receipts.
++4. The root runs the **CRO readiness method by default**, produces `output/CRO_REVIEW.md` before final SUMMARY/checker, explicitly says `no live page`, and marks page layout, mobile rendering, Clarity and conversion statistics `NOT ASSESSED`. This CRO is a **root-owned gate**, not an invented `sub-cro` agent.
++5. `output/SUMMARY.md` contains `## Offer`, `## Key Decisions`, `## Best Hook` with the actual chosen hook text, and `## Next Actions` with exactly three substantive numbered owner actions.
++6. Root updates `BRIEF`, `RUN_STATE`, `CHECKPOINT`, `QA_REPORT` and manifest with real hashes/decision version; any checker `HELD` is reported as HELD, not silently upgraded to READY.
++7. The chat's final response contains the provisional offer and honest holds, not merely paths. Capture observed host dispatch/fallback, model and effort if exposed, and usage if exposed.
++
++Run the read-only structural checker against the **original first-completion files, before any intervention**:
++
++```sh
++python scripts/check_outputs.py --workspace <actual-workspace> --run <actual-workspace>/output/runs/<actual-run-id> --mode ready
++```
++
++Replace placeholders using paths obtained from that run. A deliberate HELD result is **not a test failure** when the hold identities remain correct. Do not edit or re-run the author's completion to get a PASS.
++
++## Test drive D: direct CRO page diagnosis (fresh independent chat)
++
++Open `demo_landing.html` locally in a browser at 390px and desktop, and provide it as page source along with the **synthetic aggregate data** in `BUSINESS_FIXTURE.md`. Use this prompt verbatim:
++
++> Review this local DeskFern Studio demo page and the supplied synthetic interaction summary. Identify the first barrier to inquiry completion. Separate confirmed fixture defects from design hypotheses. Propose the exact shared-baseline repair and, only if appropriate, a separate A/B test. Do not claim any observed real customers or live conversion improvements.
++
++Expected: explicitly identify the page as **fictional local HTML**, note the intentional 1040px fixed-width mobile overflow, silent 9.5-second client-side submit, unnecessary sign-in option, and unverified "5,000+" claim. Distinguish the aggregate session numbers from unique visitor conversion rates and treat causality as unproven. **Fix** known technical defects for both variants; **test** only speculative hierarchy/copy changes after shared repair. Do not claim actual WordPress backend, real Clarity evidence, mobile screenshot verification unless rendered, or deployment.
++
++## Usage and execution records
++
++For each of the four runs capture:
++- exact initial prompt and scripted owner replies;
++- source `HEAD` and installed-path/hash provenance;
++- host runtime/version and whether skill discovery was automatic or explicitly selected;
++- task route; each actual loaded `SKILL.md`, role dispatch request/result/fallback;
++- observed requested/actual model and effort; `unknown` where host doesn't show it;
++- input and output token usage **only if the host reports it**; cost, elapsed time and stage-level breakdown only if available;
++- original first completed workspace and output hashes **before any reviewer edits**, plus final response;
++- checker output; the full list of unresolved business and independent-review identities;
++- independent acceptance opinion distinct from the author; reviewer execution should not be invented.
++
++Report `PASS`, `FAIL` or `INCONCLUSIVE` for each case. A missing native specialist or separate-context reviewer is a documented limitation, **not** a pass. Missing runtime usage data is `unknown`, **not** zero tokens.
++
++## Ready-for-review gate
++
++Do **not** ask for draft-to-ready until:
++1. four native test drives have source-pinned first-completion evidence;
++2. the automatic CRO gate runs in C without explicit keyword invocation;
++3. B stays genuinely focused, and A asks just one question before broader execution;
++4. the required summary, factual/business holds, and PR #3 seven-identity regression remain preserved;
++5. Windows/Ubuntu CI passes at the **tested exact HEAD**;
++6. an independent acceptance review and a **separate explicit PO merge decision** are obtained.
++
++If this only proves method availability with manual selection but not natural discovery, report that difference rather than calling it automatic. If any case is genuinely blocked, include the exact blocker, evidence and the narrowest recommended fix. Never deploy or publish.
+diff --git a/docs/qa/pr5-fictional-business/demo_landing.html b/docs/qa/pr5-fictional-business/demo_landing.html
+new file mode 100644
+index 0000000..b92ccc0
+--- /dev/null
++++ b/docs/qa/pr5-fictional-business/demo_landing.html
+@@ -0,0 +1,77 @@
++<!doctype html>
++<html lang="en">
++<head>
++<meta charset="utf-8">
++<meta name="viewport" content="width=device-width, initial-scale=1">
++<title>DeskFern Studio | Fictional CRO QA Fixture</title>
++<style>
++  :root{font-family:Arial,Helvetica,sans-serif;color:#193047;background:#f4f7f6}
++  body{margin:0}
++  .fixture{background:#462e07;color:#fff9e7;padding:12px 20px;font:700 14px Arial,sans-serif}
++  .shell{width:1040px;margin:auto;background:white;min-height:1250px}
++  header{padding:22px 30px;background:#e7f0e9;display:flex;gap:40px;align-items:center;justify-content:space-between}
++  header nav{display:flex;gap:34px}
++  a{color:#194e38}
++  h1{font-size:46px;max-width:700px;line-height:1.1}
++  main{padding:55px 42px}
++  .intro{font-size:18px;max-width:600px}
++  .claim{font-weight:bold;color:#175d43}
++  .features{display:flex;gap:18px;margin:34px 0 70px}
++  .feature{width:300px;padding:28px 20px;background:#ebf3ec;border-radius:10px}
++  form{border:1px solid #bed6c5;padding:28px;max-width:570px;margin-top:170px}
++  label{display:block;margin:12px 0}
++  input{display:block;width:96%;height:42px;margin-top:7px}
++  button{border:0;background:#146c46;color:white;font-weight:bold;font-size:16px;padding:16px 23px;cursor:pointer}
++  footer{margin-top:120px;padding:35px 42px;background:#e7f0e9}
++  .small{font-size:13px;color:#536258}
++</style>
++</head>
++<body>
++<div class="fixture">FICTIONAL TEST PAGE. ALL CONTENT AND EVENT DATA ARE SYNTHETIC. NOT FOR PUBLICATION.</div>
++<div class="shell">
++<header>
++  <strong>DeskFern Studio</strong>
++  <nav aria-label="Main">
++    <a href="#why">Why us</a><a href="#services">Services</a><a href="#about">About us</a>
++    <a href="#signin">Member sign in</a>
++  </nav>
++</header>
++<main>
++  <h1>Every office deserves a better green experience.</h1>
++  <p class="intro">Office plant care made simple for office managers. Weekly visits and plant-health check-ins for indoor collections.</p>
++  <p class="claim">Trusted by 5,000+ companies.</p>
++  <p class="small">Unverified promotional claim planted here intentionally for the CRO reviewer to flag.</p>
++  <section class="features" id="services">
++    <div class="feature"><h2>Weekly care</h2><p>Watering and basic health checks.</p></div>
++    <div class="feature"><h2>Easy setup</h2><p>Tell us about your office plants.</p></div>
++    <div class="feature"><h2>Flexible</h2><p>Terms and price have not been approved.</p></div>
++  </section>
++  <section id="why">
++    <h2>Get help with your office plants</h2>
++    <p>Request a call to discuss the number of plants, access and service needs.</p>
++  </section>
++  <form id="inquiry" aria-label="Fictional inquiry form">
++    <h2>Request an inquiry</h2>
++    <label>Work email<input type="email" name="email" required autocomplete="email"></label>
++    <label>Office name<input type="text" name="office" required></label>
++    <label>How many plants?<input type="text" name="plants" required></label>
++    <button type="submit">Send inquiry</button>
++    <p id="message" aria-live="polite"></p>
++  </form>
++  <p class="small">This is a client-side simulation. No data is transmitted or stored.</p>
++</main>
++<footer id="about">DeskFern Studio is fictional. No live service, pricing, claims or customer results are represented.</footer>
++</div>
++<script>
++  document.getElementById('inquiry').addEventListener('submit',function(event){
++    event.preventDefault();
++    const form=this;
++    // Intentionally no progress indicator, locking, or duplicate-submission prevention.
++    window.setTimeout(function(){
++      document.getElementById('message').textContent='Demo inquiry complete (not sent).';
++      form.reset();
++    },9500);
++  });
++</script>
++</body>
++</html>
+diff --git a/references/adaptive-routing.md b/references/adaptive-routing.md
+new file mode 100644
+index 0000000..e0c1ffd
+--- /dev/null
++++ b/references/adaptive-routing.md
+@@ -0,0 +1,43 @@
++# Adaptive routing: beginner guidance, expert focus, economical runs
++
++Normative for existing `hormozi-orchestrator` entrypoints. Supplement `<plugin_root>/references/orchestration.md` and `<plugin_root>/references/cro-waterfall.md`. Do not introduce a new role, mode, phase, schema, model switch or untested slash alias.
++
++## Two paths, one entrypoint
++
++- **GUIDED:** For "I have a business idea", "help me build an offer", "my offer isn't working", or "I don't know where to start", reflect the known goal and ask **one essential question at a time**, with an example answer. Classify A-E only after enough context. Do not show users role names, ledgers or all skill names unless requested. Do not interrogate them with a questionnaire.
++- **FOCUSED:** For "write five hooks", "audit this pricing", "draft a pitch", or "diagnose my checkout", load **only the relevant standalone skill and its required references**; return the requested quantity. Apply its common evidence/authority preflight but do not create a full run or force upstream offer/CRO work. For explicit CRO, use `cro-page-optimizer` directly.
++- **DEEP:** On explicit request for a comprehensive research/competitor/design/implementation scope, present the added tasks and dependencies before expanding. Never claim an automatic budget cap.
++
++Natural language matching depends on the installed host. If the skill does not activate, use its explicit skill selector. `/offer` is not a working alias in this repo until separately implemented and tested.
++
++## The smallest sufficient waterfall
++
++| Goal | Selected work |
++|---|---|
++| Stage A complete new offer | Optional market -> offer -> value -> final pricing -> owner decisions -> requested sales -> root CRO readiness -> SUMMARY/checker |
++| Stage B underperforming existing offer | Frozen original diagnostic -> needed revision -> revised check -> final feasibility -> requested sales -> root CRO gate -> SUMMARY/checker |
++| Stage D scaling offer | Affected packaging/offer/pricing work -> authorized sales -> root CRO or offline handoff |
++| Stage C sales assets only | Sales skill; root CRO gate only if a digital conversion destination is in scope |
++| Stage E custom | Minimal dependency graph; root CRO only for multi-step **offer** workflows |
++| One skill task | Single method, no full waterfall |
++
++The full CRO gate is default in eligible multi-step **offer** runs even if not named; offline and no-page cases receive proportionate readiness/handoff, not fictional screenshots. **All standalone skills retain their evidence and owner-approval rules**, but they do not each trigger every skill.
++
++## Lightweight execution envelopes
++
++These are **planning scopes, not enforceable API token limits**. Actual usage may be `unknown` when the host does not expose it.
++
++| Level | Resource policy |
++|---|---|
++| **QUICK** | One selected skill plus needed references, one requested output, no unrelated research or specialists |
++| **GUIDED** (default) | Brief intake, only needed A-E dependencies; one owner question at a time; checkpoint after accepted work |
++| **DEEP** (opt-in) | Wider research and full outputs only when requested; keep safeguards and business constraints |
++
++1. **Route first, load later:** Read the shared orchestration and this guide once. Never preload all 18 business skills, agent briefs, checker source, tests or repository history. Load each selected `SKILL.md` and its required references immediately before use.
++2. **Reuse evidence wisely:** Pass only frozen task inputs, relevant excerpts, approved business wording, source links and hashes. Do not repeatedly send the whole conversation or raw analytics. Reuse already authorized facts.
++3. **Write proportionately:** A five-hook request returns five hooks. A CRO page audit prioritizes the first serious barrier. A full offer run still generates its required outputs and canonical SUMMARY, but not every unrequested skill document.
++4. **Resume, don't restart:** Continue from CHECKPOINT and only reuse outputs whose frozen source hashes and decision versions still match. After a material change, invalidate and re-check affected downstream outputs and review receipts. Preserve the two-pass repair limit.
++5. **Selective tools:** Search externally only when current facts materially affect the task and tools are available; do not invent results. Stop *unnecessary expansion*, not required QA, commercial decisions or independent-review obligations.
++6. **Honest usage:** Distinguish requested from observed models and effort; report `unknown` rather than fabricated usage. **Do not drop evidence checks**, reviewer holds, declared business limitations, or required owner actions to save tokens.
++
++This policy is instruction-level. Passing static checks does **not** prove automatic host routing, native specialist execution, independent reviewer provenance or measured token savings. Verify those separately using a fresh installed run.
+diff --git a/references/commercial-feasibility.md b/references/commercial-feasibility.md
+index ac44900..a2ec0df 100644
+--- a/references/commercial-feasibility.md
++++ b/references/commercial-feasibility.md
+@@ -13,6 +13,21 @@ price and currency · billing cadence · deposit/payment plan · fulfillment cos
+ 
+ Pricing never checks whether an audit or bonus file happens to exist. It receives the named input version or an explicit `not_requested`/`not_applicable`.
+ 
++## Controlled priced-offer decision fields
++
++For a controlled run that requests or writes `output/PRICING.md`, or runs a `sub-pricing/final_feasibility` task, root records these exact keys in `OFFER_DECISIONS.fields`. The read-only checker derives two separate unresolved commercial findings from the statuses even when a free-text blocker is generic or the run is already HELD. Matching is case-sensitive; `support_cost/capacity` is one field key.
++
++| Obligation | Canonical key | Accepted existing aliases |
++| --- | --- | --- |
++| Refund terms | `refunds` | `refund_cancellation`, `refund_policy` |
++| Cancellation terms | `cancellation` | `refund_cancellation`, `cancellation_terms`, `renewal/cancellation_terms` |
++| Delivery cost | `delivery_cost` | `fulfillment_cost` (not `delivery`, which describes service scope) |
++| Approved price | `price` | None; `price_anchor` is a proposal, not approval |
++| Feasibility conclusion | `financial_feasibility` | None |
++| Other declared cost inputs | Exact keys only | `acquisition_cost`, `CAC`, `cac`, `overhead`, `overhead_allocation`, `taxes`, `refund_cost`, `refund_costs`, `refund_cost_and_treatment`, `refund_exposure`, `guarantee_cost`, `affiliate_commission`, `payment_fees`, `support_cost/capacity` |
++
++When canonical and alias keys coexist, every present source must be resolved; no preferred wording hides an unresolved value. A retained `superseded` alias remains a hold in the current decision record; preserve prior decision evidence when replacing it. Refund and cancellation terms need `status: approved`, nonempty policy text, and a nonempty `authorization_ref`; a numeric zero is not policy text. Delivery cost needs an approved structured money value, an authorization reference and at least one evidence reference. Price needs an approved money value and authorization reference. `financial_feasibility` needs an approved nonempty conclusion, authorization reference and evidence reference; every present cost key in the closed table needs an approved nonempty value and authorization reference. Missing fields, `unknown`, `proposed`, `held`, `superseded`, null values or missing references leave the relevant hold open. A real zero is a documented money value, never a substitute for unknown. These structural checks cannot authenticate owner approval or prove net profitability.
++
+ ## Arithmetic
+ 
+ Money is integer minor units + currency + cadence. Do not mix cadences (an annual refund policy is not a monthly one).
+diff --git a/references/cro-waterfall.md b/references/cro-waterfall.md
+new file mode 100644
+index 0000000..1f64e2d
+--- /dev/null
++++ b/references/cro-waterfall.md
+@@ -0,0 +1,64 @@
++# CRO in the offer upstream/downstream waterfall
++
++This file is normative for the **root orchestrator** in multi-step offer work. It augments, but does not replace, `references/orchestration.md` and `contracts/`. No new specialist role, mode, checker condition or schema is introduced.
++
++## The automatic gate
++
++**Default = CRO readiness ON** in full stage A, B, D or custom/mixed E multi-step offer workflows, whether or not the user says CRO. For stage C, enable it when the requested sales assets include a landing page, website, signup, checkout, digital funnel, or another identifiable post-click destination. When the requested work is a single focused skill task, keep the default focused and do not trigger a full CRO pipeline.
++
++For a consistent eligibility/depth classification, the root may run the **read-only** helper `python <plugin_root>/scripts/cro_gate.py --stage A --surface planned` (replace the actual stage/surface). Use `--digital-destination` for stage C when an online conversion destination is in scope; use `--no-offer-workflow` for a stage E custom request that is not offer work. A focused single-skill request uses `--focused`. The helper never changes RUN_STATE or business facts and its `depth` is **not** an allowed task `mode`. If Python is unavailable, apply this table directly and record the missing helper, rather than silently skipping CRO.
++
++The gate is **not optional** for eligible full runs: include `CRO_REVIEW.md` in the initial `BRIEF.requested_artifacts` and root task `write_set`; evaluate the conversion path. This remains true even without a live page. Choose depth based on actual evidence:
++
++| Business situation | Root CRO evaluation | Evidentiary limits |
++|---|---|---|
++| Existing page / checkout | Full six-gate page review of supplied sources and behavior data | Mark any inaccessible DOM, missing metrics and unrendered widths `NOT ASSESSED` |
++| New online offer with future page | Conversion-readiness preflight using current offer, planned funnel and sales drafts | Do not invent page screenshots, analytics or conversions |
++| Offline / referral-based offer | Minimal offer-to-buyer handoff, with page and SEO fields `NOT APPLICABLE` | Do not manufacture a website, SEO need or A/B test |
++| Stage C pitch-only without destination | Minimal handoff or `NOT APPLICABLE` with recorded reason | No spurious full page audit |
++| Focused five hooks / one copy edit | Do not force CRO gate; use requested skill | A full CRO audit is available via explicit invocation |
++
++`CRO_REVIEW.md` is a **root-authored diagnostic record**, never a published page or substitute for `LANDING_PAGE.md`. The root loads the real `skills/cro-page-optimizer/SKILL.md` and its references before the gate; don't infer the method from this routing file alone.
++
++## Dependency order and feedback
++
++```text
++owner brief / existing sources
++   -> market (when needed)
++   -> offer draft or diagnostic -> value audit -> pricing feasibility
++   -> root approvals / reconciliation
++   -> requested sales copy / landing page
++   -> CRO gate [default for eligible offer work]
++       |-- FIX (verified defect or incorrect term): repair shared baseline or hold
++       |-- TEST (unproven copy/layout): define optional experiment, do not silently implement
++       |-- GAP (missing information): label unknown/not assessed, request evidence
++       |-- NO PAGE (online preflight) or OFFLINE (minimal handoff): document scope
++   -> re-open affected upstream step only if required and authorized
++   -> downstream revalidation + fresh checks and necessary separate reviews
++   -> canonical SUMMARY -> final checker -> owner response
++```
++
++A **CRO observation never becomes an automatic commercial edit**. If it suggests a different outcome, offer component, scope, membership price, guarantee, eligibility, payment timing or other material term, root proposes the change and requests owner authorization. An upstream revision invalidates affected dependent artifacts, hashes, claims and reviewer receipts; re-run relevant downstream tasks in the allowed existing modes with disjoint write sets. Respect the existing two-repair-pass limit.
++
++## How to record the gate without changing schemas
++
++1. On initial full-run route, root adds `CRO_REVIEW.md` to `BRIEF.requested_artifacts` and its **own** `RUN_STATE.tasks[].write_set` (root role already exists).
++2. Do **not** create `sub-cro` roles, `mode: cro`, new workflow phases or claims of native CRO specialist dispatch. The root performs the gate as its QA-stage method application.
++3. When the relevant sales draft is accepted, freeze/inspect those inputs and the approved offer decision version. Run the method and write `output/CRO_REVIEW.md` from the actual evidence. It must say `full page audit`, `offer readiness`, `minimal handoff` or `not applicable` explicitly and record its inputs/limitations.
++4. Record `CRO_REVIEW.md` in the artifact manifest with real path, file hash, decision version and root task. Add gate findings/holds and method loading to `QA_REPORT.md` and `CHECKPOINT.md` as needed; state the CRO recommendation and unresolved facts in `SUMMARY.md -> Key Decisions` without changing its four canonical headings.
++5. The default `CRO_REVIEW.md` contains diagnosis and hypotheses, **not** final publication copy. If it includes ready-to-publish sales wording or high-risk claims, mark it `high_risk: true` and require the same genuine separate-context review floor; otherwise keep proposed words unmistakably provisional. Never use a renamed CRO artifact to evade the sales artifact review floor.
++6. When missing CRO inputs prevent even a reasonable offer/buyer-path assessment, keep a transparent diagnostic gap and any applicable real business blocker in RUN_STATE, CHECKPOINT and QA_REPORT. Missing screenshot data alone is **not** grounds to fabricate a new blocker or call the checker READY.
++7. The existing checker remains read-only and unchanged. Structural `READY` is not CRO success, claim verification, independent reviewer authentication or commercial publication authority.
++
++## Route examples (unambiguous)
++
++- **Stage A, idea for an online subscription:** market -> offer -> value -> pricing -> approved sales drafts -> CRO *readiness* -> SUMMARY + QA. No page exists, so no mobile screenshots claimed.
++- **Stage B, live page with drop-off:** original offer diagnostic -> revision -> revised check -> final feasibility -> sales -> CRO *full audit*. Verified broken submit becomes a shared baseline repair; a cleaner hero is a new experiment hypothesis.
++- **Stage C, landing copy from already-approved offer:** sales -> CRO *page readiness* -> QA. Do not reprice.
++- **Stage D, offline consulting offer:** pricing/offer revisions -> sales -> CRO *minimal buyer handoff*. SEO/page checks are not applicable, but decision and effort friction can still be assessed.
++- **Stage E, one-off five hooks:** focused skill only; no full run artifacts or CRO requirement.
++- **Explicit CRO request:** invoke CRO skill immediately and only load upstream methods when the evidence demands an offer revision.
++
++## Regression invariants
++
++Maintain the original 17 business skill bodies, five specialist roles, four contracts, defined modes, sales independent-review floor, business limitation declaration, first-completion seven-hold identity evidence, and exactly-four-section canonical SUMMARY contract. The new CRO gate is additive; it cannot clear or replace existing holds.
+diff --git a/references/orchestration.md b/references/orchestration.md
+index 3e060d4..a97d918 100644
+--- a/references/orchestration.md
++++ b/references/orchestration.md
+@@ -4,6 +4,8 @@ One workflow, loaded by both entry points: the `hormozi-orchestrator` skill (mai
+ 
+ Original standalone skills in `<plugin_root>/skills/` stay the authority for methodology. Load a skill only when its task is selected. This file defines who decides, who writes, and in what order. It does not restate the frameworks.
+ 
++**Adaptive entry and resource discipline:** Before choosing A-E, apply `<plugin_root>/references/adaptive-routing.md`: beginner uncertainty starts with one useful question; precise requests use one standalone skill. Only full eligible offer workflows trigger the downstream CRO gate. Select the smallest sufficient dependency graph, load only actually selected methods, and reuse checkpoints with hash/version checks. A prompt-level economy rule is not a guaranteed runtime token cap; never relax commercial and independent-review holds to save tokens.
++
+ ## Authority
+ 
+ | Who | May | May not |
+@@ -13,6 +15,8 @@ Original standalone skills in `<plugin_root>/skills/` stay the authority for met
+ 
+ Decisions (price, currency, cadence, guarantee, eligibility, audience, scope) are root-only. A specialist proposing a change returns it as a proposal. An unauthorized state change holds that result. These are cooperative-agent contracts plus detection, not filesystem isolation.
+ 
++**Commercial hold identities for priced-offer runs:** Use the closed `OFFER_DECISIONS.fields` key table and approval/evidence rules in `<plugin_root>/references/commercial-feasibility.md`. When policy terms are unresolved, name **refund/cancellation terms unresolved** in `RUN_STATE.blockers`, CHECKPOINT and QA_REPORT. When delivery cost or financial feasibility is unverified, name **delivery costs and financial feasibility unverified** there. One compound blocker may carry both explicit identities. The ready-mode checker independently derives both identities from the structured fields even if a root-authored blocker is generic or the workflow is already HELD; it never repairs the records or treats a proposed price as approved. Focused standalone requests remain outside this controlled priced-offer floor.
++
+ ## Workspace and state
+ 
+ Plugin files are read-only. Two roots: `plugin_root` (from the host-provided skill/agent base path) holds packaged references, contracts, skills and `scripts/check_outputs.py`; `workspace_root` (the invocation project) holds everything written. Hashes are root's job: children have Read/Write/Glob only, so root hashes inputs before dispatch and inputs plus outputs after return, and compares. Run QA as `python <plugin_root>/scripts/check_outputs.py --workspace <workspace_root> --run <workspace_root>/output/runs/<run_id>`. All output goes to the **user's workspace**, never the plugin install cache. Use the invocation workspace's `output/`.
+@@ -47,6 +51,18 @@ Modes are exact strings, and `scripts/check_outputs.py` enforces the order below
+ | D Service business, scale | `sub-pricing` (`packaging_exploration`, only if needed) -> `sub-offer` (`revision`) -> optional `sub-value` (`revised_check`) -> `sub-pricing` (`final_feasibility`) -> reconciliation -> `sub-sales` | Existing delivery and cost snapshot. Final economics always run after the last scope change |
+ | E Custom / mixed | The smallest dependency graph for the gaps found | A focused request runs one skill with proportionate QA |
+ 
++### Automatic downstream CRO gate (new offer waterfall)
++
++For **every full multi-step offer run** (stage A, B, D, or a comparable stage E offer workflow), perform a root-owned **CRO readiness gate after the accepted offer/value/pricing and requested sales drafts, before the final SUMMARY and output checker**, **even if the owner did not ask for CRO by name**. Stage C includes the gate when a landing page or another digital conversion destination is in scope. A focused one-skill request remains focused.
++
++- Load the actual `<plugin_root>/skills/cro-page-optimizer/SKILL.md`, its `<plugin_root>/skills/cro-page-optimizer/references/CRO_FRAMEWORK.md`, and `<plugin_root>/references/cro-waterfall.md`. Do not infer CRO methodology from this paragraph.
++- At route initialization, assign `CRO_REVIEW.md` to `BRIEF.requested_artifacts` and the **root** `write_set`, not an imaginary `sub-cro` role. For a page with genuine source and behavior data run full CRO; for an offer without a page run conversion readiness; for offline offers run a minimal buyer-handoff review with page and SEO marked not applicable. Missing source means NOT ASSESSED, not invented evidence or a false pass.
++- Preserve task modes, role enums and existing schemas. Root writes `output/CRO_REVIEW.md`, records real hash, decision version, input provenance and any relevant QA findings, and carries its key decision into canonical `SUMMARY.md`. If publish-ready marketing wording appears in this artifact, classify it high-risk and apply the existing separate-context review floor.
++- A CRO fix may propose an upstream revision, but root must obtain any required commercial approval before revising accepted offers, terms, or claims. Re-run affected downstream dependencies and revalidate artifact hashes/reviews. Do not use a CRO result to clear review or business holds.
++- Explicit CRO-only requests select `cro-page-optimizer` directly. An individual request for five hooks does not trigger a whole offer waterfall.
++
++Use `<plugin_root>/scripts/cro_gate.py` as a read-only eligibility/depth helper when Python is available, with the actual brief stage and evidenced conversion surface; its `depth` is not a `RUN_STATE.tasks[].mode`. If unavailable, apply the documented routing table and name the fallback. See `<plugin_root>/references/cro-waterfall.md` for the precise eligibility matrix, stage examples and invariant tests. This gate is a **method and root QA step**, not a newly supported `RUN_STATE.tasks[].mode` or a tested autonomous specialist invocation.
++
+ Rules that follow:
+ 
+ - `OFFER_AUDIT.md` is the normal audit name. In B it is the compatibility view of the latest revised audit. The original and revised audits stay separately named and have disjoint write sets.
+diff --git a/scripts/check_outputs.py b/scripts/check_outputs.py
+index 87c4b3b..97f4430 100644
+--- a/scripts/check_outputs.py
++++ b/scripts/check_outputs.py
+@@ -164,7 +164,10 @@ def validate_run(run_dir: Path, workspace_root: Path, mode: str = "ready") -> li
+         if mode == "ready":
+             findings += _aggregate_review_blocker(state, findings)
+             findings += _check_business_validation_registration(brief, state)
++            findings += _commercial_hold_findings(brief, decisions, state, workspace)
+         findings += _check_summary(state, brief, workspace, mode)
++    elif mode == "ready":
++        findings += _commercial_hold_findings(brief, decisions, state, workspace)
+     return findings
+ 
+ 
+@@ -779,6 +782,103 @@ def _check_business_validation_registration(brief, state) -> list[Finding]:
+                     f"BRIEF.constraints declares {BUSINESS_VALIDATION_MARKER!r} but RUN_STATE.blockers lacks the identical blocker")]
+ 
+ 
++# Closed commercial key set for controlled priced-offer runs. Exact field identities are shared with
++# references/commercial-feasibility.md; arbitrary field names and copy wording cannot clear these holds.
++_POLICY_KEYS = {
++    "refunds": ("refunds", "refund_cancellation", "refund_policy"),
++    "cancellation": ("cancellation", "refund_cancellation", "cancellation_terms", "renewal/cancellation_terms"),
++}
++_DELIVERY_COST_KEYS = ("delivery_cost", "fulfillment_cost")
++_OTHER_COST_KEYS = (
++    "acquisition_cost", "CAC", "cac", "overhead", "overhead_allocation", "taxes", "refund_cost",
++    "refund_costs", "refund_cost_and_treatment", "refund_exposure", "guarantee_cost", "affiliate_commission",
++    "payment_fees", "support_cost/capacity",
++)
++
++
++def _priced_offer_scope(brief, state, workspace) -> bool:
++    """Use declared pricing work at any stage; focused standalone routes do not have this scope."""
++    wanted, _ = _path_key(workspace, "output/PRICING.md")
++    if brief and any(_path_key(workspace, _request_key(req))[0] == wanted
++                     for req in brief["requested_artifacts"]):
++        return True
++    if state:
++        if any(_path_key(workspace, art["path"])[0] == wanted for art in state["artifacts"]):
++            return True
++        if any(task["role"] == "sub-pricing" and task.get("mode") == "final_feasibility"
++               and task["status"] not in _NOT_RUN for task in state["tasks"]):
++            return True
++    return False
++
++
++def _commercial_value_present(value) -> bool:
++    if value is None or isinstance(value, bool):
++        return False
++    if isinstance(value, str):
++        return bool(value.strip())
++    if isinstance(value, (dict, list)):
++        return bool(value)
++    return True  # numeric zero is a known value, not an unknown/null placeholder
++
++
++def _commercial_field_issue(name, field, *, money=False, evidence=False, conclusion=False, policy=False) -> str | None:
++    if field is None:
++        return f"{name}=missing"
++    if field["status"] != "approved":
++        return f"{name}={field['status']}"
++    if not _commercial_value_present(field["value"]):
++        return f"{name}=empty"
++    if policy and not isinstance(field["value"], str):
++        return f"{name}=policy text missing"
++    if not isinstance(field.get("authorization_ref"), str) or not field["authorization_ref"].strip():
++        return f"{name}=authorization_ref missing"
++    if money and (field.get("kind") != "money" or not isinstance(field["value"], dict)
++                  or "amount_minor" not in field["value"]):
++        return f"{name}=approved money value missing"
++    if conclusion and not isinstance(field["value"], str):
++        return f"{name}=conclusion text missing"
++    if evidence and not any(isinstance(ref, str) and ref.strip() for ref in field.get("evidence", [])):
++        return f"{name}=evidence missing"
++    return None
++
++
++def _commercial_hold_findings(brief, decisions, state, workspace) -> list[Finding]:
++    """Derive two unresolved identities from structured decisions, regardless of AI blocker wording or phase."""
++    if not _priced_offer_scope(brief, state, workspace):
++        return []
++    fields = decisions["fields"] if decisions else {}
++    policy_issues = []
++    for identity, keys in _POLICY_KEYS.items():
++        present = [key for key in keys if key in fields]
++        if not present:
++            policy_issues.append(f"{identity}=missing")
++        else:
++            policy_issues += [issue for key in present
++                              if (issue := _commercial_field_issue(key, fields[key], policy=True))]
++    cost_issues = []
++    delivery = [key for key in _DELIVERY_COST_KEYS if key in fields]
++    if not delivery:
++        cost_issues.append("delivery_cost=missing")
++    else:
++        cost_issues += [issue for key in delivery
++                        if (issue := _commercial_field_issue(key, fields[key], money=True, evidence=True))]
++    for key, options in (("price", {"money": True}),
++                         ("financial_feasibility", {"conclusion": True, "evidence": True})):
++        issue = _commercial_field_issue(key, fields.get(key), **options)
++        if issue:
++            cost_issues.append(issue)
++    cost_issues += [issue for key in _OTHER_COST_KEYS if key in fields
++                    if (issue := _commercial_field_issue(key, fields[key]))]
++    out = []
++    if policy_issues:
++        out.append(Finding("COMMERCIAL_REFUND_CANCELLATION_UNRESOLVED", "error", "OFFER_DECISIONS.json",
++                           "refund/cancellation terms unresolved: " + "; ".join(policy_issues)))
++    if cost_issues:
++        out.append(Finding("COMMERCIAL_COST_FEASIBILITY_UNVERIFIED", "error", "OFFER_DECISIONS.json",
++                           "delivery costs and financial feasibility unverified: " + "; ".join(cost_issues)))
++    return out
++
++
+ # ------------------------------------------------------------------ repo checks
+ def _frontmatter(path: Path):
+     text = path.read_text(encoding="utf-8")
+diff --git a/scripts/cro_gate.py b/scripts/cro_gate.py
+new file mode 100644
+index 0000000..727799c
+--- /dev/null
++++ b/scripts/cro_gate.py
+@@ -0,0 +1,74 @@
++#!/usr/bin/env python3
++"""Deterministic, read-only planning helper for the root-owned CRO waterfall.
++
++This chooses *whether* and *at what depth* CRO belongs in an offer run.
++It does not create tasks, write state, infer business truth, or clear any hold.
++No schema, role, phase or task mode changes are required.
++"""
++from __future__ import annotations
++
++import argparse
++import json
++from dataclasses import asdict, dataclass
++
++STAGES = {"A", "B", "C", "D", "E"}
++SURFACES = {"live", "planned", "offline", "unknown"}
++
++
++@dataclass(frozen=True)
++class CroGate:
++    required: bool
++    depth: str
++    artifact: str | None
++    reason: str
++
++
++def choose_cro_gate(
++    stage: str,
++    surface: str = "unknown",
++    *,
++    focused: bool = False,
++    offer_workflow: bool = True,
++    digital_destination: bool = False,
++) -> CroGate:
++    """Return a routing recommendation; it is not a RUN_STATE task mode.
++
++    'surface' must be based on the user's actual brief, not guessed from source
++    keywords. An unknown surface gets a readiness preflight, not fake page QA.
++    """
++    if stage not in STAGES:
++        raise ValueError("stage must be one of A, B, C, D, E")
++    if surface not in SURFACES:
++        raise ValueError("surface must be live, planned, offline or unknown")
++    if focused:
++        return CroGate(False, "focused_skip", None, "A focused single-skill request does not trigger full CRO QA.")
++    eligible = stage in {"A", "B", "D"} or (stage == "E" and offer_workflow) or (stage == "C" and digital_destination)
++    if not eligible:
++        return CroGate(False, "not_applicable", None, "No full offer workflow or digital conversion destination in scope.")
++    if surface == "live":
++        return CroGate(True, "full_page", "output/CRO_REVIEW.md", "Review the existing page/funnel using actual supplied evidence.")
++    if surface == "planned" or surface == "unknown":
++        return CroGate(True, "readiness", "output/CRO_REVIEW.md", "Review offer-to-conversion readiness; page-specific claims are NOT ASSESSED.")
++    return CroGate(True, "buyer_handoff", "output/CRO_REVIEW.md", "Offline buyer handoff; website and SEO checks are NOT APPLICABLE.")
++
++
++def main(argv: list[str] | None = None) -> int:
++    parser = argparse.ArgumentParser(description="Plan the read-only downstream CRO gate for an offer workflow")
++    parser.add_argument("--stage", choices=sorted(STAGES), required=True)
++    parser.add_argument("--surface", choices=sorted(SURFACES), default="unknown")
++    parser.add_argument("--focused", action="store_true")
++    parser.add_argument("--no-offer-workflow", action="store_true", help="Stage E is not an offer workflow")
++    parser.add_argument("--digital-destination", action="store_true", help="Stage C includes a digital conversion destination")
++    args = parser.parse_args(argv)
++    gate = choose_cro_gate(
++        args.stage, args.surface,
++        focused=args.focused,
++        offer_workflow=not args.no_offer_workflow,
++        digital_destination=args.digital_destination,
++    )
++    print(json.dumps(asdict(gate), indent=2, sort_keys=True))
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+diff --git a/skills/cro-page-optimizer/SKILL.md b/skills/cro-page-optimizer/SKILL.md
+new file mode 100644
+index 0000000..e950a7a
+--- /dev/null
++++ b/skills/cro-page-optimizer/SKILL.md
+@@ -0,0 +1,69 @@
++---
++name: cro-page-optimizer
++description: Evidence-led conversion rate optimization and SEO-to-conversion review for websites, landing pages, forms, checkouts and offer-to-sales handoffs. Use for "improve my conversion rate", "audit this page", "review Clarity/analytics", "fix mobile drop-off", "plan an A/B test", "improve search-intent match" or "what should we fix first?". Also load as the default downstream CRO readiness gate in a multi-step Hormozi offer workflow even when CRO was not explicitly requested; audit an actual page only if one exists.
++---
++
++# CRO Page Optimizer
++
++## Purpose
++
++Find **the first real barrier to a qualified conversion**, not merely the first phrase to rewrite. This original, generalized skill borrows the six-gate approach of CEO Creative SEO + CRO while retaining the public Hormozi evidence and decision contracts. It is not an official PPC.io/Postclick skill. Do not include client-specific terms, brand designs, hidden analytics, or private customer data as universal facts.
++
++## Authority and inputs
++
++- Load `<plugin_root>/references/evidence-contract.md` and `<plugin_root>/skills/cro-page-optimizer/references/CRO_FRAMEWORK.md` before judging a page. In orchestrated runs also load `<plugin_root>/references/cro-waterfall.md`.
++- Preserve exact original copy, legal terms, CTA destinations, URLs, screenshots and page markup. Distinguish owner-approved terms from proposed improvements. Owner approval does not make a claim factually verified.
++- Accept whichever evidence actually exists: page URL or saved HTML, mobile/desktop screenshots, search query or traffic source, offer facts, heatmaps/Clarity summaries, funnel events, user recordings, conversion counts, and technical errors. Clearly note sources, dates, sample sizes and missing inputs; **never fabricate** buyer reactions, competitors, traffic, conversion uplifts, rankings, testimonials or screenshots.
++- Respect privacy and access permissions. Do not print private customer or behavioral event identifiers.
++
++## Scope decision
++
++1. **Existing conversion surface (page, form, checkout, campaign):** run a full evidence-led page and friction audit. Review mobile separately. Recommend specific fixes and any experiments.
++2. **Offer being built, no live page yet:** run a *conversion-readiness preflight* on the approved offer and proposed buyer path. Examine audience, outcome, CTA, claims, cost/timing, proof availability, checkout effort and planned measurement. Mark page-level observations `NOT ASSESSED`; do not invent drop-offs or pretend a page was rendered.
++3. **Offline/relationship-led offer without web conversion surface:** run a minimal handoff assessment, record `NOT APPLICABLE` for search/layout/form checks with reasons, and examine the next real buyer action. Do not impose a WordPress page or an A/B test.
++4. **Focused standalone request:** perform only requested CRO work. No forced full-run task ledger or unrelated SEO implementation.
++
++## Six gates (evaluate in order)
++
++1. **Intent and relevance:** search query/ad/email/social promise -> destination headline, offer, FAQ and primary action. Do not invent query volumes. If SEO matters, inspect one H1, canonical, headings, relevant internal linking and visible answers; do not force SEO checks for non-search traffic.
++2. **Value and offer accuracy:** WHAT, WHO, WHY, HOW above the fold; dream outcome, believable process, true time delay, effort/sacrifice, all material costs/eligibility/renewal/deposit/fulfilment conditions. No approval, funding, credit, savings, urgency or other outcome guarantees without evidence.
++3. **Three-second test and attention:** one visual scan path (headline -> buyer benefit -> primary action -> succinct proof/terms). Check actual 320px and 390px mobile when rendered. Treat two competing CTAs, oversized nav and redundant cards as testable distraction hypotheses, not proven causes.
++4. **Friction and behavior:** map observed Clarity/analytics actions and technical errors to stage, device, denominator and time window. Distinguish event counts from unique people and correlations from causes. Identify the earliest consequential barrier. Diagnose form validation, duplicate sign-in, field keyboard, slow submit, hidden CTA and state loss where evidence supports it.
++5. **Trust and objections:** separate verified proof from inferred buyer concern. Name what is still unknown, and place real terms and relevant proof where the decision occurs. Never invent review excerpts, ratings, logos, bureau claims or a no-risk guarantee.
++6. **Implementation/experiment readiness:** produce a minimal before/after recommendation with page region, precise copy/layout action, original elements to retain, technical dependencies, device QA and conversion measurement.
++
++## Prioritization: fix before test
++
++- **FIX FIRST** when an actual defect, broken path, misleading material fact, hidden required action, or incomplete feedback is confirmed. Repair for both experiment variants; establish a new baseline.
++- **TEST** when the design/copy change is a plausible but unproven behavioral hypothesis. Define control/challenger, invariant backend, primary user-level metric, guardrails, assignment rules, consent/analytics boundaries and stopping or sample-size plan.
++- **HOLD** if material legal/business facts, supporting evidence, live DOM, experiment separation, or accessibility cannot be established. A diagnostic may be useful while held; do not represent it as publication-ready.
++- Use the **highest-consequence** observed barrier, not a pile of low-impact micro-edits.
++
++## Deliverables
++
++For a page audit, return `CRO_REVIEW.md` (or the requested equivalent) with:
++
++1. **Evidence ledger:** source, observed/inferred/synthetic, time window, denominator, limitations.
++2. **Offer/intent and six-gate assessment:** PASS/PARTIAL/FAIL/NOT ASSESSED or NOT APPLICABLE, with rationale.
++3. **First barrier:** one primary problem and its evidence; up to three prioritized findings.
++4. **Exact fix:** current -> proposed copy/layout/interaction, protected parts, owner decisions and engineering notes.
++5. **Experiment:** only for unresolved hypotheses; control/B, what stays identical, primary metric, guardrails and sample plan.
++6. **QA/release:** mobile 320/390, tablet 768, desktop 1440 *when an actual render is possible*; overflow, keyboard focus, body text >=16px mobile, contrast, functional submit, accessibility, source facts and approval holds.
++7. **Downstream decision:** `FIX`, `TEST`, `READY FOR OWNER REVIEW`, `HELD` or `NOT APPLICABLE`, plus evidence gaps.
++
++For a no-page offer preflight, use the same report but label unobserved page evidence `NOT ASSESSED`, propose a realistic conversion path, and identify the first test/implementation dependency. Do not claim screenshot QA.
++
++When the owner requests implementation and actual source is available, provide a **separate** full working standalone HTML and a WordPress-compatible scoped variant if applicable; keep native theme header/footer and protected business logic untouched. Render and inspect 320, 390, 768, 1440px where tools permit. Do not substitute a demo for a live checkout. Never deploy, publish, send, or represent a conversion benefit as measured without a valid experiment.
++
++## Full-offer waterfall integration
++
++Follow `<plugin_root>/references/cro-waterfall.md`. For full multi-step offer runs, root performs the CRO readiness gate **after accepted offer/value/pricing and sales draft work, before final SUMMARY and checker**, even when CRO was not requested by name. The root owns `output/CRO_REVIEW.md`; do **not** introduce an unrecognized `sub-cro` task role, mode, new schema or phantom specialist execution.
++
++Recommendations may loop back to the appropriate upstream offer, value, pricing or sales task **through root-controlled reconciliation** only. Owner approval is required for changes to commercial terms. Re-evaluate changed downstream artifacts and their hashes/reviews; never use the CRO gate to clear an existing business or independent-review hold. New sales-ready copy in a CRO artifact requires applicable high-risk classification and genuine separate-context review.
++
++## Quality checks
++
++- Clearly distinguish repaired UX from CRO experiments and their measured effects.
++- Report `unknown` when data is missing; no qualitative heuristic score is a conversion metric.
++- Preserve real terms and the original source. No generic stylistic rewrite may silently replace owner-approved words.
++- `READY` from the structural checker is **not** commercial approval, independent review, or proof of conversion uplift.
+diff --git a/skills/cro-page-optimizer/agents/openai.yaml b/skills/cro-page-optimizer/agents/openai.yaml
+new file mode 100644
+index 0000000..0c80de7
+--- /dev/null
++++ b/skills/cro-page-optimizer/agents/openai.yaml
+@@ -0,0 +1,3 @@
++interface:
++  display_name: "CRO Page Optimizer"
++  short_description: "Evidence-led landing-page, SEO and checkout optimization"
+diff --git a/skills/cro-page-optimizer/references/CRO_FRAMEWORK.md b/skills/cro-page-optimizer/references/CRO_FRAMEWORK.md
+new file mode 100644
+index 0000000..f651f92
+--- /dev/null
++++ b/skills/cro-page-optimizer/references/CRO_FRAMEWORK.md
+@@ -0,0 +1,63 @@
++# CRO Page Optimizer: public six-gate review framework
++
++This is a generalized original framework informed by CRO practice and the Hormozi Value Equation. It is not a copy of proprietary competitor tools, client-specific SEO/CRO data or CEO Creative commercial terms.
++
++## Classification before analysis
++
++| Label | Meaning |
++|---|---|
++| OBSERVED | Verbatim screenshot/source/code/analytics behavior actually supplied or seen |
++| SOURCED | Independently verified external fact with URL and date |
++| INFERRED | Reasoned interpretation of observed evidence, not a measured effect |
++| SYNTHETIC | Illustrative scenario that must never be attributed to real buyers |
++| UNKNOWN | Missing/insufficient evidence; do not substitute zero |
++| NOT ASSESSED | Relevant, but cannot be reviewed without the source/page/tool |
++| NOT APPLICABLE | The conversion surface or channel genuinely lacks that feature |
++
++Source classification and publication status are **separate**: see `<plugin_root>/references/evidence-contract.md`. A factual claim can only be `verified` or `qualified` if properly supported and within its original limits.
++
++## Gate 1: intent, context, and search
++
++Identify channel and user objective before touching headlines. For organic, use supplied Search Console queries rather than guessing; test whether H1/title/intro/FAQ match task intent. Preserve canonical URL and existing structured metadata. For paid email/social, match the originating promise and destination. Flag intent collisions and redundant CTAs. A CRO audit without SEO intent is fine when organic search is irrelevant.
++
++## Gate 2: offer / value equation / commercial clarity
++
++Ask WHAT, WHO, WHY, HOW as a stranger's three-second test. Value Equation: (desired outcome × perceived likelihood) / (time delay × effort/sacrifice). Treat it as a qualitative decision framework, not a numerical performance estimator. Audit membership, renewal, cancellation, eligibility, deposits, due dates, guarantees, relevant costs, next action and fulfilment delays using official source and owner approval. Don't collapse a complex term into a misleading "free" or "risk-free".
++
++## Gate 3: visual attention and first screen
++
++One primary route: title -> buyer benefit -> clear next step -> compact trust/terms. Review rendered 320px, 390px, 768px and 1440px where actual screenshots can be obtained; note what was not rendered. Aim for body >=16px on phones; keyboard/focus accessible, no horizontal overflow, readable dark/light contrast, credible proof at decision points. Do not assume earlier field visibility equals a lift.
++
++## Gate 4: actual journey friction
++
++Map events to page stage and device:
++- denominators: exposed visitors vs sessions vs clicks vs unique applicants;
++- early friction: navigation backtracking, forced sign-in, field confusion, form errors and duplicate actions;
++- technical failures: submission delays, frozen CTA, errors, lost state, redirects, unresponsive keyboard, mobile form width;
++- confounds: release changes, concurrent A/B variants, member vs new visitor, staff/bot traffic.
++
++Do **not** say a Clarity click implies frustration, or that a heatmap proves causes. Resolve actual defects as baseline repairs, not as a treatment-only A/B change. No sensitive identifiers in analytics.
++
++## Gate 5: proof and objections
++
++Show real proof only with a verified source and right scope. Approval status, accreditation, publication claims and customer ratings are different kinds of evidence. Don't convert ratings into outcome promises; avoid invented endorsements, artificial urgency or buyer quotes. List missing proof as an evidence gap.
++
++## Gate 6: change design and measurement
++
++Every proposed change must have:
++- **Before:** existing screenshot/selector/copy, if available.
++- **After:** exact proposed change and unchanged protected text/logic.
++- **Class:** repair, test, hold or not applicable.
++- **Causal hypothesis:** why it may help, explicitly unproven.
++- **Measure:** one unit-level primary metric (e.g. valid applications / assigned visitor) plus quality guardrails (e.g. paid customer outcomes and errors), segmentation and exclusion rules.
++- **QA:** responsive, functional, accessibility, actual backend handoff, experiment isolation, regressions and publisher signoff.
++
++For A/B proposals, the control and challenger must share the repaired baseline. Do not claim statistical confidence without assigned-user counts and suitable inference. Carry forward evidence limitations and existing holds.
++
++## First barrier prioritization
++
++Rank by (a) verified severity of functional failure, (b) whether it blocks the main action, (c) evidence quality, (d) reach among exposed users, and (e) remediation cost/risk. Do not use fake quantitative scores or invented impact estimates. Give one primary fix and at most three prioritized actions unless user requests exhaustive QA.
++
++## Output style
++
++Use clear headings and a concise evidence table. State if analysis is a *page audit*, *offer readiness* or *offline handoff*. Include source/observation date and commercial approval status. Never convert generic client values into new hardcoded pricing or brand requirements.
+diff --git a/skills/hormozi-orchestrator/SKILL.md b/skills/hormozi-orchestrator/SKILL.md
+index af84cba..2dde4c9 100644
+--- a/skills/hormozi-orchestrator/SKILL.md
++++ b/skills/hormozi-orchestrator/SKILL.md
+@@ -1,6 +1,6 @@
+ ---
+ name: hormozi-orchestrator
+-description: Main-conversation entry for building, auditing or fixing an offer end to end. Interviews the owner once, routes to the right specialist work (stages A-E), keeps every commercial decision with the owner chat, and checks the outputs. Use for "build my offer", "my offer isn't converting", "write sales assets for my approved offer", "help me scale my service", or any mixed request. For a single focused task (hooks, pricing, pitch), use that skill directly.
++description: Main-conversation offer guide and selective orchestrator. Use when someone has a business idea, says 'I don't know where to start', asks 'help me build my offer', wants to improve a weak offer, requests a complete sales system, or needs a mixed multi-step offer workflow. Ask only one necessary question at a time; route stages A-E, apply downstream CRO in eligible full runs, and preserve owner decisions and review holds. Focused hooks, pricing, pitch, and CRO requests should run only the matching standalone skill, not the entire waterfall.
+ ---
+ 
+ # Hormozi Orchestrator
+@@ -15,8 +15,8 @@ You are the owner's one chat. Stay in this conversation. Do not fork a context,
+ 
+ ## Do this
+ 
+-1. Read `<plugin_root>/references/orchestration.md` once. It defines authority, state, task contracts and the A-E routes.
+-2. Classify the request:
++1. Read `<plugin_root>/references/orchestration.md` once. It defines authority, state, task contracts and the A-E routes. Load `<plugin_root>/references/adaptive-routing.md` to choose beginner-guided or expert-focused scope. Do not preload every skill or specialist.
++2. Classify the request, using the **smallest useful route**. If the user is unsure, show one-line direction and ask **one highest-value question**, not a form. An exact deliverable uses its standalone method, never a full unrequested pipeline:
+    - **Focused** (one deliverable, such as five hooks or a pricing check): load only that skill from `<plugin_root>/skills/`, do the task, and stop. No run folder, no full output suite.
+    - **Multi-step**: interview the owner only for missing facts, pick stage A-E, and write `output/runs/<run_id>/BRIEF.json` (schemas in `<plugin_root>/contracts/`).
+ 3. Load a standalone skill only when its task is selected, and load it for real: invoke it or Read its `SKILL.md` body and the references it requires before drafting that task. Skill bodies stay authoritative for method; do not infer a method from schemas, checker source or role summaries. This skill does not restate them.
+@@ -27,6 +27,10 @@ You are the owner's one chat. Stay in this conversation. Do not fork a context,
+ 
+ 8. Persist the initial `RUN_STATE.json` and `output/CHECKPOINT.md` before the first delegation and update both after each accepted task. If interrupted, resume from that checkpoint in this same conversation. For a full run (stage A, B or D, two or more specialist tasks, several requested deliverables, or an explicit request), include `SUMMARY.md` in the requested artifacts and the root write set and write `output/SUMMARY.md` with the level-two sections Offer, Key Decisions, Best Hook (the chosen hook text itself, not a path) and Next Actions (exactly three prioritized actions numbered 1, 2, 3); the checker holds a missing or malformed one. Finish with a final owner response in chat that contains the substantive compact draft result (offer in plain words, Value Equation reasoning, decisions, honest unknowns and holds, validation next steps), not only file paths. Holds never suppress the provisional result. Sales outputs, the canonical PITCH/HOOKS/LANDING_PAGE files and any `high_risk` artifact need a separate-context review: mark them `high_risk: true`, and while one is missing keep the blocker `[review] Independent review remains required.`, phase `HELD`, and the same obligations in CHECKPOINT and QA_REPORT (see "Independent-review floor"). If the known fictional-fixture / no-real-validation limitation applies, declare `Fictional fixture; real business validation absent` in `BRIEF.constraints` during intake and register the identical `RUN_STATE.blockers` entry plus CHECKPOINT and QA_REPORT notes (see "Declared business limitation"). Do not read the checker's source during normal authoring: use the schemas and the reference, then run the checker. Details: `<plugin_root>/references/orchestration.md`, "Checkpoint, resume and the final owner response".
+ 
++## Default downstream CRO in offer workflows
++
++For every multi-step stage A/B/D or offer-related multi-step E run, **load and apply** `<plugin_root>/skills/cro-page-optimizer/SKILL.md` and the two required CRO references as a root-owned gate **after accepted offer/pricing and requested sales drafts, before SUMMARY and checker**. This happens even when the owner never names CRO. For stage C apply it when a digital conversion destination is in scope. Record `CRO_REVIEW.md` in the root write set and manifest, not as a new unsupported specialist role/mode. For new offers without a website perform a conversion-readiness preflight; for offline offers record a minimal handoff with page checks NOT APPLICABLE. Use the read-only `<plugin_root>/scripts/cro_gate.py` helper to determine eligible stage and depth when Python is available; if not, follow the routing table and name the limitation. See `<plugin_root>/references/cro-waterfall.md` for application, feedback and versioning; do not fabricate live page observations. Respect the existing independent-review floor, business holds and commercial owner approval. Single focused skill tasks remain focused.
++
+ ## Manual invocation
+ 
+ If the host does not discover this skill automatically (for example Codex), the owner may invoke it manually by the absolute path to this `SKILL.md`; read it and follow it. Do not claim automatic activation, automatic roles, or model/effort switches the runtime did not show.
+diff --git a/tests/helpers.py b/tests/helpers.py
+index c0bb47c..ba36a29 100644
+--- a/tests/helpers.py
++++ b/tests/helpers.py
+@@ -36,6 +36,28 @@ def read_json(path: Path):
+     return json.loads(path.read_text(encoding="utf-8"))
+ 
+ 
++def complete_commercial_fields(run_dir: Path) -> None:
++    """Make a synthetic full-pricing test run structurally complete without changing the base focused fixture."""
++    decisions = read_json(run_dir / "OFFER_DECISIONS.json")
++    fields = decisions["fields"]
++    common = {"status": "approved", "owner": "owner", "updated": "2026-11-03T00:00:00Z",
++              "authorization_ref": "chat:synthetic-owner-approval"}
++    fields["refunds"] = dict(common, kind="text", value="Synthetic approved refund policy")
++    fields["cancellation"] = dict(common, kind="text", value="Synthetic approved cancellation policy")
++    fields["delivery_cost"] = dict(common, kind="money", value={"amount_minor": 100000, "currency": "USD", "cadence": "one_time"},
++                                   evidence=["input/offer.md"])
++    fields["financial_feasibility"] = dict(common, kind="text", value="Synthetic scoped contribution reviewed",
++                                           evidence=["input/offer.md"])
++    fields["cac"] = dict(common, kind="money", value={"amount_minor": 1000, "currency": "USD", "cadence": "one_time"})
++    write_json(run_dir / "OFFER_DECISIONS.json", decisions)
++    state = read_json(run_dir / "RUN_STATE.json")
++    state["decision_hash"] = check_outputs.canonical_hash(run_dir / "OFFER_DECISIONS.json")
++    write_json(run_dir / "RUN_STATE.json", state)
++    brief = read_json(run_dir / "BRIEF.json")
++    brief["unknowns"] = [u for u in brief["unknowns"] if u != "CAC"]
++    write_json(run_dir / "BRIEF.json", brief)
++
++
+ def build_run(workspace: Path, body: str = PITCH_BODY):
+     """Return (run_dir, workspace) for a valid ready run."""
+     out = workspace / "output"
+@@ -114,9 +136,9 @@ def refresh_artifact_hash(run_dir: Path, workspace: Path, *, review=True):
+ VALID_SUMMARY = (
+     "# Owner Summary\n\n"
+     "## Offer\n\nA done-with-you pitch program for coaches, priced as approved.\n\n"
+-    "## Key Decisions\n\n- Price approved by the owner.\n- CAC is unknown and held until measured.\n\n"
++    "## Key Decisions\n\n- Price approved by the owner.\n- Seller economics in this synthetic fixture are structurally recorded.\n\n"
+     "## Best Hook\n\n> Stop guessing what to say to your first client.\n\n"
+-    "## Next Actions\n\n1. Confirm the approved price with the owner.\n2. Measure CAC on the first ten leads.\n"
++    "## Next Actions\n\n1. Confirm the approved price with the owner.\n2. Verify costs against real records before use.\n"
+     "3. Send the pitch to the first five prospects.\n"
+ )
+ 
+diff --git a/tests/test_adaptive_routing.py b/tests/test_adaptive_routing.py
+new file mode 100644
+index 0000000..c9bd289
+--- /dev/null
++++ b/tests/test_adaptive_routing.py
+@@ -0,0 +1,74 @@
++"""Routing and onboarding contract tests.
++
++These are documentation and deterministic routing checks, not native auto-activation
++or model-usage measurements. Run as part of the existing repository unittest suite.
++"""
++import unittest
++from pathlib import Path
++import sys
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT / "scripts"))
++from cro_gate import choose_cro_gate  # noqa: E402
++
++
++class AdaptiveRouteTests(unittest.TestCase):
++    def read(self, path):
++        return (ROOT / path).read_text(encoding="utf-8")
++
++    def test_beginner_and_expert_examples_are_visible(self):
++        readme = self.read("README.md")
++        guide = self.read("docs/START_HERE.md")
++        for txt in (readme, guide):
++            self.assertIn("business idea", txt)
++            self.assertIn("five hooks", txt)
++        self.assertIn("choose-your-path.svg", readme)
++        self.assertTrue((ROOT / "assets/readme/choose-your-path.svg").is_file())
++        self.assertIn("not guaranteed", readme)
++
++    def test_both_entrypoints_require_adaptive_routing(self):
++        for path in ("skills/hormozi-orchestrator/SKILL.md", "agents/hormozi-orchestrator.md"):
++            with self.subTest(path=path):
++                txt = self.read(path)
++                self.assertIn("<plugin_root>/references/adaptive-routing.md", txt)
++                self.assertIn("one", txt.lower())
++                self.assertIn("cro", txt.lower())
++
++    def test_shared_workflow_explicitly_keeps_selective_graph(self):
++        txt = self.read("references/orchestration.md")
++        guidance = self.read("references/adaptive-routing.md")
++        self.assertIn("<plugin_root>/references/adaptive-routing.md", txt)
++        self.assertIn("smallest", txt.lower())
++        self.assertIn("QUICK", guidance)
++        self.assertIn("GUIDED", guidance)
++        self.assertIn("DEEP", guidance)
++        self.assertIn("instruction-level", guidance.lower())
++
++    def test_single_task_does_not_become_a_full_run(self):
++        for stage in ("A", "B", "C", "D", "E"):
++            with self.subTest(stage=stage):
++                result = choose_cro_gate(stage, surface="live", focused=True, digital_destination=True)
++                self.assertFalse(result.required)
++                self.assertIsNone(result.artifact)
++
++    def test_multi_step_full_offer_still_has_downstream_cro(self):
++        for stage in ("A", "B", "D", "E"):
++            with self.subTest(stage=stage):
++                self.assertTrue(choose_cro_gate(stage).required)
++        self.assertTrue(choose_cro_gate("C", digital_destination=True).required)
++
++    def test_no_unsafe_token_cost_promise(self):
++        guide = self.read("references/adaptive-routing.md")
++        self.assertIn("not enforceable API token limits", guide)
++        self.assertIn("unknown", guide)
++        self.assertIn("Do not drop evidence checks", guide)
++
++    def test_no_unproven_offer_alias_claim(self):
++        guide = self.read("docs/START_HERE.md")
++        self.assertIn("proposal", guide.lower())
++        self.assertIn("/offer", guide)
++        self.assertIn("not guaranteed", guide.lower())
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/tests/test_commercial_hold_floor.py b/tests/test_commercial_hold_floor.py
+new file mode 100644
+index 0000000..5e5e35a
+--- /dev/null
++++ b/tests/test_commercial_hold_floor.py
+@@ -0,0 +1,213 @@
++"""Structured commercial identities survive generic AI blockers in controlled priced-offer runs."""
++
++import shutil
++import tempfile
++import unittest
++from pathlib import Path
++
++from helpers import build_run, read_json, sha, write_json
++import check_outputs as co
++
++
++POLICY = "COMMERCIAL_REFUND_CANCELLATION_UNRESOLVED"
++COST = "COMMERCIAL_COST_FEASIBILITY_UNVERIFIED"
++
++
++def field(value, status="approved", *, kind=None, authorization_ref="owner:terms-1", evidence=None):
++    record = {"value": value, "status": status, "owner": "root", "updated": "2026-11-06T00:00:00Z"}
++    if kind:
++        record["kind"] = kind
++    if authorization_ref is not None:
++        record["authorization_ref"] = authorization_ref
++    if evidence is not None:
++        record["evidence"] = evidence
++    return record
++
++
++def money(amount=10000):
++    return {"amount_minor": amount, "currency": "USD", "cadence": "monthly"}
++
++
++class CommercialCase(unittest.TestCase):
++    def setUp(self):
++        self.tmp = Path(tempfile.mkdtemp())
++        self.addCleanup(shutil.rmtree, self.tmp, ignore_errors=True)
++        self.run_dir, self.ws = build_run(self.tmp)
++        self.brief = read_json(self.run_dir / "BRIEF.json")
++        self.decisions = read_json(self.run_dir / "OFFER_DECISIONS.json")
++        self.state = read_json(self.run_dir / "RUN_STATE.json")
++
++    def priced(self, stage="E"):
++        self.brief["stage"] = stage
++        self.brief["requested_artifacts"].append("PRICING.md")
++
++    def unknowns(self):
++        fields = self.decisions["fields"]
++        fields["refunds"] = field(None, "unknown", authorization_ref=None)
++        fields["cancellation"] = field(None, "unknown", authorization_ref=None)
++        fields["delivery_cost"] = field(None, "unknown", kind="money", authorization_ref=None)
++        fields["financial_feasibility"] = field(None, "unknown", authorization_ref=None)
++        fields["price_anchor"] = field("$249/month planning anchor", "proposed", authorization_ref=None)
++        fields.pop("price")
++
++    def approved(self):
++        fields = self.decisions["fields"]
++        fields["refunds"] = field("Refund terms approved")
++        fields["cancellation"] = field("Cancellation terms approved")
++        fields["delivery_cost"] = field(money(0), kind="money", evidence=["input/offer.md"])
++        fields["financial_feasibility"] = field("Scoped contribution reviewed", evidence=["input/offer.md"])
++        fields["price"] = field(money(24900), kind="money")
++        fields["cac"] = field(money(1000), kind="money")
++
++    def validate(self, mode="ready"):
++        write_json(self.run_dir / "BRIEF.json", self.brief)
++        write_json(self.run_dir / "OFFER_DECISIONS.json", self.decisions)
++        self.state["decision_hash"] = co.canonical_hash(self.run_dir / "OFFER_DECISIONS.json")
++        write_json(self.run_dir / "RUN_STATE.json", self.state)
++        return co.validate_run(self.run_dir, self.ws, mode)
++
++    @staticmethod
++    def commercial(findings):
++        return {f.code: f.reason for f in findings if f.code in (POLICY, COST)}
++
++    def snapshot(self):
++        return {p.relative_to(self.tmp).as_posix(): sha(p.read_bytes())
++                for p in self.tmp.rglob("*") if p.is_file()}
++
++
++class TestCommercialHoldFloor(CommercialCase):
++    def test_generic_blocker_and_held_phase_cannot_hide_two_identities(self):
++        self.priced()
++        self.unknowns()
++        self.state["phase"] = "HELD"
++        self.state["blockers"] = ["Commercial terms and financial feasibility require owner approval and evidence"]
++        found = self.commercial(self.validate())
++        self.assertEqual(set(found), {POLICY, COST})
++        self.assertIn("refund/cancellation terms unresolved", found[POLICY])
++        self.assertIn("refunds=unknown", found[POLICY])
++        self.assertIn("cancellation=unknown", found[POLICY])
++        self.assertIn("delivery costs and financial feasibility unverified", found[COST])
++        self.assertIn("delivery_cost=unknown", found[COST])
++        self.assertIn("price=missing", found[COST])
++
++    def test_missing_fields_fail_closed_and_draft_mode_does_not_add_floor(self):
++        self.priced(stage="A")
++        found = self.commercial(self.validate())
++        self.assertEqual(set(found), {POLICY, COST})
++        self.assertIn("refunds=missing", found[POLICY])
++        self.assertIn("cancellation=missing", found[POLICY])
++        self.assertIn("delivery_cost=missing", found[COST])
++        self.assertIn("financial_feasibility=missing", found[COST])
++        self.assertEqual(self.commercial(self.validate("draft")), {})
++
++    def test_legacy_combined_policy_is_all_of_with_canonical_sources(self):
++        self.priced(stage="B")
++        self.approved()
++        self.decisions["fields"]["refund_cancellation"] = field(None, "held", authorization_ref=None)
++        found = self.commercial(self.validate())
++        self.assertIn(POLICY, found)
++        self.assertIn("refund_cancellation=held", found[POLICY])
++        self.decisions["fields"]["refund_cancellation"] = field("Combined policy approved")
++        self.assertNotIn(POLICY, self.commercial(self.validate()))
++
++    def test_approved_terms_and_evidence_backed_costs_clear_only_new_floor(self):
++        self.priced(stage="A")
++        self.approved()
++        self.decisions["fields"]["CAC"] = field(money(0), kind="money")
++        self.assertEqual(self.commercial(self.validate()), {})
++
++    def test_zero_is_structured_money_but_unknown_is_null(self):
++        self.priced()
++        self.approved()
++        self.assertNotIn(COST, self.commercial(self.validate()))
++        self.decisions["fields"]["delivery_cost"] = field(None, "unknown", kind="money", authorization_ref=None)
++        self.assertIn("delivery_cost=unknown", self.commercial(self.validate())[COST])
++
++    def test_proposed_terms_or_missing_authorization_do_not_clear(self):
++        self.priced()
++        self.approved()
++        self.decisions["fields"]["refunds"] = field("Proposed refund", "proposed", authorization_ref=None)
++        self.decisions["fields"]["cancellation"]["authorization_ref"] = ""
++        found = self.commercial(self.validate())
++        self.assertIn("refunds=proposed", found[POLICY])
++        self.assertIn("cancellation=authorization_ref missing", found[POLICY])
++
++    def test_missing_cost_evidence_or_unapproved_declared_cost_holds(self):
++        self.priced()
++        self.approved()
++        self.decisions["fields"]["delivery_cost"].pop("evidence")
++        self.decisions["fields"]["support_cost/capacity"] = field(None, "unknown", authorization_ref=None)
++        found = self.commercial(self.validate())
++        self.assertIn("delivery_cost=evidence missing", found[COST])
++        self.assertIn("support_cost/capacity=unknown", found[COST])
++
++    def test_focused_run_without_pricing_scope_is_lightweight(self):
++        self.unknowns()
++        self.brief["stage"] = "E"
++        self.brief["task"] = "five hooks only"
++        self.assertEqual(self.commercial(self.validate()), {})
++
++    def test_pricing_task_triggers_at_any_stage_without_requested_file(self):
++        self.unknowns()
++        self.brief["stage"] = "E"
++        self.state["tasks"].append({"id": "pricing", "role": "sub-pricing", "mode": "final_feasibility",
++                                    "status": "done", "depends_on": [], "inputs": [], "write_set": []})
++        self.assertEqual(set(self.commercial(self.validate())), {POLICY, COST})
++        self.state["tasks"][-1]["status"] = "not_applicable"
++        self.assertEqual(self.commercial(self.validate()), {})
++
++    def test_pricing_manifest_path_triggers_without_request_or_task(self):
++        self.unknowns()
++        art = dict(self.state["artifacts"][0], path="output/PRICING.md")
++        self.state["artifacts"].append(art)
++        self.assertEqual(set(self.commercial(self.validate())), {POLICY, COST})
++
++    def test_equivalent_pricing_request_spellings_trigger(self):
++        self.unknowns()
++        for spelling in ("PRICING.md", "output/PRICING.md", ".\\output\\PRICING.md"):
++            with self.subTest(spelling=spelling):
++                self.brief["requested_artifacts"] = ["PITCH.md", spelling]
++                self.assertEqual(set(self.commercial(self.validate())), {POLICY, COST})
++
++    def test_missing_decisions_or_invalid_state_still_hold_without_traceback(self):
++        self.priced()
++        self.validate()
++        (self.run_dir / "OFFER_DECISIONS.json").unlink()
++        found = co.validate_run(self.run_dir, self.ws, "ready")
++        self.assertIn("CONTROL_FILE_MISSING", {f.code for f in found})
++        self.assertEqual(set(self.commercial(found)), {POLICY, COST})
++        write_json(self.run_dir / "OFFER_DECISIONS.json", self.decisions)
++        bad_state = read_json(self.run_dir / "RUN_STATE.json")
++        bad_state.pop("phase")
++        write_json(self.run_dir / "RUN_STATE.json", bad_state)
++        found = co.validate_run(self.run_dir, self.ws, "ready")
++        self.assertIn("SCHEMA_INVALID", {f.code for f in found})
++        self.assertEqual(set(self.commercial(found)), {POLICY, COST})
++
++    def test_numeric_policy_and_superseded_alias_cannot_clear(self):
++        self.priced()
++        self.approved()
++        self.decisions["fields"]["refunds"]["value"] = 0
++        self.assertIn("refunds=policy text missing", self.commercial(self.validate())[POLICY])
++        self.decisions["fields"]["refunds"]["value"] = "Refund policy approved"
++        self.decisions["fields"]["refund_policy"] = field("Old policy", "superseded")
++        self.assertIn("refund_policy=superseded", self.commercial(self.validate())[POLICY])
++
++    def test_fulfillment_cost_alias_must_resolve_with_delivery_cost(self):
++        self.priced()
++        self.approved()
++        self.decisions["fields"]["fulfillment_cost"] = field(None, "unknown", kind="money",
++                                                            authorization_ref=None)
++        self.assertIn("fulfillment_cost=unknown", self.commercial(self.validate())[COST])
++
++    def test_checker_is_read_only(self):
++        self.priced()
++        self.unknowns()
++        self.validate()
++        before = self.snapshot()
++        co.validate_run(self.run_dir, self.ws, "ready")
++        self.assertEqual(before, self.snapshot())
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/tests/test_cro_waterfall.py b/tests/test_cro_waterfall.py
+new file mode 100644
+index 0000000..0a7a119
+--- /dev/null
++++ b/tests/test_cro_waterfall.py
+@@ -0,0 +1,123 @@
++"""Contract tests for the additive downstream CRO gate.
++
++Run: python -m unittest discover -s tests -p 'test_cro_waterfall.py'
++No network, no model calls and no output file writes.
++"""
++from __future__ import annotations
++
++import json
++import subprocess
++import sys
++import unittest
++from pathlib import Path
++
++ROOT = Path(__file__).resolve().parents[1]
++sys.path.insert(0, str(ROOT / "scripts"))
++from cro_gate import choose_cro_gate  # noqa: E402
++
++
++class GateDecisionTests(unittest.TestCase):
++    def test_full_offer_stages_are_eligible_without_explicit_cro(self):
++        for stage in ("A", "B", "D"):
++            with self.subTest(stage=stage):
++                gate = choose_cro_gate(stage)
++                self.assertTrue(gate.required)
++                self.assertEqual(gate.depth, "readiness")
++                self.assertEqual(gate.artifact, "output/CRO_REVIEW.md")
++
++    def test_live_page_is_full_audit(self):
++        result = choose_cro_gate("B", surface="live")
++        self.assertTrue(result.required)
++        self.assertEqual(result.depth, "full_page")
++
++    def test_planned_page_is_readiness_not_fake_qa(self):
++        result = choose_cro_gate("A", surface="planned")
++        self.assertEqual(result.depth, "readiness")
++        self.assertIn("NOT ASSESSED", result.reason)
++
++    def test_offline_offer_still_gets_minimal_handoff(self):
++        result = choose_cro_gate("D", surface="offline")
++        self.assertTrue(result.required)
++        self.assertEqual(result.depth, "buyer_handoff")
++        self.assertIn("NOT APPLICABLE", result.reason)
++
++    def test_stage_c_is_conditional_on_digital_conversion(self):
++        no_page = choose_cro_gate("C")
++        has_page = choose_cro_gate("C", digital_destination=True)
++        self.assertFalse(no_page.required)
++        self.assertTrue(has_page.required)
++        self.assertEqual(has_page.depth, "readiness")
++
++    def test_stage_e_offer_workflow_vs_unrelated_custom_task(self):
++        self.assertTrue(choose_cro_gate("E", offer_workflow=True).required)
++        self.assertFalse(choose_cro_gate("E", offer_workflow=False).required)
++
++    def test_focused_task_never_forces_full_pipeline(self):
++        for stage in ("A", "B", "C", "D", "E"):
++            with self.subTest(stage=stage):
++                result = choose_cro_gate(stage, surface="live", focused=True, digital_destination=True)
++                self.assertFalse(result.required)
++                self.assertIsNone(result.artifact)
++
++    def test_unknown_surface_does_not_pretend_live_page(self):
++        result = choose_cro_gate("A", surface="unknown")
++        self.assertEqual(result.depth, "readiness")
++        self.assertNotEqual(result.depth, "full_page")
++
++    def test_invalid_stage_and_surface_fail_closed(self):
++        for args in (("F", "live"), ("B", "pretend")):
++            with self.subTest(args=args):
++                with self.assertRaises(ValueError):
++                    choose_cro_gate(args[0], surface=args[1])
++
++    def test_cli_stdout_is_read_only_json(self):
++        completed = subprocess.run(
++            [sys.executable, str(ROOT / "scripts" / "cro_gate.py"), "--stage", "C", "--surface", "live", "--digital-destination"],
++            capture_output=True, text=True, check=True,
++        )
++        obj = json.loads(completed.stdout)
++        self.assertTrue(obj["required"])
++        self.assertEqual(obj["depth"], "full_page")
++        self.assertEqual(obj["artifact"], "output/CRO_REVIEW.md")
++
++
++class RepositoryContractTests(unittest.TestCase):
++    def _read(self, path):
++        return (ROOT / path).read_text(encoding="utf-8")
++
++    def test_skill_is_installed_and_has_frontmatter(self):
++        skill = self._read("skills/cro-page-optimizer/SKILL.md")
++        self.assertTrue(skill.startswith("---\nname: cro-page-optimizer\ndescription:"))
++        self.assertIn("default downstream", skill.lower())
++        self.assertIn("NOT ASSESSED", skill)
++        self.assertTrue((ROOT / "skills/cro-page-optimizer/agents/openai.yaml").is_file())
++        self.assertTrue((ROOT / "skills/cro-page-optimizer/references/CRO_FRAMEWORK.md").is_file())
++
++    def test_both_orchestrator_entrypoints_load_cro_method(self):
++        for path in ("skills/hormozi-orchestrator/SKILL.md", "agents/hormozi-orchestrator.md"):
++            with self.subTest(path=path):
++                contents = self._read(path)
++                self.assertIn("cro-page-optimizer/SKILL.md", contents)
++                self.assertIn("CRO_REVIEW.md", contents)
++
++    def test_shared_waterfall_keeps_existing_review_contract(self):
++        doc = self._read("references/orchestration.md")
++        waterfall = self._read("references/cro-waterfall.md")
++        self.assertIn("Independent-review floor", doc)
++        self.assertIn("Fictional fixture; real business validation absent", doc)
++        self.assertIn("CRO_REVIEW.md", doc)
++        self.assertIn("sub-cro", doc)
++        self.assertIn("not a newly supported", doc)
++        self.assertIn("first-completion seven-hold", waterfall.lower())
++        self.assertIn("root", waterfall.lower())
++
++    def test_readme_has_skill_and_visible_waterfall_art(self):
++        readme = self._read("README.md")
++        self.assertIn("cro-page-optimizer", readme)
++        self.assertIn("cro-waterfall.svg", readme)
++        self.assertIn("do **not** need to say", readme)
++        self.assertTrue((ROOT / "assets/readme/cro-waterfall.svg").is_file())
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/tests/test_review_regressions.py b/tests/test_review_regressions.py
+index 0cca200..67260f3 100644
+--- a/tests/test_review_regressions.py
++++ b/tests/test_review_regressions.py
+@@ -87,6 +87,14 @@ class FiveAssetCase(unittest.TestCase):
+         prop_price = {"amount_minor": FIX["proposals"]["price"]["amount_minor"], "currency": "USD", "cadence": "one_time"}
+         decisions = {"schema_version": 1, "offer_id": "offer1", "version": 3, "parent_hash": None, "fields": {
+             "price": field("money", {k: T["price"][k] for k in ("amount_minor", "currency", "cadence")}, T["price"]["display"]),
++            "refunds": field("text", "Synthetic approved refund policy", "Synthetic approved refund policy"),
++            "cancellation": field("text", "Synthetic approved cancellation policy", "Synthetic approved cancellation policy"),
++            "delivery_cost": field("money", {"amount_minor": 100000, "currency": "USD", "cadence": "one_time"},
++                                   "$1,000 one-time synthetic cost", evidence=["input/offer.md"]),
++            "financial_feasibility": field("text", "Synthetic scoped contribution reviewed",
++                                           "Synthetic scoped contribution reviewed", evidence=["input/offer.md"]),
++            "cac": field("money", {"amount_minor": 1000, "currency": "USD", "cadence": "one_time"},
++                         "$10 one-time synthetic CAC"),
+             "guarantee": field("guarantee", T["guarantee"]["value"], T["guarantee"]["display"], conditions=T["guarantee"]["conditions"]),
+             "bonus": field("text", T["bonus"]["value"], T["bonus"]["display"]),
+             # specialist proposals live beside, never over, the approved terms
+@@ -100,6 +108,7 @@ class FiveAssetCase(unittest.TestCase):
+              "scope": "all assets", "qualifications": [], "checked_at": NOW, "owner": "root"}] + [claim(c) for c in BLOCKED]})
+         brief = read_json(run / "BRIEF.json")
+         brief["stage"], brief["requested_artifacts"] = "A", [asset_path(n) for n in ASSETS]
++        brief["unknowns"] = []  # this simulated clean-run fixture has approved synthetic economics
+         write_json(run / "BRIEF.json", brief)
+         arts, reviews = [], []
+         for n in ASSETS:
+@@ -302,6 +311,9 @@ class TestSimulatedMatureB2BHolds(FiveAssetCase):
+             for u in self.UNKNOWN:
+                 d["fields"][u] = {"kind": "money", "value": None, "status": "unknown", "owner": "root", "updated": NOW}
+         self.edit_decisions(f)
++        brief = read_json(self.run_dir / "BRIEF.json")
++        brief["unknowns"] = list(self.UNKNOWN)
++        write_json(self.run_dir / "BRIEF.json", brief)
+         c = read_json(self.run_dir / "CLAIMS.json")
+         c["claims"] += [claim(b) for b in FIX["mature_b2b"]["blocked_claims"]]
+         write_json(self.run_dir / "CLAIMS.json", c)
+@@ -310,7 +322,7 @@ class TestSimulatedMatureB2BHolds(FiveAssetCase):
+         d = read_json(self.run_dir / "OFFER_DECISIONS.json")
+         for u in self.UNKNOWN:
+             self.assertEqual((d["fields"][u]["status"], d["fields"][u]["value"], d["fields"][u]["owner"]), ("unknown", None, "root"))
+-        self.assertEqual(self.found(), [])  # honest unknowns alone do not break a run that does not use them
++        self.assertEqual(codes(self.found()), {"COMMERCIAL_COST_FEASIBILITY_UNVERIFIED"})
+ 
+     def test_no_asset_may_certify_an_unknown_term(self):
+         for u in self.UNKNOWN:
+@@ -351,7 +363,7 @@ class TestSimulatedMatureB2BHolds(FiveAssetCase):
+             for a in st["artifacts"]:
+                 next(b for b in a["bindings"] if b["field"] == "price")["rendered_text"] = m["display"]
+         self.edit_state(f)
+-        self.assertEqual(self.found(), [])
++        self.assertEqual(codes(self.found()), {"COMMERCIAL_COST_FEASIBILITY_UNVERIFIED"})
+         self.edit_asset("PITCH", lambda t: t.replace(m["display"], "$4,800 per month"))
+         self.assertIn("BINDING_TEXT_MISSING", codes(self.found()))
+         d = read_json(self.run_dir / "OFFER_DECISIONS.json")
+diff --git a/tests/test_workflows.py b/tests/test_workflows.py
+index 2fb3d37..8a1c069 100644
+--- a/tests/test_workflows.py
++++ b/tests/test_workflows.py
+@@ -5,7 +5,7 @@ import tempfile
+ import unittest
+ from pathlib import Path
+ 
+-from helpers import add_summary, build_run, codes, read_json, write_json, sha
++from helpers import add_summary, build_run, codes, complete_commercial_fields, read_json, write_json, sha
+ import check_outputs as co
+ 
+ SRC = "input/offer.md"
+@@ -71,6 +71,9 @@ class RouteCase(unittest.TestCase):
+             tasks.append(t)
+         st["tasks"] = tasks
+         write_json(self.run_dir / "RUN_STATE.json", st)
++        if any(t["role"] == "sub-pricing" and t.get("mode") == "final_feasibility"
++               and t["status"] not in ("not_requested", "not_applicable") for t in tasks):
++            complete_commercial_fields(self.run_dir)
+         if summary is None:
+             summary = stage in ("A", "B", "D")
+         if summary:
+@@ -248,6 +251,7 @@ LEGACY_OUTPUTS = {
+     "MARKET_RESEARCH", "OFFER", "OFFER_ANGLES", "OFFER_AUDIT", "ORIGINAL_OFFER_AUDIT", "REVISED_OFFER_CHECK",
+     "VALUE_PERCEPTION", "BONUS_STACK", "PRICING", "OBJECTIONS", "PRODUCTIZATION", "PACKAGING",
+     "PITCH", "HOOKS", "LANDING_PAGE", "SUMMARY", "CHECKPOINT", "QA_REPORT",
++    "CRO_REVIEW",  # Additive root-authored diagnostic artifact, not a new task role.
+ }
+ 
+ 
