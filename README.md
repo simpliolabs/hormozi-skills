@@ -1,6 +1,12 @@
-# hormozi-skills
+# Hormozi Skills
 
-**Turn any business idea into a complete, sellable offer — using Alex Hormozi's frameworks.**
+![Hormozi Skills: build the offer, keep decisions under owner control](assets/readme/hormozi-hero.svg)
+
+**Structured AI offer workflows with review gates and owner-controlled decisions.**
+
+[![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?logo=instagram&logoColor=white)](https://www.instagram.com/nir_theceo)
+[![X](https://img.shields.io/badge/X-Follow-111111?logo=x&logoColor=white)](https://x.com/NirAppelton)
+[Personal website: nirappelton.com (coming soon)](https://nirappelton.com)
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-blueviolet)
@@ -9,7 +15,23 @@
 
 ---
 
-> A skill library for coding agents. Plug it in, describe your business, and get a complete offer system — market research, offer structure, pricing, pitch, hooks, landing page — written to files in one session.
+> An open-source, Hormozi-inspired skill library for Claude Code and Codex. Use standalone methods or a one-chat orchestrator to draft offers and sales materials. Controlled runs record business decisions, review obligations, and structural validation findings. Drafts do not constitute verified commercial claims or publication approval.
+
+---
+
+## Start here: one sentence is enough
+
+**You do not have to remember the skill's internal name to describe the job.** After installing the skills in a compatible host, try a natural-language request:
+
+> Help me build a stronger business offer. Guide me through the process one question at a time, then help with the offer, positioning, pricing, hooks, and landing-page draft. Clearly label what still needs my approval.
+
+For an existing offer, try:
+
+> My current offer isn't converting. Audit it, identify what to fix first, and guide me through the changes. Ask for missing facts instead of making them up.
+
+**How activation works:** In Claude Code, skills can be selected by relevance or invoked from the `/` command menu. In Codex, select an installed skill or explicitly mention it with `$hormozi-orchestrator`. In ChatGPT, select it with `@` if that skill is installed and available. Natural-language matching is host-dependent and **not guaranteed**; use explicit selection if it does not activate. See [Quick Start](#quick-start) and [First-use operator guide](docs/OPERATING_GUIDE.md).
+
+**Proposed next step:** A short `/offer` starter alias would make Claude Code activation even easier, but it is **not implemented** in this documentation update and needs a separate compatible-host test.
 
 ---
 
@@ -21,18 +43,46 @@ Building a compelling offer is hard. Most founders, coaches, and consultants eit
 - Price wrong — too low to be taken seriously, too high without justification
 - Skip the sales layer entirely — no hooks, no pitch, no landing page copy
 
-**hormozi-skills** solves this end-to-end. One orchestrator, five specialized subagents, 17 business skills plus a `hormozi-orchestrator` entry skill, 11 output files.
+**hormozi-skills** provides a structured workflow: 17 business skills, a `hormozi-orchestrator` entry skill, five specialist role definitions, and output validation. The orchestrator requests specialist delegation when available; actual execution and any fallback must be reported, not assumed.
+
+---
+
+## What has actually been validated
+
+![Evidence chart: original checker surfaced three of seven obligations; corrected replay preserved all seven](assets/readme/validation-evidence-chart.svg)
+
+
+| Check | Evidence-backed result |
+|---|---|
+| PR #3 merged | [`b05b1c0`](https://github.com/simpliolabs/hormozi-skills/commit/b05b1c041b27b2fbf5bc4225ff14c48abaf40e2f) |
+| Post-merge CI | [Windows and Ubuntu passed](https://github.com/simpliolabs/hormozi-skills/actions/runs/42110615431) |
+| Bounded native acceptance | Seven **obligation identities** preserved in first completion, represented across six checker findings; no operator repair |
+| Summary contract | Canonical offer summary, chosen hook, and three prioritized owner actions validated |
+| Separate-context review | Missing/failed/stale/same-context receipts remain held; recorded receipts are **cooperative metadata**, not authenticated reviewer proof |
+| Native specialist execution | **Not proven**; observed run used sequential fallback after a refused dispatch |
+
+See the [acceptance report and evidence](docs/SEVEN_HOLD_VALIDATION.md). This is a bounded fictional-scenario result, **not** evidence of universal business accuracy, a real independent reviewer, or commercial readiness.
+
+### How the system works
+
+![Illustrated workflow: brief, orchestrator, draft assets, and checks with HELD or structural READY outcomes](assets/readme/workflow-illustrated.svg)
+
+**Independent-review floor:** Controlled sales artifacts keep review holds even when an author marks `high_risk` false or leaves it out. Missing/failed/stale/same-context receipts do not satisfy separate-context review. See the [review policy](references/orchestration.md) and [validation evidence](docs/SEVEN_HOLD_VALIDATION.md).
+
+A `READY` check is structural only. Pricing, guarantees, eligibility, claims, publication and external business actions remain under the owner's control.
 
 ---
 
 ## Quick Start
+
+> **Install this fork:** The source below is `simpliolabs/hormozi-skills`. The original project by [Alex Smedile](https://github.com/alexsmedile/hormozi-skills) retains its attribution and MIT license.
 
 ### Claude Code
 
 Add the marketplace, then install the plugin:
 
 ```bash
-/plugin marketplace add alexsmedile/hormozi-skills
+/plugin marketplace add simpliolabs/hormozi-skills
 /plugin install hormozi-skills@hormozi-skills
 ```
 
@@ -56,7 +106,7 @@ If you want the raw skill files instead of the plugin flow:
 
 ```bash
 # Clone the skill library
-git clone https://github.com/alexsmedile/hormozi-skills
+git clone https://github.com/simpliolabs/hormozi-skills.git
 cd hormozi-skills
 
 # Copy skills, agents AND the shared assets the skills load by plugin_root
@@ -73,7 +123,7 @@ Skills and agents resolve `<plugin_root>/references/...` and `<plugin_root>/scri
 
 ## 📦 What You Get
 
-11 output files written to `output/` in one session:
+The 11 business-content files below are generated as applicable. Controlled multi-step runs also produce `output/SUMMARY.md`, state, checkpoint, and QA records; not every focused request generates every artifact:
 
 | File | What's Inside |
 |------|--------------|
@@ -133,7 +183,7 @@ hormozi-orchestrator
 
 **Dependency order:** market → offer → (value ∥ pricing) → sales
 
-The orchestrator detects your funnel stage (idea / broken offer / needs sales layer / service scaling) and runs only the subagents you need.
+The orchestrator selects tasks based on the owner's stage. It requests native specialist delegation where available, and must record refusal, fallback or unknown execution instead of claiming agents ran.
 
 ---
 
@@ -142,8 +192,8 @@ The orchestrator detects your funnel stage (idea / broken offer / needs sales la
 1. **Intake** — give the orchestrator anything: a raw idea, existing offer, brain dump, or sales page
 2. **Interview** — focused questions one at a time, each with a suggested answer
 3. **Stage detection** — classifies your situation (Stage A–E), shows which subagents will run
-4. **Delegation** — spawns subagents in dependency order, passing structured briefs
-5. **Summary** — produces `output/SUMMARY.md`: one-paragraph offer, key decisions, top 3 actions, best hook to use today
+4. **Delegation** — requests specialists in dependency order where supported, recording any observed fallback or refusal
+5. **Summary and checks** — produces `output/SUMMARY.md` with an offer paragraph, key decisions/holds, a chosen hook, and exactly three prioritized owner actions, then runs structural validation and reports HELD findings honestly
 
 ---
 
@@ -160,6 +210,14 @@ hormozi-skills/
 ├── output/     # Generated offer documents (starts empty)
 └── input/      # Drop existing offers, notes, or sales pages here
 ```
+
+---
+
+## Safe first use
+
+Start with a **supervised, non-public** offer draft using verified inputs. Invoke `hormozi-orchestrator` in an installed checkout or use a focused skill. Review `output/SUMMARY.md`, `output/CHECKPOINT.md`, `output/QA_REPORT.md`, and the output checker's findings. Resolve or disclose unresolved business and independent-review obligations before any external use. The checker does not automatically verify market reality.
+
+See [Operator guide](docs/OPERATING_GUIDE.md) for a first-run checklist, limitations and release boundaries.
 
 ---
 
@@ -182,7 +240,7 @@ hormozi-skills/
 Built on Alex Hormozi's offer methodology from *$100M Offers* and *$100M Leads*:
 
 - Grand Slam Offer construction
-- Dream outcome × likelihood × time delay × effort equation
+- Value Equation: (Dream Outcome × Perceived Likelihood) / (Time Delay × Effort and Sacrifice)
 - Obstacle → solution reversal
 - Value stack and bonus engineering
 - Guarantee design (unconditional / conditional / effort-based)
@@ -191,6 +249,26 @@ Built on Alex Hormozi's offer methodology from *$100M Offers* and *$100M Leads*:
 
 ---
 
+## Who builds and maintains this fork?
+
+**Original project:** [Alex Smedile](https://github.com/alexsmedile) created the original Hormozi Skills project. The original MIT copyright and attribution are retained. This is a fork, not a claim to have authored the upstream library.
+
+**This fork:** [Simpliolabs](https://github.com/simpliolabs) maintains this repository. **Nir Appelton** provides project direction for the updated offer workflows, orchestration review gates, and practical usage experience. Contributions are recorded in the Git history and pull requests; the [PR #3 acceptance record](docs/SEVEN_HOLD_VALIDATION.md) describes exactly what has been tested.
+
+**Why we're working on it:** To make AI-assisted offer creation more practical, transparent, and accountable to the business owner. It should produce useful drafts and preserve decisions requiring human review, rather than imply that unverified business claims have been proven.
+
+**Connect with Nir Appelton**
+
+- Website: [nirappelton.com](https://nirappelton.com) **(coming soon)**
+- Instagram: [@nir_theceo](https://www.instagram.com/nir_theceo)
+- X: [@NirAppelton](https://x.com/NirAppelton)
+
+### What this fork does not claim
+
+This is not an official Alex Hormozi product or an endorsement. The recorded first-completion acceptance was a bounded fictional workflow; real-world factual validation, authenticated review execution, and differentiated native specialist dispatch require further verification. Business decisions and publication remain with the owner.
+
+---
+
 ## Credits
 
-Inspired by Alex Hormozi's work. Built for coding agents by [@alexsmedile](https://github.com/alexsmedile).
+Original author: [Alex Smedile](https://github.com/alexsmedile). Fork maintenance: [Simpliolabs](https://github.com/simpliolabs), with project direction by [Nir Appelton](https://nirappelton.com) (personal site coming soon). Inspired by Alex Hormozi's publicly described frameworks; not affiliated with or endorsed by Alex Hormozi. Licensed under [MIT](LICENSE).
